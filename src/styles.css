@@ -27,13 +27,14 @@ svg { flex-shrink: 0; }
 .app-shell { min-height: 100vh; }
 .sidebar { width: 232px; position: fixed; inset: 0 auto 0 0; z-index: 20; background: var(--forest); color: #d6e5dc; display: flex; flex-direction: column; padding: 31px 19px 0; }
 .sidebar-brand { padding: 0 8px 31px; display: flex; justify-content: space-between; align-items: center; }
-.brand { display: inline-flex; gap: 7px; align-items: center; font-size: 29px; letter-spacing: -1.3px; font-weight: 720; }
+.brand { display: inline-flex; gap: 7px; align-items: center; font-size: 24px; letter-spacing: -1px; font-weight: 720; }
+.brand svg { width: 25px; height: 27px; }
 .sidebar .brand { color: #f6faf3; }
 .sidebar .brand svg { color: #c6e9af; }
 .sidebar .brand-dot { color: #c6e9af; }
 .landing .brand { color: var(--forest); }
-.landing .brand svg { color: var(--green); }
-.landing .brand-dot { color: var(--green); }
+.landing .brand svg { color: #c6e9af; }
+.landing .brand-dot { color: #c6e9af; }
 .workspace-switch { display: flex; align-items: center; gap: 9px; padding: 12px 10px; border: 1px solid #ffffff1c; border-radius: 8px; margin-bottom: 30px; background: #ffffff04; }
 .workspace-avatar { width: 31px; height: 33px; border-radius: 6px; display: grid; place-items: center; color: #e0eaca; border: 1px solid #ffffff24; background: #ffffff09; font-size: 16px; font-weight: 650; }
 .workspace-switch div { min-width: 0; flex: 1; }
