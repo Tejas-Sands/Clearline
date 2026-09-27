@@ -8,7 +8,6 @@
   ],
   "functions": {
     "api/**/*.mjs": {
-      "runtime": "nodejs22.x",
       "maxDuration": 300
     }
   }
