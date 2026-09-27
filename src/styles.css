@@ -82,7 +82,7 @@ h1 { font-size: clamp(24px, 2.4vw, 32px); font-weight: 620; letter-spacing: -1.0
 .button.secondary { color: #435448; background: #fff; border-color: #dce2d8; box-shadow: 0 1px 2px #263e2705; }
 .button.secondary:hover:not(:disabled) { background: #edf2e8; border-color: #bccbb7; }
 .button.ghost { background: none; color: var(--muted); }
-.button.ghost:hover { background: #eef2eb; color: var(--forest); }
+.button.ghost:hover { background: #f0f3ef; }
 .button.danger { color: #933b3b; background: #fcf1ef; border-color: #ebd4d0; }
 .button.danger:hover { background: #f7e6e2; }
 .button.small { font-size: 10px; min-height: 34px; padding: 8px 11px; }
@@ -518,10 +518,10 @@ textarea { resize: vertical; font-family: 'IBM Plex Mono', monospace; font-size:
 .landing { min-height: 100vh; background: #f6f7f4; display: flex; flex-direction: column; }
 
 /* Nav */
-.landing-nav { display: flex; justify-content: space-between; align-items: center; padding: 22px 52px; border-bottom: 1px solid #e5e9e399; background: rgba(251, 252, 249, 0.85); position: sticky; top: 0; z-index: 10; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+.landing-nav { display: flex; justify-content: space-between; align-items: center; padding: 22px 52px; border-bottom: 1px solid #e5e9e3; background: rgba(251, 252, 249, 0.90); position: sticky; top: 0; z-index: 10; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
 .landing-nav-links { display: flex; align-items: center; gap: 20px; }
-.landing-link { background: none; border: 0; color: #5c7557; font-size: 13px; font-weight: 600; cursor: pointer; padding: 8px 12px; border-radius: 6px; transition: all 0.2s ease; }
-.landing-link:hover { color: var(--forest); background: #edf2e8; }
+.landing-link { background: none; border: 0; color: #4a6245; font-size: 13px; font-weight: 600; cursor: pointer; padding: 8px 4px; }
+.landing-link:hover { color: #217355; }
 
 /* Hero */
 .landing-hero { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; padding: 72px 52px 80px; align-items: center; max-width: 1280px; margin: 0 auto; width: 100%; }
@@ -534,8 +534,8 @@ textarea { resize: vertical; font-family: 'IBM Plex Mono', monospace; font-size:
 .landing-subtitle { font-size: 16px; line-height: 1.75; color: #5a7060; margin-bottom: 36px; max-width: 500px; }
 .landing-hero-actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 40px; }
 .landing-cta { font-size: 14px; min-height: 46px; padding: 12px 22px; border-radius: 8px; }
-.landing-proof-link { background: none; border: 0; color: #3a6545; font-size: 13px; font-weight: 650; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 6px; transition: all 0.2s ease; }
-.landing-proof-link:hover { color: #153c33; background: #e3ebdf; }
+.landing-proof-link { background: none; border: 0; color: #3a6545; font-size: 13px; font-weight: 650; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; padding: 6px 0; }
+.landing-proof-link:hover { color: #153c33; }
 .landing-proof-link.light { color: #8dbfa0; }
 .landing-proof-link.light:hover { color: #e0f0e6; }
 .landing-stats { display: flex; align-items: center; gap: 0; border: 1px solid #dce8d7; border-radius: 9px; background: #fafbf8; overflow: hidden; }
