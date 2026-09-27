@@ -1,0 +1,14 @@
+# Index source and design context, never runtime wallets or generated output.
+.clearline-testnet/
+.env*
+.git/
+.agents/
+.codex/
+node_modules/
+dist/
+artifacts/
+graphify-out/
+package-lock.json
+*.tsbuildinfo
+public/favicon.svg
+docs/TESTNET_PROOF.json

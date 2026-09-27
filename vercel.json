@@ -1,0 +1,15 @@
+{
+  "rewrites": [
+    { "source": "/api/testnet/payments/:id/:action", "destination": "/api/testnet/payments/action.mjs" },
+    { "source": "/api/testnet/payments",              "destination": "/api/testnet/payments/index.mjs" },
+    { "source": "/api/testnet/refresh",               "destination": "/api/testnet.mjs" },
+    { "source": "/api/testnet",                       "destination": "/api/testnet.mjs" },
+    { "source": "/(.*)",                              "destination": "/index.html" }
+  ],
+  "functions": {
+    "api/**/*.mjs": {
+      "runtime": "nodejs22.x",
+      "maxDuration": 300
+    }
+  }
+}

@@ -1,0 +1,117 @@
+{
+  "verifiedAt": "2026-09-27T06:49:14.496Z",
+  "environment": "testnet",
+  "payments": [
+    {
+      "reference": "CCTP-PROOF-001",
+      "status": "reconciled",
+      "source": "base",
+      "sender": "0x4a10873399f19F43Fc7fa02C8Ddc83FbFBFAeB34",
+      "recipient": "0xcD407427098Cc241708cF348456FCE0997d8de20",
+      "sourceUSDC": "1",
+      "fundedUSDC": "1",
+      "minimumEURC": "0.813463",
+      "paidEURC": "0.822252",
+      "transactions": [
+        {
+          "step": "bridge_approve",
+          "chain": "base",
+          "hash": "0xd3e77ac3e92bb2a5f4803c7fff05e7b9c14be1b2f9de4d215e80190450d3f24f",
+          "status": "success",
+          "blockNumber": "47360896",
+          "gasNativeUnits": "332622000000"
+        },
+        {
+          "step": "burn",
+          "chain": "base",
+          "hash": "0x1b5e955ed53db1d408fa2a85cb703f0bc3e92d8c5e1c390b6ef749d4c26021ee",
+          "status": "success",
+          "blockNumber": "47360897",
+          "gasNativeUnits": "656130000000"
+        },
+        {
+          "step": "mint",
+          "chain": "arc",
+          "hash": "0x923c36c1350cc7f5ad9c37d286ac18164cc9fd1ab8dd397faca09f95e456bc17",
+          "status": "success",
+          "blockNumber": "64229038",
+          "gasNativeUnits": "3939050000000000"
+        },
+        {
+          "step": "swap_approve:1",
+          "chain": "arc",
+          "hash": "0x4e5a59c10be7d1bd3677f62b9b1738c7e7e50171b9fcdaa62c605961b989ef61",
+          "status": "success",
+          "blockNumber": "64229214",
+          "gasNativeUnits": "964900000000000"
+        },
+        {
+          "step": "swap:1",
+          "chain": "arc",
+          "hash": "0x651c524597c6eb10dbb4a33bd0cdf39668d62ee28b430aca44875b791983c89a",
+          "status": "success",
+          "blockNumber": "64229219",
+          "gasNativeUnits": "13622800000000000"
+        },
+        {
+          "step": "pay:1",
+          "chain": "arc",
+          "hash": "0xd205320e3092980f42dfe5dfb884fccd3468db3084b9f99883237d9f189f50d3",
+          "status": "success",
+          "blockNumber": "64229271",
+          "gasNativeUnits": "1006475000000000"
+        }
+      ]
+    },
+    {
+      "reference": "ARC-PROOF-001",
+      "status": "reconciled",
+      "source": "arc",
+      "sender": "0x4a10873399f19F43Fc7fa02C8Ddc83FbFBFAeB34",
+      "recipient": "0xcD407427098Cc241708cF348456FCE0997d8de20",
+      "sourceUSDC": "1",
+      "minimumEURC": "0.813844",
+      "paidEURC": "0.82206",
+      "transactions": [
+        {
+          "step": "swap_approve:1",
+          "chain": "arc",
+          "hash": "0x62a5e81310fa78fee3c7cc1604ef54a37f9545d5875386c79b1de6ddfab6cddf",
+          "status": "success",
+          "blockNumber": "64221611",
+          "gasNativeUnits": "1392400000000000"
+        },
+        {
+          "step": "swap_approve:2",
+          "chain": "arc",
+          "hash": "0x0572a0e841c4dd22cb0f172fa1dc6027b61986f0c47b3a8f0b09cd6b880983f5",
+          "status": "success",
+          "blockNumber": "64222073",
+          "gasNativeUnits": "964900000000000"
+        },
+        {
+          "step": "swap:2",
+          "chain": "arc",
+          "hash": "0x9d84d0576c190534b46f2b256f9ad883e3faab28584bd809e2c74f209083183b",
+          "status": "success",
+          "blockNumber": "64222086",
+          "gasNativeUnits": "13636600000000000"
+        },
+        {
+          "step": "pay:1",
+          "chain": "arc",
+          "hash": "0xb557b9a922edfd1ca267246bba9083083399a4d43bee010f22e64d33750bb30a",
+          "status": "success",
+          "blockNumber": "64222453",
+          "gasNativeUnits": "1433975000000000"
+        }
+      ]
+    }
+  ],
+  "balances": {
+    "arcUSDC": "18.963038",
+    "arcEURC": "0",
+    "baseUSDC": "19",
+    "baseETH": "0.000998997742905892"
+  }
+}

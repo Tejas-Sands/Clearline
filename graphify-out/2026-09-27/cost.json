@@ -1,0 +1,13 @@
+{
+  "runs": [
+    {
+      "date": "2026-09-27",
+      "files": 46,
+      "input_tokens": null,
+      "output_tokens": null,
+      "note": "Host-session semantic extraction was not metered; no external semantic API used."
+    }
+  ],
+  "total_input_tokens": null,
+  "total_output_tokens": null
+}

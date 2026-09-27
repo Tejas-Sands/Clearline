@@ -1,0 +1,13 @@
+{
+  "0": "App.tsx",
+  "1": "Current architecture and evidence map",
+  "2": "server/index.mjs",
+  "3": "chain.mjs",
+  "4": "package.json",
+  "5": "domain.ts",
+  "6": "compilerOptions",
+  "7": "payments/index.mjs",
+  "8": "Historical six-opportunity shortlist",
+  "9": "ProofPage.tsx",
+  "10": "api/**/*.mjs"
+}

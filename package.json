@@ -1,0 +1,38 @@
+{
+  "name": "clearline",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "engines": {
+    "node": ">=22.18.0"
+  },
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "dev:ui": "vite --host 127.0.0.1 --port 5173 --strictPort",
+    "dev:api": "node --env-file=.env server/index.mjs",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview --host 127.0.0.1",
+    "test": "node --test --test-isolation=none tests/*.test.ts",
+    "test:e2e": "node scripts/browser-smoke.mjs",
+    "typecheck": "tsc --noEmit",
+    "setup-db": "node --env-file=.env scripts/setup-db.mjs"
+  },
+  "dependencies": {
+    "@circle-fin/adapter-viem-v2": "^1.18.0",
+    "@circle-fin/bridge-kit": "^1.15.1",
+    "@circle-fin/swap-kit": "^1.7.0",
+    "@fontsource-variable/manrope": "^5.2.0",
+    "@libsql/client": "^0.18.0",
+    "lucide-react": "^0.468.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "viem": "^2.56.9"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^5.0.0",
+    "typescript": "~5.9.3",
+    "vite": "^7.0.0"
+  }
+}
