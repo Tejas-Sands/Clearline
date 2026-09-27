@@ -518,7 +518,7 @@ textarea { resize: vertical; font-family: 'IBM Plex Mono', monospace; font-size:
 .landing { min-height: 100vh; background: #f6f7f4; display: flex; flex-direction: column; }
 
 /* Nav */
-.landing-nav { display: flex; justify-content: space-between; align-items: center; padding: 12px 52px; border-bottom: 1px solid #e5e9e3; background: rgba(251, 252, 249, 0.90); position: sticky; top: 0; z-index: 10; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+.landing-nav { display: flex; justify-content: space-between; align-items: center; padding: 6px 52px; border-bottom: 1px solid #e5e9e3; background: rgba(251, 252, 249, 0.90); position: sticky; top: 0; z-index: 10; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
 .landing-nav-links { display: flex; align-items: center; gap: 20px; }
 .landing-link { background: none; border: 0; color: #4a6245; font-size: 13px; font-weight: 600; cursor: pointer; padding: 8px 4px; }
 .landing-link:hover { color: #217355; }
