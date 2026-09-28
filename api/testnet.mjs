@@ -39,11 +39,19 @@ export default async function handler(req, res) {
     const cached = await kvGet('balances');
     const balancesStale = !cached || Date.now() - cached.balanceCheckedAt > 15000;
 
+    let balances = cached?.balances ?? null;
+    let balanceCheckedAt = cached?.balanceCheckedAt ?? null;
+
     if (balancesStale) {
-      // Refresh in background — don't block the response
-      const store = { account, privateKey: process.env.WALLET_PRIVATE_KEY, recipient, state: { payments: [] }, save: async () => {} };
-      const chain = makeChain(store);
-      chain.balances().then(b => kvSet('balances', { balances: b, balanceCheckedAt: Date.now() })).catch(() => {});
+      try {
+        const store = { account, privateKey: process.env.WALLET_PRIVATE_KEY, recipient, state: { payments: [] }, save: async () => {} };
+        const chain = makeChain(store);
+        balances = await chain.balances();
+        balanceCheckedAt = Date.now();
+        await kvSet('balances', { balances, balanceCheckedAt });
+      } catch {
+        // RPC fallback or timeout
+      }
     }
 
     const apiToken = process.env.API_SESSION_TOKEN ?? 'demo';
@@ -52,8 +60,8 @@ export default async function handler(req, res) {
       token: apiToken,
       sender,
       defaultRecipient: recipient,
-      balances: cached?.balances ?? null,
-      balanceCheckedAt: cached?.balanceCheckedAt ?? null,
+      balances,
+      balanceCheckedAt,
       busy: null, // Vercel is stateless; busy is now tracked per-payment via status
       payments: payments.map(publicPayment),
     });
