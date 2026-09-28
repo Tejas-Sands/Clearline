@@ -5,16 +5,11 @@
 // IMPORTANT: chain.mjs is dynamically imported (lazy) to prevent Vercel's bundler
 // from statically including all of viem + Circle SDKs (63MB+) into this function's
 // bundle — which would exceed Vercel's 50MB function size limit.
-import { privateKeyToAccount } from 'viem/accounts';
 import { ensureSchema, loadAllPayments, kvGet, kvSet } from '../server/db.mjs';
 import { publicPayment } from '../server/model.mjs';
-import { authorizeVercelRequest, defaultRecipient, getSessionId } from './_auth.mjs';
+import { authorizeVercelRequest, getAccount, defaultRecipient, getSessionId } from './_auth.mjs';
 
-function getAccount() {
-  const pk = process.env.WALLET_PRIVATE_KEY;
-  if (!pk) throw new Error('WALLET_PRIVATE_KEY is not configured.');
-  return privateKeyToAccount(pk);
-}
+// getAccount is imported from _auth.mjs (validates key format with regex)
 
 async function fetchBalances(account, recipient) {
   const { makeChain } = await import('../server/chain.mjs');

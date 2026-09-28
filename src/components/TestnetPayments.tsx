@@ -42,10 +42,14 @@ export function TestnetPayments() {
     async function poll() {
       try {
         const response = await fetch('/api/testnet', { signal: abort.signal, headers: { 'X-Session-ID': sessionId } });
-        if (!response.ok) throw new Error('Testnet API is unavailable. Start the app with npm run dev.');
+        if (!response.ok) {
+          let msg = `Testnet API returned ${response.status}.`;
+          try { const body = await response.json(); msg = body.error ?? msg; } catch { /* ignore */ }
+          throw new Error(msg);
+        }
         const data = await response.json() as Snapshot;
         if (active) { setSnapshot(data); setNow(Date.now()); }
-      } catch (e) { if (active) setError(e instanceof Error ? e.message : 'Cannot reach the local testnet API.'); }
+      } catch (e) { if (active) setError(e instanceof Error ? e.message : 'Cannot reach the testnet API.'); }
     }
     void poll(); const timer = setInterval(() => void poll(), 2500);
     return () => { active = false; abort.abort(); clearInterval(timer); };
@@ -80,7 +84,7 @@ export function TestnetPayments() {
   return <div className="testnet-workspace">
     <div className="notice testnet-notice"><CircleAlert size={20} /><span><strong>Real transactions · test assets only.</strong> This local wallet uses Arc Testnet and Base Sepolia. Tokens have no monetary value. Quotes reflect test-pool liquidity, not market FX rates.</span></div>
     {error && <div className="storage-error" role="alert"><CircleAlert size={20} /><span>{error}</span><button className="icon-button" aria-label="Dismiss error" onClick={() => setError('')}>×</button></div>}
-    {!snapshot ? <section className="panel settings-body"><LoaderCircle size={24} className="spin" /><h2>Connecting to the local testnet service</h2><p>Run <code>npm run dev</code> to start both the app and its local signing service.</p></section> : <>
+    {!snapshot ? <section className="panel settings-body"><LoaderCircle size={24} className="spin" /><h2>Connecting to the testnet service…</h2><p>{error || 'Waiting for the testnet API to respond.'}</p></section> : <>
       <section className="panel live-wallet"><div className="panel-header"><div><h2><Wallet size={19} /> Testnet wallet</h2><p>Dedicated to this prototype · keys stay on this computer</p></div><button className="button secondary small" disabled={working} onClick={() => void post('/refresh')}><RefreshCw size={15} />Refresh balances</button></div>
         <div className="wallet-address"><code>{snapshot.sender}</code><button className="icon-button" aria-label="Copy testnet wallet address" onClick={() => void copy(snapshot.sender)}><Copy size={16} /></button><a href="https://faucet.circle.com" target="_blank" rel="noreferrer" className="button secondary small">Get free test USDC <ExternalLink size={14} /></a></div>
         <div className="live-balances"><div><span>Arc · available USDC</span><strong>{money(snapshot.balances?.arcUSDC)}</strong></div><div><span>Arc · available EURC</span><strong>{money(snapshot.balances?.arcEURC)}</strong></div><div><span>Base Sepolia · USDC</span><strong>{money(snapshot.balances?.baseUSDC)}</strong></div><div><span>Base Sepolia · gas ETH</span><strong>{snapshot.balances?.baseETH == null ? 'Unavailable' : `${(BigInt(snapshot.balances.baseETH) / 1000000000000n).toString().padStart(7, '0').replace(/(.{6})$/, '.$1')}`}</strong></div></div>
