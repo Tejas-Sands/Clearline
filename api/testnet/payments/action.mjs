@@ -5,9 +5,9 @@
 // returns. The UI's 2.5s polling loop drives the state machine forward.
 // CCTP 24-min wait: each poll calls this with action=recover, which checks
 // Circle's attestation API and advances when ready — no function timeout issue.
-import { ensureSchema, loadPayment, savePayment } from '../../../../server/db.mjs';
-import { assertAction, publicPayment } from '../../../../server/model.mjs';
-import { makeChain } from '../../../../server/chain.mjs';
+import { ensureSchema, loadPayment, savePayment } from '../../../server/db.mjs';
+import { assertAction, publicPayment } from '../../../server/model.mjs';
+import { makeChain } from '../../../server/chain.mjs';
 import { authorizeVercelRequest, getSessionId } from '../../../_auth.mjs';
 import { makeDbStore, cleanError } from '../_shared.mjs';
 

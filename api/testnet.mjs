@@ -2,9 +2,9 @@
 // Returns the public snapshot: wallet info, balances (cached), payment list.
 // POST /api/testnet/refresh — forces balance refresh
 import { privateKeyToAccount } from 'viem/accounts';
-import { ensureSchema, loadAllPayments, kvGet, kvSet } from '../../server/db.mjs';
-import { makeChain } from '../../server/chain.mjs';
-import { publicPayment } from '../../server/model.mjs';
+import { ensureSchema, loadAllPayments, kvGet, kvSet } from '../server/db.mjs';
+import { makeChain } from '../server/chain.mjs';
+import { publicPayment } from '../server/model.mjs';
 import { authorizeVercelRequest, defaultRecipient, getSessionId } from './_auth.mjs';
 
 function getAccount() {
