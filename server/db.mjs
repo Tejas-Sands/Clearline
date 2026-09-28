@@ -2,7 +2,7 @@
 // Replaces server/store.mjs (file-based JSON) with a durable cloud DB.
 // All payment state and the transaction journal live here.
 // The wallet private key is NEVER stored in the DB — it comes from env secrets.
-import { createClient } from '@libsql/client';
+import { createClient } from '@libsql/client/web';
 
 let _client = null;
 
