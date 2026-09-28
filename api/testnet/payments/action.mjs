@@ -7,7 +7,6 @@
 // Circle's attestation API and advances when ready — no function timeout issue.
 import { ensureSchema, loadPayment, savePayment } from '../../../server/db.mjs';
 import { assertAction, publicPayment } from '../../../server/model.mjs';
-import { makeChain } from '../../../server/chain.mjs';
 import { authorizeVercelRequest, getSessionId } from '../../../_auth.mjs';
 import { makeDbStore, cleanError } from '../_shared.mjs';
 
@@ -46,6 +45,7 @@ export default async function handler(req, res) {
     assertAction(payment, action);
 
     const store = makeDbStore(payment);
+    const { makeChain } = await import('../../../server/chain.mjs');
     const chain = makeChain(store);
 
     // Event helper — mirrors service.mjs

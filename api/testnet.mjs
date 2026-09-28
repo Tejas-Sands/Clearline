@@ -1,9 +1,12 @@
 // Vercel serverless API route: GET /api/testnet
 // Returns the public snapshot: wallet info, balances (cached), payment list.
 // POST /api/testnet/refresh — forces balance refresh
+//
+// IMPORTANT: chain.mjs is dynamically imported (lazy) to prevent Vercel's bundler
+// from statically including all of viem + Circle SDKs (63MB+) into this function's
+// bundle — which would exceed Vercel's 50MB function size limit.
 import { privateKeyToAccount } from 'viem/accounts';
 import { ensureSchema, loadAllPayments, kvGet, kvSet } from '../server/db.mjs';
-import { makeChain } from '../server/chain.mjs';
 import { publicPayment } from '../server/model.mjs';
 import { authorizeVercelRequest, defaultRecipient, getSessionId } from './_auth.mjs';
 
@@ -11,6 +14,13 @@ function getAccount() {
   const pk = process.env.WALLET_PRIVATE_KEY;
   if (!pk) throw new Error('WALLET_PRIVATE_KEY is not configured.');
   return privateKeyToAccount(pk);
+}
+
+async function fetchBalances(account, recipient) {
+  const { makeChain } = await import('../server/chain.mjs');
+  const store = { account, privateKey: process.env.WALLET_PRIVATE_KEY, recipient, state: { payments: [] }, save: async () => {} };
+  const chain = makeChain(store);
+  return chain.balances();
 }
 
 export default async function handler(req, res) {
@@ -26,9 +36,7 @@ export default async function handler(req, res) {
 
     if (req.method === 'POST') {
       // Refresh balances
-      const store = { account, privateKey: process.env.WALLET_PRIVATE_KEY, recipient, state: { payments: [] }, save: async () => {} };
-      const chain = makeChain(store);
-      const balances = await chain.balances();
+      const balances = await fetchBalances(account, recipient);
       const balanceCheckedAt = Date.now();
       await kvSet('balances', { balances, balanceCheckedAt });
       return res.status(200).json({ balances, balanceCheckedAt });
@@ -44,13 +52,11 @@ export default async function handler(req, res) {
 
     if (balancesStale) {
       try {
-        const store = { account, privateKey: process.env.WALLET_PRIVATE_KEY, recipient, state: { payments: [] }, save: async () => {} };
-        const chain = makeChain(store);
-        balances = await chain.balances();
+        balances = await fetchBalances(account, recipient);
         balanceCheckedAt = Date.now();
         await kvSet('balances', { balances, balanceCheckedAt });
       } catch {
-        // RPC fallback or timeout
+        // RPC fallback or timeout — serve stale cache
       }
     }
 
@@ -62,7 +68,7 @@ export default async function handler(req, res) {
       defaultRecipient: recipient,
       balances,
       balanceCheckedAt,
-      busy: null, // Vercel is stateless; busy is now tracked per-payment via status
+      busy: null,
       payments: payments.map(publicPayment),
     });
   } catch (error) {
