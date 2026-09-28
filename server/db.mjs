@@ -104,6 +104,12 @@ export async function countPayments(sessionId) {
   return Number(result.rows[0].n);
 }
 
+export async function countRecentPaymentsGlobal(sinceMs) {
+  const db = getDb();
+  const result = await db.execute({ sql: 'SELECT COUNT(*) as n FROM payments WHERE created_at > ?', args: [sinceMs] });
+  return Number(result.rows[0].n);
+}
+
 // ─── Journal (raw signed bytes) ───────────────────────────────────────────────
 export async function journalLoad(paymentId, step) {
   const db = getDb();
