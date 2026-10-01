@@ -48,3 +48,64 @@ test('a journal step cannot silently reuse an approval hash for a different tran
   payment.transactions[0].status = 'success';
   await assert.rejects(sendJournaled(payment, 'swap:1', 'arc', { to: '0x2222', data: '0x12345678' }, io, () => {}), /different transaction/i);
 });
+
+test('an asynchronous signature checkpoint must complete before broadcast', async () => {
+  let release;
+  const checkpoint = new Promise<void>(resolve => { release = resolve; });
+  let started;
+  const saving = new Promise<void>(resolve => { started = resolve; });
+  let broadcasts = 0;
+  let saves = 0;
+  const operation = sendJournaled({ transactions: [] }, 'pay', 'arc', {}, {
+    sign: async () => ({ raw: '0x12', hash: '0xab' }),
+    broadcast: async () => { broadcasts++; },
+  }, () => { saves++; started(); return checkpoint; });
+  await saving;
+  try { assert.equal(broadcasts, 0, 'broadcast must wait for durable storage'); }
+  finally { release(); await operation; }
+  assert.equal(broadcasts, 1);
+  assert.equal(saves, 2);
+});
+
+test('a rejected asynchronous checkpoint blocks broadcast and preserves the signature for recovery', async () => {
+  const payment = { transactions: [] };
+  let signs = 0;
+  let broadcasts = 0;
+  const io = {
+    sign: async () => { signs++; return { raw: '0x12', hash: '0xab' }; },
+    broadcast: async raw => { assert.equal(raw, '0x12'); broadcasts++; },
+  };
+  await assert.rejects(sendJournaled(payment, 'pay', 'arc', {}, io, () => {
+    const failure = Promise.reject(new Error('database unavailable'));
+    failure.catch(() => {}); // Keep the pre-fix implementation from leaking an unhandled rejection.
+    return failure;
+  }), /database unavailable/);
+  assert.equal(broadcasts, 0);
+  assert.equal(payment.transactions.length, 1);
+  assert.equal(payment.transactions[0].status, 'signed');
+  let persisted = false;
+  await sendJournaled(payment, 'pay', 'arc', {}, {
+    ...io, broadcast: async raw => { assert.equal(persisted, true); await io.broadcast(raw); },
+  }, async () => { persisted = true; });
+  assert.equal(signs, 1);
+  assert.equal(broadcasts, 1);
+});
+
+test('failure to save the submitted state retains the original transaction for recovery', async () => {
+  const payment = { transactions: [] };
+  let signs = 0;
+  let saves = 0;
+  const io = {
+    sign: async () => { signs++; return { raw: '0x12', hash: '0xab' }; },
+    broadcast: async raw => { assert.equal(raw, '0x12'); },
+  };
+  await assert.rejects(sendJournaled(payment, 'pay', 'arc', {}, io, () => {
+    if (++saves !== 2) return Promise.resolve();
+    const failure = Promise.reject(new Error('submitted checkpoint failed'));
+    failure.catch(() => {});
+    return failure;
+  }), /submitted checkpoint failed/);
+  assert.equal(payment.transactions[0].status, 'submitted');
+  await sendJournaled(payment, 'pay', 'arc', {}, io, async () => {});
+  assert.equal(signs, 1);
+});

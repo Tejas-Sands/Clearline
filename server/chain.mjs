@@ -67,7 +67,7 @@ export function makeChain(store) {
   async function receipt(p, entry) {
     await checkNetwork(entry.chain);
     const r = await clients[entry.chain].waitForTransactionReceipt({ hash: entry.hash, timeout: 45000, pollingInterval: 1500 });
-    entry.status = r.status; entry.blockNumber = r.blockNumber.toString(); store.save();
+    entry.status = r.status; entry.blockNumber = r.blockNumber.toString(); await store.save();
     if (r.status !== 'success') throw new Error(`Transaction reverted: ${entry.hash}`);
     return r;
   }
@@ -116,7 +116,7 @@ export function makeChain(store) {
       // Older journals classified increaseAllowance as a swap. Preserve the hash
       // and receipt, correct the label only after proving what executed onchain.
       if (p.transactions.some(t => t.step === `swap_approve:${p.attempt}`)) throw new Error('Conflicting approval journal; manual review required.');
-      tx.legacyStep = tx.step; tx.step = `swap_approve:${p.attempt}`; store.save();
+      tx.legacyStep = tx.step; tx.step = `swap_approve:${p.attempt}`; await store.save();
       return null;
     }
     const amount = receivedAmount(r.logs, EURC, store.account.address);
@@ -181,7 +181,7 @@ export function makeChain(store) {
     const retryMint = failed.step === bridgeSteps(p).mint;
     if (retryMint) p.mintAttempt = (p.mintAttempt ?? 1) + 1;
     else p.bridgeAttempt = (p.bridgeAttempt ?? 1) + 1;
-    store.save();
+    await store.save();
     // A reverted destination mint never authorizes another source burn.
     return retryMint ? recoverBridge(p) : bridge(p);
   }

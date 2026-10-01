@@ -13,6 +13,14 @@
       "output_tokens": null,
       "token_usage_available": false,
       "files": 60
+    },
+    {
+      "date": "2026-10-01T09:59:30.481569+00:00",
+      "run_id": "hosted-checkpoint-2026-10-01",
+      "input_tokens": null,
+      "output_tokens": null,
+      "token_usage_available": false,
+      "files": 61
     }
   ],
   "total_input_tokens": null,

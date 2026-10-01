@@ -14,11 +14,14 @@ export async function sendJournaled(payment, step, chain, request, io, save) {
     const signed = await io.sign(request);
     entry = { step, chain, ...signed, intent: intent(request), status: 'signed', createdAt: Date.now() };
     payment.transactions.push(entry);
-    try { save(); } catch (error) { payment.transactions.pop(); throw error; }
   }
+  // Keep the original signed bytes even if a checkpoint fails: an asynchronous
+  // database error can have an ambiguous commit outcome. Recovery must never
+  // replace this signature, and must re-checkpoint it before any broadcast.
+  await save();
   // The exact signed bytes are durable BEFORE any network broadcast.
   // Replaying these bytes has the same nonce/hash and cannot create a second payment.
   await io.broadcast(entry.raw);
-  entry.status = 'submitted'; save();
+  entry.status = 'submitted'; await save();
   return entry.hash;
 }

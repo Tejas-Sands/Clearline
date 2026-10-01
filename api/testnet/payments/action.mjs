@@ -5,7 +5,7 @@
 // returns. The UI's 2.5s polling loop drives the state machine forward.
 // CCTP 24-min wait: each poll calls this with action=recover, which checks
 // Circle's attestation API and advances when ready — no function timeout issue.
-import { ensureSchema, loadPayment, savePayment } from '../../../server/db.mjs';
+import { ensureSchema, loadPayment } from '../../../server/db.mjs';
 import { assertAction, publicPayment } from '../../../server/model.mjs';
 import { authorizeVercelRequest, getSessionId } from '../../_auth.mjs';
 import { makeDbStore, cleanError } from './_shared.mjs';
@@ -162,7 +162,7 @@ export default async function handler(req, res) {
     }
 
     // Flush: persist final payment state to Turso
-    await savePayment(payment);
+    await store.save();
     await store.flush();
 
     return res.status(202).json(publicPayment(payment));

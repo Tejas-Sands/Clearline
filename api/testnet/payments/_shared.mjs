@@ -7,28 +7,25 @@ export function makeDbStore(payment) {
   const account = getAccount();
   const recipient = defaultRecipient();
 
-  // The store object mirrors the interface expected by chain.mjs and journal.mjs.
-  // save() is called synchronously by journal.mjs after signing but before broadcast.
-  // We schedule the async DB write and return immediately — the signed bytes are
-  // already in payment.transactions so recovery is possible even before flush.
+  // Journal callbacks are passed unbound. Use a closure, and return the durable
+  // checkpoint promise so the journal can wait before broadcasting signed bytes.
+  let pendingSave = Promise.resolve();
   const store = {
     account,
     privateKey: process.env.WALLET_PRIVATE_KEY,
     recipient,
     state: { payments: payment ? [payment] : [] },
-    _pendingSave: null,
     save() {
-      const p = this.state.payments[0];
-      if (!p) return;
+      const p = store.state.payments[0];
+      if (!p) return pendingSave;
       p.updatedAt = Date.now();
-      this._pendingSave = savePayment(p);
+      const snapshot = JSON.parse(JSON.stringify(p, (_, value) => typeof value === 'bigint' ? value.toString() : value));
+      // Serialize immutable checkpoints. A later recovery save may proceed after
+      // a failed write, but the caller of that failed checkpoint still rejects.
+      pendingSave = pendingSave.catch(() => {}).then(() => savePayment(snapshot));
+      return pendingSave;
     },
-    async flush() {
-      if (this._pendingSave) {
-        await this._pendingSave;
-        this._pendingSave = null;
-      }
-    },
+    flush: () => pendingSave,
   };
   return store;
 }

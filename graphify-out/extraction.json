@@ -100,7 +100,7 @@
       "label": "cleanError()",
       "file_type": "code",
       "source_file": "api/testnet/payments/_shared.mjs",
-      "source_location": "L36",
+      "source_location": "L33",
       "_callable": true,
       "_origin": "ast"
     },
@@ -2604,6 +2604,50 @@
       "_origin": "ast"
     },
     {
+      "id": "tests_testnet_db_store_test",
+      "label": "testnet-db-store.test.ts",
+      "file_type": "code",
+      "source_file": "tests/testnet-db-store.test.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_testnet_db_store_test_fixture",
+      "label": "fixture()",
+      "file_type": "code",
+      "source_file": "tests/testnet-db-store.test.ts",
+      "source_location": "L10",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_testnet_db_store_test_setheader",
+      "label": "setHeader()",
+      "file_type": "code",
+      "source_file": "tests/testnet-db-store.test.ts",
+      "source_location": "L139",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_testnet_db_store_test_status",
+      "label": "status()",
+      "file_type": "code",
+      "source_file": "tests/testnet-db-store.test.ts",
+      "source_location": "L139",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_testnet_db_store_test_json",
+      "label": "json()",
+      "file_type": "code",
+      "source_file": "tests/testnet-db-store.test.ts",
+      "source_location": "L139",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
       "id": "tests_testnet_journal_test",
       "label": "testnet-journal.test.ts",
       "file_type": "code",
@@ -3181,7 +3225,7 @@
     },
     {
       "id": "docs_project_map_server_journal_mjs",
-      "label": "server/journal.mjs: durable signed transaction before broadcast",
+      "label": "server/journal.mjs: await signed and submitted checkpoints, preserve original signature on persistence errors, replay original bytes",
       "file_type": "code",
       "source_file": "docs/PROJECT_MAP.md",
       "source_location": null,
@@ -3236,7 +3280,7 @@
     },
     {
       "id": "agents_durable_submission",
-      "label": "Persist signed transaction bytes and hash before broadcast; recover original submission",
+      "label": "Persist signed transaction bytes/hash and await checkpoint before broadcast; preserve signature on errors; recover original submission",
       "file_type": "rationale",
       "source_file": "AGENTS.md",
       "source_location": null,
@@ -3244,7 +3288,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "rationale": "Preserve original signed bytes and hash before broadcasting so recovery replays the same transaction or checks its receipt; timeout never authorizes a duplicate transfer."
+      "rationale": "Await persistence before broadcast and after submission. Retain the original signed entry on checkpoint failure and re-checkpoint those same bytes on recovery; timeout never authorizes a fresh duplicate transfer."
     },
     {
       "id": "agents_graph_navigation_boundary",
@@ -3468,7 +3512,7 @@
     },
     {
       "id": "docs_project_map_api_testnet_payments_action_mjs",
-      "label": "api/testnet/payments/action.mjs: corrected auth and store imports",
+      "label": "api/testnet/payments/action.mjs: corrected imports, awaited final queued persistence; account-wide operation lock remains unenforced",
       "file_type": "code",
       "source_file": "docs/PROJECT_MAP.md",
       "source_location": null,
@@ -3479,7 +3523,7 @@
     },
     {
       "id": "docs_project_map_api_testnet_payments_shared_mjs",
-      "label": "api/testnet/payments/_shared.mjs: asynchronous save adapter",
+      "label": "api/testnet/payments/_shared.mjs: closure-bound save with immutable snapshots, serialized Turso writes and returned persistence promises",
       "file_type": "code",
       "source_file": "docs/PROJECT_MAP.md",
       "source_location": null,
@@ -3622,7 +3666,7 @@
     },
     {
       "id": "agents_verification_2026_10_01",
-      "label": "2026-10-01: 69/69 unit tests and frontend build passed; preceding UI/quote update passed synthetic testnet and simulator browser checks; no new chain transactions approved",
+      "label": "2026-10-01: 76/76 unit tests and frontend build passed; authenticated hosted recovery tested with mocked DB/RPC; preceding UI/quote update passed synthetic testnet and simulator browser checks; no live conversion/payout authorized",
       "file_type": "concept",
       "source_file": "AGENTS.md",
       "source_location": null,
@@ -3666,7 +3710,7 @@
     },
     {
       "id": "docs_project_map_hosted_execution_safety_gap",
-      "label": "Hosted gap: asynchronous durability, absent account lock, function budget",
+      "label": "Hosted gaps: absent account-wide operation lock, cross-request concurrency, actual database commit/fault outcomes, 30-second function budget and timeout/crash recovery",
       "file_type": "rationale",
       "source_file": "docs/PROJECT_MAP.md",
       "source_location": null,
@@ -3674,7 +3718,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "rationale": "Local signer proof does not establish hosted payout safety: shared handler saves are asynchronous while the journal requires a completed durable save before broadcast; account-wide locking and the 30-second function budget need dedicated validation."
+      "rationale": "The unbound save callback and asynchronous checkpoint ordering are corrected and regression tested. Per-store queues do not serialize concurrent hosted requests or account operations. Local disk-backed onchain proof and synthetic authenticated recovery do not prove live hosted payout safety; actual DB fault outcomes and hosted timeout/crash recovery need dedicated validation."
     },
     {
       "id": "docs_project_map_hosted_vercel_handlers",
@@ -3722,7 +3766,7 @@
     },
     {
       "id": "docs_project_map_verification_2026_10_01",
-      "label": "2026-10-01: 69 unit tests and frontend build passed; preceding UI/quote update passed synthetic testnet and simulator browser checks; September transaction proofs not rerun",
+      "label": "2026-10-01: 76 unit tests and frontend build passed; authenticated hosted-handler recovery and ordered checkpoints tested with mocked DB/RPC; preceding UI/quote browser checks passed; September transaction proofs not rerun",
       "file_type": "concept",
       "source_file": "docs/PROJECT_MAP.md",
       "source_location": null,
@@ -4061,6 +4105,143 @@
       "contributor": null
     },
     {
+      "id": "agents_hosted_checkpoint_fix",
+      "label": "2026-10-01 hosted conversion checkpoint fix: closure-bound save, immutable ordered checkpoints, original signature recovery",
+      "file_type": "concept",
+      "source_file": "AGENTS.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "agents_async_checkpoint_invariant",
+      "label": "Await asynchronous checkpoint promises and preserve original signed entry on persistence failure",
+      "file_type": "rationale",
+      "source_file": "AGENTS.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Recovery re-checkpoints the same signed bytes rather than replacing the signature. A per-store save queue orders one store instance only and does not lock requests/accounts."
+    },
+    {
+      "id": "docs_project_map_hosted_unbound_callback_failure",
+      "label": "Resolved unbound store.save failure: this.state was undefined after signing and before journal broadcast",
+      "file_type": "concept",
+      "source_file": "docs/PROJECT_MAP.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "docs_project_map_hosted_checkpoint_fix",
+      "label": "Hosted persistence fix: store closure, immutable checkpoint snapshots, serialized Turso writes, returned promise",
+      "file_type": "rationale",
+      "source_file": "docs/PROJECT_MAP.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "An unbound save callback lost its receiver and failed after signing. Closing over the store preserves context; immutable snapshots and a returned queue promise give journal and handler a shared ordered persistence boundary."
+    },
+    {
+      "id": "docs_project_map_original_signature_recovery",
+      "label": "Signature-preserving recovery re-checkpoints original bytes before broadcast",
+      "file_type": "rationale",
+      "source_file": "docs/PROJECT_MAP.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "A persistence failure must retain the signed entry. Recovery awaits re-checkpointing the same bytes to prevent signing or broadcasting a different transfer."
+    },
+    {
+      "id": "docs_project_map_hosted_handler_fixture",
+      "label": "Authenticated hosted handler \u2192 real chain adapter \u2192 mocked DB/RPC recovery fixture",
+      "file_type": "concept",
+      "source_file": "docs/PROJECT_MAP.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "docs_project_map_hosted_callback_mutation_regression",
+      "label": "Callback mutation reproduced Cannot read properties of undefined (reading 'state'); restored fix passed",
+      "file_type": "concept",
+      "source_file": "docs/PROJECT_MAP.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "docs_project_map_hosted_checkpoint_evidence_boundary",
+      "label": "Synthetic boundary checks verify ordering, receipt-derived EURC, converted persistence and public raw-byte stripping; no live payout or DB fault proof",
+      "file_type": "rationale",
+      "source_file": "docs/PROJECT_MAP.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Mocks exercise the real chain adapter and authenticated handler but cannot establish actual Turso commit/fault behavior or live hosted payout safety."
+    },
+    {
+      "id": "docs_project_map_tests_testnet_db_store_test_ts",
+      "label": "tests/testnet-db-store.test.ts: ordered hosted checkpoints and authenticated handler recovery with mocked external boundaries",
+      "file_type": "code",
+      "source_file": "docs/PROJECT_MAP.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "docs_project_map_account_operation_lock_gap",
+      "label": "Account-wide operation locking absent; checkUnresolved helper unused",
+      "file_type": "rationale",
+      "source_file": "docs/PROJECT_MAP.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Serialization within a store instance does not stop cross-request concurrent account operations; this boundary needs dedicated validation."
+    },
+    {
+      "id": "docs_project_map_hosted_timeout_crash_gap",
+      "label": "Hosted 30-second function budget and timeout/crash recovery require dedicated validation",
+      "file_type": "rationale",
+      "source_file": "docs/PROJECT_MAP.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "docs_project_map_live_database_fault_gap",
+      "label": "Actual database commit and fault outcomes remain unverified",
+      "file_type": "rationale",
+      "source_file": "docs/PROJECT_MAP.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
       "id": "src_styles",
       "label": "styles.css",
       "file_type": "code",
@@ -4384,7 +4565,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "api/testnet/payments/_shared.mjs",
-      "source_location": "L36",
+      "source_location": "L33",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -4413,17 +4594,6 @@
     {
       "source": "api_testnet_payments_action",
       "target": "server_db_loadpayment",
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "api/testnet/payments/action.mjs",
-      "source_location": "L8",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "api_testnet_payments_action",
-      "target": "server_db_savepayment",
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -11198,6 +11368,190 @@
       "_origin": "ast"
     },
     {
+      "source": "tests_testnet_db_store_test",
+      "target": "ref_node_test",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/testnet-db-store.test.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_testnet_db_store_test",
+      "target": "ref_node_assert",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/testnet-db-store.test.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_testnet_db_store_test",
+      "target": "ref_viem",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/testnet-db-store.test.ts",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_testnet_db_store_test",
+      "target": "server_db",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/testnet-db-store.test.ts",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_testnet_db_store_test",
+      "target": "server_db_getdb",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/testnet-db-store.test.ts",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_testnet_db_store_test",
+      "target": "api_testnet_payments_shared",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/testnet-db-store.test.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_testnet_db_store_test",
+      "target": "api_testnet_payments_shared_makedbstore",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/testnet-db-store.test.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_testnet_db_store_test",
+      "target": "server_journal",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/testnet-db-store.test.ts",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_testnet_db_store_test",
+      "target": "server_journal_sendjournaled",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/testnet-db-store.test.ts",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_testnet_db_store_test",
+      "target": "ref_viem",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/testnet-db-store.test.ts",
+      "source_location": "L7",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_testnet_db_store_test",
+      "target": "api_testnet_payments_action",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/testnet-db-store.test.ts",
+      "source_location": "L8",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_testnet_db_store_test",
+      "target": "tests_testnet_db_store_test_fixture",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/testnet-db-store.test.ts",
+      "source_location": "L10",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_testnet_db_store_test",
+      "target": "tests_testnet_db_store_test_setheader",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/testnet-db-store.test.ts",
+      "source_location": "L139",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_testnet_db_store_test",
+      "target": "tests_testnet_db_store_test_status",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/testnet-db-store.test.ts",
+      "source_location": "L139",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_testnet_db_store_test",
+      "target": "tests_testnet_db_store_test_json",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/testnet-db-store.test.ts",
+      "source_location": "L139",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_testnet_db_store_test",
+      "target": "tests_testnet_db_store_test_fixture",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/testnet-db-store.test.ts",
+      "source_location": "L28",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_testnet_db_store_test",
+      "target": "tests_testnet_db_store_test_status",
+      "relation": "indirect_call",
+      "context": "argument",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "tests/testnet-db-store.test.ts",
+      "source_location": "L143",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
       "source": "tests_testnet_journal_test",
       "target": "ref_node_test",
       "relation": "imports_from",
@@ -11779,6 +12133,17 @@
       "_origin": "ast"
     },
     {
+      "source": "tests_testnet_db_store_test",
+      "target": "api_testnet_payments_action_handler",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/testnet-db-store.test.ts",
+      "source_location": "L8",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
       "source": "api_testnet_handler",
       "target": "api_auth_authorizevercelrequest",
       "relation": "calls",
@@ -11895,7 +12260,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "api/testnet/payments/_shared.mjs",
-      "source_location": "L24",
+      "source_location": "L25",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -11973,17 +12338,6 @@
       "confidence": "EXTRACTED",
       "source_file": "api/testnet/payments/action.mjs",
       "source_location": "L160",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "api_testnet_payments_action_handler",
-      "target": "server_db_savepayment",
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "api/testnet/payments/action.mjs",
-      "source_location": "L165",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -12604,6 +12958,28 @@
       "_origin": "ast"
     },
     {
+      "source": "tests_testnet_db_store_test_fixture",
+      "target": "api_testnet_payments_shared_makedbstore",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/testnet-db-store.test.ts",
+      "source_location": "L18",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_testnet_db_store_test_fixture",
+      "target": "server_db_getdb",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/testnet-db-store.test.ts",
+      "source_location": "L18",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
       "source": "tests_testnet_service_test_fixture",
       "target": "server_service_makeservice",
       "relation": "calls",
@@ -12947,18 +13323,6 @@
       "confidence_score": 0.85,
       "source_file": "tests/testnet-chain.test.ts",
       "source_location": "L134",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "tests_testnet_model_test",
-      "target": "tests_testnet_api_test_status",
-      "relation": "indirect_call",
-      "context": "collection",
-      "confidence": "INFERRED",
-      "confidence_score": 0.85,
-      "source_file": "tests/testnet-model.test.ts",
-      "source_location": "L24",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -14423,6 +14787,366 @@
       "source_file": "/home/citrux/Sides/chained_blocks/arc/AGENTS.md",
       "source_location": null,
       "weight": 1
+    },
+    {
+      "source": "agents_document",
+      "target": "agents_hosted_checkpoint_fix",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/AGENTS.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "agents_document",
+      "target": "agents_async_checkpoint_invariant",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/AGENTS.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "agents_hosted_checkpoint_fix",
+      "target": "docs_project_map_hosted_checkpoint_fix",
+      "relation": "semantically_similar_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/AGENTS.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "agents_async_checkpoint_invariant",
+      "target": "docs_project_map_original_signature_recovery",
+      "relation": "semantically_similar_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/AGENTS.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "agents_async_checkpoint_invariant",
+      "target": "docs_project_map_server_journal_mjs",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/AGENTS.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "agents_hosted_checkpoint_fix",
+      "target": "docs_project_map_tests_testnet_db_store_test_ts",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/AGENTS.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "agents_verification_2026_10_01",
+      "target": "docs_project_map_tests_testnet_db_store_test_ts",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/AGENTS.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_document",
+      "target": "docs_project_map_hosted_unbound_callback_failure",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_document",
+      "target": "docs_project_map_hosted_checkpoint_fix",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_document",
+      "target": "docs_project_map_original_signature_recovery",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_document",
+      "target": "docs_project_map_hosted_handler_fixture",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_document",
+      "target": "docs_project_map_hosted_callback_mutation_regression",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_document",
+      "target": "docs_project_map_hosted_checkpoint_evidence_boundary",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_document",
+      "target": "docs_project_map_tests_testnet_db_store_test_ts",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_document",
+      "target": "docs_project_map_account_operation_lock_gap",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_document",
+      "target": "docs_project_map_hosted_timeout_crash_gap",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_document",
+      "target": "docs_project_map_live_database_fault_gap",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_hosted_unbound_callback_failure",
+      "target": "docs_project_map_api_testnet_payments_shared_mjs",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_hosted_checkpoint_fix",
+      "target": "docs_project_map_api_testnet_payments_shared_mjs",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_hosted_checkpoint_fix",
+      "target": "docs_project_map_server_db_mjs",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_hosted_checkpoint_fix",
+      "target": "docs_project_map_server_journal_mjs",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_hosted_checkpoint_fix",
+      "target": "docs_project_map_api_testnet_payments_action_mjs",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_original_signature_recovery",
+      "target": "docs_project_map_server_journal_mjs",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_server_chain_mjs",
+      "target": "docs_project_map_hosted_checkpoint_fix",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_hosted_handler_fixture",
+      "target": "docs_project_map_api_testnet_payments_action_mjs",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_hosted_handler_fixture",
+      "target": "docs_project_map_server_chain_mjs",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_hosted_handler_fixture",
+      "target": "docs_project_map_tests_testnet_db_store_test_ts",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_hosted_handler_fixture",
+      "target": "docs_project_map_hosted_checkpoint_evidence_boundary",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_hosted_callback_mutation_regression",
+      "target": "docs_project_map_hosted_unbound_callback_failure",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_hosted_callback_mutation_regression",
+      "target": "docs_project_map_tests_testnet_db_store_test_ts",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_verification_2026_10_01",
+      "target": "docs_project_map_tests_testnet_db_store_test_ts",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_api_testnet_payments_action_mjs",
+      "target": "docs_project_map_account_operation_lock_gap",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_hosted_execution_safety_gap",
+      "target": "docs_project_map_account_operation_lock_gap",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_hosted_execution_safety_gap",
+      "target": "docs_project_map_hosted_timeout_crash_gap",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_hosted_execution_safety_gap",
+      "target": "docs_project_map_live_database_fault_gap",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_hosted_checkpoint_evidence_boundary",
+      "target": "docs_project_map_public_receipt_proof",
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
     }
   ],
   "hyperedges": [
@@ -14450,6 +15174,21 @@
         "docs_project_map_stop_limit_constrained_estimate"
       ],
       "relation": "form",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "docs/PROJECT_MAP.md"
+    },
+    {
+      "id": "docs_project_map_hosted_checkpoint_ordering",
+      "label": "Shared ordered persistence boundary for immutable Turso snapshots, journal broadcast/recovery and final hosted handler save",
+      "nodes": [
+        "docs_project_map_api_testnet_payments_shared_mjs",
+        "docs_project_map_server_db_mjs",
+        "docs_project_map_server_journal_mjs",
+        "docs_project_map_api_testnet_payments_action_mjs",
+        "docs_project_map_tests_testnet_db_store_test_ts"
+      ],
+      "relation": "implement",
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "docs/PROJECT_MAP.md"
