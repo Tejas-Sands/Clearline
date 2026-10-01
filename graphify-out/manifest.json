@@ -18,10 +18,10 @@
     "semantic_hash": "0d89359f567a0d18954e62539a1c6b0c"
   },
   "server/chain.mjs": {
-    "mtime": 1790843939.661258,
-    "seen": 1790844180.688108,
-    "ast_hash": "75f9104612b2899992f675fe168432e7",
-    "semantic_hash": ""
+    "mtime": 1790845308.1157866,
+    "seen": 1790845652.781092,
+    "ast_hash": "ffb1d195cf802b00f1b7878fb19bde9b",
+    "semantic_hash": "ffb1d195cf802b00f1b7878fb19bde9b"
   },
   "server/index.mjs": {
     "mtime": 1790455032.4474318,
@@ -90,10 +90,10 @@
     "semantic_hash": "2250151c34c950a96441bb866e70f7df"
   },
   "src/components/TestnetPayments.tsx": {
-    "mtime": 1790844303.3325012,
-    "seen": 1790844320.742205,
-    "ast_hash": "1189600eb5fcc913934a7e29c456ede2",
-    "semantic_hash": ""
+    "mtime": 1790845308.4287882,
+    "seen": 1790845652.7811687,
+    "ast_hash": "2111bc94fba8e0a8d4be31a39114d4e6",
+    "semantic_hash": "2111bc94fba8e0a8d4be31a39114d4e6"
   },
   "src/components/ui.tsx": {
     "mtime": 1790449937.906714,
@@ -180,10 +180,10 @@
     "semantic_hash": "486a396d866e874e25a89a1be214ab60"
   },
   "AGENTS.md": {
-    "mtime": 1790844165.2424088,
-    "seen": 1790844180.6884239,
-    "ast_hash": "59045807cb621f9a7828dca70c6c832d",
-    "semantic_hash": ""
+    "mtime": 1790845477.125621,
+    "seen": 1790845652.781274,
+    "ast_hash": "41807782402d8d05a28eff42f5dabcb6",
+    "semantic_hash": "41807782402d8d05a28eff42f5dabcb6"
   },
   "ARC_TOP_6_USE_CASES.md": {
     "mtime": 1790449314.77703,
@@ -204,10 +204,10 @@
     "semantic_hash": "635649752f30e6fbc932010eeae5c7e8"
   },
   "docs/PROJECT_MAP.md": {
-    "mtime": 1790844165.4184089,
-    "seen": 1790844180.6884577,
-    "ast_hash": "3dcb93d1b9e7c0070a74696ea6ccd659",
-    "semantic_hash": ""
+    "mtime": 1790845679.4676201,
+    "seen": 1790845745.175364,
+    "ast_hash": "2c321ba8579d76d1ba03e2790f93afe0",
+    "semantic_hash": "2c321ba8579d76d1ba03e2790f93afe0"
   },
   "docs/TESTNET_BUILD_LOG.md": {
     "mtime": 1790491822.6734104,
@@ -258,10 +258,10 @@
     "semantic_hash": "d53bc1a1439a0bb8060635f5398f80c5"
   },
   "tests/testnet-chain.test.ts": {
-    "mtime": 1790843915.723242,
-    "seen": 1790844180.6883535,
-    "ast_hash": "f4b8a3f6a42e50c38ff410e60b476506",
-    "semantic_hash": ""
+    "mtime": 1790845408.5852826,
+    "seen": 1790845652.7812352,
+    "ast_hash": "c9f3445ddfd6c4ec329e03006c2d5877",
+    "semantic_hash": "c9f3445ddfd6c4ec329e03006c2d5877"
   },
   "tests/fixtures/cctp-base-burn.json": {
     "mtime": 1790490217.3987796,
@@ -336,22 +336,22 @@
     "semantic_hash": "d1bc3286f39adf8be6b9b69f1df14c77"
   },
   "scripts/ui-refresh-smoke.mjs": {
-    "mtime": 1790844112.9423738,
-    "seen": 1790844180.6880887,
-    "ast_hash": "50ba25e69e6db02a7225b881c48da9d3",
-    "semantic_hash": ""
+    "mtime": 1790845308.599789,
+    "seen": 1790845652.7810805,
+    "ast_hash": "a1940cf3f6da4f367c4c129b1352b726",
+    "semantic_hash": "a1940cf3f6da4f367c4c129b1352b726"
   },
   "src/testnet-api.ts": {
-    "mtime": 1790839432.900945,
-    "seen": 1790841276.9888422,
-    "ast_hash": "33855fa4dedf1a8accaa1ca2423ac6b1",
-    "semantic_hash": "33855fa4dedf1a8accaa1ca2423ac6b1"
+    "mtime": 1790845308.2717874,
+    "seen": 1790845652.7812002,
+    "ast_hash": "c8fb0fbb932ef0bf206342311fc52f6c",
+    "semantic_hash": "c8fb0fbb932ef0bf206342311fc52f6c"
   },
   "tests/testnet-api.test.ts": {
-    "mtime": 1790839366.32095,
-    "seen": 1790841276.9888637,
-    "ast_hash": "c578b7256e4e221f9e38d21eed1722f6",
-    "semantic_hash": "c578b7256e4e221f9e38d21eed1722f6"
+    "mtime": 1790845222.2913628,
+    "seen": 1790845652.7812245,
+    "ast_hash": "b8e7a9a24daf6b243d35d2d61cf8e00d",
+    "semantic_hash": "b8e7a9a24daf6b243d35d2d61cf8e00d"
   },
   "docs/SECURITY.md": {
     "mtime": 1790591773.2132187,

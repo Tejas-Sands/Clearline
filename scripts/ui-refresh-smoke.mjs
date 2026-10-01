@@ -50,6 +50,11 @@ try {
       if (path.endsWith('/quote')) {
         await new Promise(resolve => setTimeout(resolve, 800));
         if (state.mode === 'error') return new Response('A server error has occurred', { status: 500 });
+        if (state.mode === 'route-error') {
+          payment.error = 'Stablecoin Service createSwap failed: Route or resource not found. Details: No route available';
+          return Response.json(payment, { status: 202 });
+        }
+        delete payment.error;
         payment.status = 'quoted';
         payment.quote = { expected: '900000', minimum: '890000', expiresAt: Date.now() + 60000, fees: [] };
         return Response.json(payment, { status: 202 });
@@ -76,9 +81,17 @@ try {
   wait('HTTP 500');
   assert.equal(evaluate('document.body.textContent.includes("Unexpected token")'), false);
   assert.equal(evaluate('document.querySelector(".payment-progress [aria-current=step]").textContent.includes("Quote")'), true);
+  evaluate('window.__clearlineMock.mode = "route-error"');
+  click('Get live swap quote');
+  assert.equal(evaluate('document.querySelector("button[aria-busy=\\"true\\"] .spin") !== null'), true, 'Route retries keep the loading indicator');
+  wait('Wallet balances alone do not guarantee a swap route.');
+  assert.equal(evaluate('document.body.textContent.includes("createSwap failed")'), false);
+  assert.equal(evaluate('document.querySelector(".live-detail button[aria-busy=\\"true\\"]") === null'), true, 'Loading ends when the failed quote returns');
+  assert.equal(evaluate('Array.from(document.querySelectorAll("button")).some(b => b.textContent.includes("Approve conversion"))'), false, 'Failed quote does not enable conversion');
   evaluate('window.__clearlineMock.mode = "success"');
   click('Get live swap quote');
   wait('Approve conversion to EURC');
+  assert.equal(evaluate('document.body.textContent.includes("Wallet balances alone")'), false, 'Successful retry clears the route error');
   assert.equal(evaluate('document.querySelector(".payment-progress [aria-current=step]").textContent.includes("Convert")'), true);
   evaluate('window.__clearlineMock.snapshot.payments[0].quote.expiresAt = Date.now() - 1000');
   wait('Your quote expired. Get a fresh one.');

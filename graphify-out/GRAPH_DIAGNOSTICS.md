@@ -5,26 +5,26 @@
 input: <in-memory>
 input_stage: provided JSON (normal graph.json is post-build)
 effective_directed: <direct-call>
-nodes: 408
+nodes: 418
 unverified_code_nodes: 0
-raw_edges: 919
-valid_candidate_edges: 875
+raw_edges: 945
+valid_candidate_edges: 901
 missing_endpoint_edges: 0
 dangling_endpoint_edges: 0
 external_reference_edges: 44
 self_loop_edges: 1
 exact_duplicate_edges: 0
-directed_unique_endpoint_pairs: 832
-directed_same_endpoint_collapsed_edges: 43
-undirected_unique_endpoint_pairs: 831
-undirected_same_endpoint_collapsed_edges: 44
-same_endpoint_group_count: 42
-relation_variant_groups: 25
+directed_unique_endpoint_pairs: 857
+directed_same_endpoint_collapsed_edges: 44
+undirected_unique_endpoint_pairs: 856
+undirected_same_endpoint_collapsed_edges: 45
+same_endpoint_group_count: 43
+relation_variant_groups: 26
 source_file_variant_groups: 0
 source_location_variant_groups: 18
 context_variant_groups: 0
 post_build_graph_type: Graph
-post_build_edges: 875
+post_build_edges: 900
 producer_suppression_sites: 12
 producer_suppression_examples:
   - L1337 seen_ids arity=unknown
@@ -36,11 +36,11 @@ producer_suppression_examples:
   - L3278 seen_keys arity=unknown
   - L5334 seen_ids arity=unknown
 examples:
-  - tests_testnet_api_test -> tests_testnet_api_test_status edges=3 relations=['contains', 'indirect_call'] locations=['L32', 'L34', 'L42'] contexts=['', 'argument']
+  - tests_testnet_api_test -> tests_testnet_api_test_status edges=3 relations=['contains', 'indirect_call'] locations=['L48', 'L50', 'L58'] contexts=['', 'argument']
   - api_testnet_payments_action_handler -> api_testnet_payments_action_handler_verifyconversion edges=2 relations=['calls', 'contains'] locations=['L58', 'L97'] contexts=['', 'call']
   - scripts_dev -> scripts_dev_stop edges=2 relations=['calls', 'contains'] locations=['L7', 'L8'] contexts=['', 'call']
-  - server_chain_makechain -> server_chain_makechain_finishswap edges=2 relations=['contains', 'indirect_call'] locations=['L102', 'L215'] contexts=['', 'collection']
-  - server_chain_makechain -> server_chain_makechain_finishpay edges=2 relations=['contains', 'indirect_call'] locations=['L127', 'L221'] contexts=['', 'collection']
+  - server_chain_makechain -> server_chain_makechain_finishswap edges=2 relations=['contains', 'indirect_call'] locations=['L102', 'L230'] contexts=['', 'collection']
+  - server_chain_makechain -> server_chain_makechain_finishpay edges=2 relations=['contains', 'indirect_call'] locations=['L127', 'L236'] contexts=['', 'collection']
 note: normal graph.json is post-build; raw producer loss must be measured earlier.
 ```
 

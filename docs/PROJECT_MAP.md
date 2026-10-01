@@ -2,7 +2,11 @@
 
 Original review: 2026-09-27 against source, installed SDK declarations, sanitized local payment metadata, and tests/build. The dated onchain evidence below is historical; the October update records current changes and checks.
 
-Updated 2026-10-01 for the UI refresh, hosted quote-endpoint fix, and Swap Kit stop-limit fix. Current checks: **61 unit tests passed; frontend build passed; simulator browser smoke and synthetic testnet UI smoke passed**. The UI smoke covers plain-text HTTP 500 responses, successful quote display, quote expiry, payment creation/selection, pending quote spinner feedback, desktop/mobile layouts, and automated WCAG A/AA checks across workspace pages, testnet details/form, landing and proof pages. It intercepts all testnet requests and approves no onchain action. The September transaction proofs below were not rerun.
+Updated 2026-10-01 for the UI refresh, hosted quote-endpoint fix, Swap Kit stop-limit fix, and intermittent quote-route recovery. Current checks: **67 unit tests passed; frontend build passed; synthetic testnet UI smoke passed**. Simulator browser smoke passed for the preceding UI update. The UI smoke covers plain-text HTTP 500 responses, payment-level route errors in HTTP 202 responses, successful retry/error clearing, quote expiry, payment creation/selection, pending quote spinner feedback and cleanup, desktop/mobile layouts, and automated WCAG A/AA checks across workspace pages, testnet details/form, landing and proof pages. It intercepts all testnet requests and approves no onchain action. The September transaction proofs below were not rerun.
+
+A fresh read-only Circle quote probe for the hosted wallet reproduced the user's 3-USDC error: two identical requests returned HTTP 404 “No route available”; the third succeeded at the unchanged 100-bps limit (2.480473 EURC estimated, 2.455668 minimum). This establishes intermittent provider availability for that amount, not guaranteed liquidity or execution. `server/chain.mjs` adds one estimate-only retry after the SDK's three HTTP attempts, specifically for error code 1003 with “No route available”; a persistent failure stops with amount-specific recovery guidance. It does not widen slippage, split payments, sign transactions, or retry swaps/payouts. HTTP-fixture tests run the installed SDK through its real wire request, base-unit conversion, and error parsing. Slippage guidance no longer claims funds were untouched without receipt evidence.
+
+A separate baseline hosted check on deployment `8a5f400` created one isolated diagnostic obligation for 3 USDC, received a live quote (2.473494 EURC expected; 2.448759 minimum), and verified it persisted on reload with zero transactions. This confirms the previously deployed quote handler can succeed intermittently; it is not proof of the new retry deployment or of conversion/payout execution.
 
 The repo now includes Vercel `api/` handlers, Turso persistence in `server/db.mjs`, a landing page and a public proof page. The quote handler previously failed during module import because its auth and store imports pointed to nonexistent paths; both paths are corrected and covered by credential-free handler tests. Public source is tracked in Git again.
 
@@ -12,7 +16,7 @@ The repo now includes Vercel `api/` handlers, Turso persistence in `server/db.mj
 | --- | --- | --- |
 | Simulation | Dashboard, obligation/CSV intake, quote/approval, exceptions, ledger, reconciliation/export, local persistence | 23 simulator/IO tests pass; earlier browser checks recorded in `BUILD_LOG.md` |
 | Testnet frontend | Wallet balances, funding selection, quotes, stage actions, receipt links, CSV export | Direct Arc and crosschain payments exercised through UI; desktop/mobile, export, reload and duplicate rejection checks pass |
-| Testnet server | Local signer, JSON disk state, request safeguards, serialized actions, durable signed-transaction journal | 31 testnet tests pass, including installed SDK adapter boundaries with mocked RPC |
+| Testnet server | Local signer, JSON disk state, request safeguards, serialized actions, durable signed-transaction journal | 36 testnet tests pass, including installed SDK adapter boundaries and quote HTTP recovery with mocked external calls |
 | CCTP funding | Direct contract approval/burn, attestation, mint, receipt accounting, explicit reverted-stage retry | Verified one 1-USDC Base burn, Circle attestation and one 1-USDC Arc mint; no duplicate burn |
 | USDC → EURC | Circle Swap Kit estimate/swap via viem adapter | Verified direct route 0.822060 EURC and crosschain route 0.822252 EURC from 1 USDC each |
 | Recipient payout | Exact EURC ERC-20 transfer and receipt verification | Both exact EURC outputs paid to local test recipient; both invoices reconciled |
@@ -74,7 +78,7 @@ The diagram depicts the local execution path, which uses disk persistence; hoste
 | `src/components/PaymentDetails.tsx` | Simulation quote, approval, recovery, timeline and reconciliation |
 | `src/components/ui.tsx` | Shared dialogs and display helpers |
 | `src/components/TestnetPayments.tsx` | Polls API every 2.5 seconds; testnet actions/export |
-| `src/testnet-api.ts` | Shared JSON response parsing with safe HTTP/non-JSON failure messages |
+| `src/testnet-api.ts` | Shared JSON response parsing and safe, actionable route/slippage failure guidance |
 | `src/components/Landing.tsx`, `src/components/ProofPage.tsx` | Simulation/testnet entry choices and dated public transaction evidence |
 | `src/styles.css` | Responsive styling for both workspaces |
 | `server/index.mjs` | Loopback HTTP API, process lock, async action dispatch, balance cache |
@@ -92,8 +96,8 @@ The diagram depicts the local execution path, which uses disk persistence; hoste
 | `scripts/ui-refresh-smoke.mjs` | Synthetic API browser checks for quote errors/expiry, form creation, guidance, responsiveness and accessibility |
 | `scripts/verify-testnet.mjs` | Read-only independent receipt verification; public proof JSON output, no signer access |
 | `tests/domain.test.ts`, `tests/io.test.ts` | 23 simulator/money/import/export/storage tests |
-| `tests/testnet-*.test.ts` | 31 adapter, receipt/recovery, model, security, service and journal tests |
-| `tests/testnet-api.test.ts` | 6 deployed handler-load/rejection and frontend response-parsing regressions |
+| `tests/testnet-*.test.ts` (excluding API tests) | 36 adapter, quote HTTP recovery, receipt/recovery, model, security, service and journal tests |
+| `tests/testnet-api.test.ts` | 8 deployed handler-load/rejection, frontend response-parsing and error-guidance regressions |
 | `vite.config.ts` | React plugin, dev/preview API proxy |
 | `package.json`, `package-lock.json` | Commands and dependency versions; use the lockfile |
 | `docs/superpowers/` | Historical designs/plans; testnet scope remains relevant |

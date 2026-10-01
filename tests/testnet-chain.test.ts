@@ -20,6 +20,76 @@ function fixture(t, chainId = '0x4cef52') {
 }
 const estimate = { estimatedOutput: { token: 'EURC', amount: '0.9' }, stopLimit: { token: 'EURC', amount: '0.89' }, fees: [] };
 
+// Exercise the installed SDK, replacing only external HTTP calls. This catches
+// human/base-unit mistakes and exhausted SDK retries, not just mocked estimates.
+function quoteHttpFixture(t, failures, status = 404, message = 'No route available') {
+  const { store, chain, payment } = fixture(t);
+  payment.amount = '3000000';
+  const requests = [];
+  t.mock.method(globalThis, 'fetch', async (url, options) => {
+    const body = JSON.parse(options.body);
+    if (!String(url).includes('/stablecoinKits/swap')) {
+      assert.equal(body.method, 'eth_chainId', 'Quotes must not sign or broadcast');
+      return Response.json({ jsonrpc: '2.0', id: body.id, result: '0x4cef52' });
+    }
+    requests.push(body);
+    if (requests.length <= failures) return Response.json({ message }, { status });
+    return Response.json({
+      tokenInAddress: body.tokenInAddress, tokenOutAddress: body.tokenOutAddress,
+      tokenInChain: body.tokenInChain, tokenOutChain: body.tokenOutChain,
+      fromAddress: body.fromAddress, toAddress: body.toAddress,
+      amount: body.amount, estimatedAmount: '2480473', stopLimit: '2455668', fees: {},
+      transaction: { signature: '0x00', executionParams: { execId: 'quote-fixture', deadline: '2000000000', metadata: '0x00', tokens: [], instructions: [] } },
+    });
+  });
+  store.save = () => { throw new Error('Quotes must not persist signed transactions'); };
+  return { chain, payment, requests };
+}
+
+test('3 USDC quote recovers after exhausted transient route retries without relaxing limits', async t => {
+  const { chain, payment, requests } = quoteHttpFixture(t, 3);
+  const quote = await chain.quote(payment);
+  assert.equal(quote.expected, '2480473');
+  assert.equal(quote.minimum, '2455668');
+  assert.equal(payment.transactions.length, 0);
+  assert.equal(requests.length, 4);
+  for (const request of requests) {
+    assert.equal(request.amount, '3000000');
+    assert.equal(request.slippageBps, 100);
+    assert.equal(request.stopLimit, undefined);
+    assert.equal(request.tokenInChain, 'Arc_Testnet');
+    assert.equal(request.tokenOutChain, 'Arc_Testnet');
+    assert.equal(request.tokenInAddress.toLowerCase(), '0x3600000000000000000000000000000000000000');
+    assert.equal(request.tokenOutAddress.toLowerCase(), '0x89b50855aa3be2f677cd6303cec089b5f319d72a');
+  }
+});
+
+test('persistent missing routes stop after one extra estimate and provide actionable guidance', async t => {
+  const { chain, payment, requests } = quoteHttpFixture(t, Infinity);
+  await assert.rejects(chain.quote(payment), error => {
+    assert.match(error.message, /3 USDC/);
+    assert.match(error.message, /try again/i);
+    assert.match(error.message, /no tokens were moved/i);
+    return true;
+  });
+  assert.equal(requests.length, 6);
+  assert.equal(payment.transactions.length, 0);
+});
+
+test('quote validation failures are not retried as unavailable routes', async t => {
+  const { chain, payment, requests } = quoteHttpFixture(t, Infinity, 400, 'Invalid amount');
+  await assert.rejects(chain.quote(payment), /Invalid amount/);
+  assert.equal(requests.length, 1);
+});
+
+test('slippage failures do not trigger the additional missing-route retry', async t => {
+  const { chain, payment, requests } = quoteHttpFixture(t, Infinity, 404, 'Unable to calculate slippage for the requested stop limit');
+  await assert.rejects(chain.quote(payment), /slippage/);
+  assert.equal(requests.length, 3, 'Only the SDK HTTP attempts, not another estimate');
+  assert.equal(payment.transactions.length, 0);
+  assert.equal(requests.every(request => request.slippageBps === 100), true);
+});
+
 test('installed Swap Kit adapter resolves Arc viem factories and rejects mainnet factories', async t => {
   const { store, chain, payment } = fixture(t);
   t.mock.method(SwapKit.prototype, 'estimate', async ({ from }) => {

@@ -1,6 +1,6 @@
 import { createPublicClient, createWalletClient, defineChain, http, erc20Abi, encodeFunctionData, parseAbi, parseUnits, formatUnits, keccak256, pad, decodeEventLog } from 'viem';
 import { createViemAdapterFromPrivateKey } from '@circle-fin/adapter-viem-v2';
-import { SwapKit } from '@circle-fin/swap-kit';
+import { SwapKit, getErrorCode } from '@circle-fin/swap-kit';
 import { sendJournaled } from './journal.mjs';
 import { receivedAmount, verifyPaymentReceipt, bridgeSteps, currentBridgeTransaction } from './model.mjs';
 
@@ -198,7 +198,18 @@ export function makeChain(store) {
     },
     async quote(p) {
       await checkNetwork('arc');
-      const result = await kit.estimate(params(p));
+      let result;
+      for (let attempt = 0; attempt < 2; attempt++) {
+        try { result = await kit.estimate(params(p)); break; }
+        catch (error) {
+          // Circle can report a missing testnet route transiently, even after
+          // the SDK's three HTTP attempts. Retry estimates only, with identical
+          // amount/slippage. Never retry signing or silently weaken a minimum.
+          if (getErrorCode(error) !== 1003 || !/No route available/i.test(error.message)) throw error;
+          if (attempt === 1) throw new Error(`Circle could not find a USDC → EURC route on Arc Testnet for ${formatUnits(BigInt(p.fundedAmount ?? p.amount), 6)} USDC. Try again shortly, or create a separate payment with a smaller amount. No tokens were moved by this quote request.`, { cause: error });
+          await new Promise(resolve => setTimeout(resolve, 400));
+        }
+      }
       if (result.estimatedOutput.token !== 'EURC' || result.stopLimit.token !== 'EURC') throw new Error('Unexpected quote currency.');
       const expected = parseUnits(result.estimatedOutput.amount, 6);
       const minimum = parseUnits(result.stopLimit.amount, 6);

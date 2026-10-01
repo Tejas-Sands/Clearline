@@ -2364,11 +2364,20 @@
       "_origin": "ast"
     },
     {
+      "id": "src_testnet_api_friendlytestneterror",
+      "label": "friendlyTestnetError()",
+      "file_type": "code",
+      "source_file": "src/testnet-api.ts",
+      "source_location": "L1",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
       "id": "src_testnet_api_readtestnetresponse",
       "label": "readTestnetResponse()",
       "file_type": "code",
       "source_file": "src/testnet-api.ts",
-      "source_location": "L1",
+      "source_location": "L11",
       "_callable": true,
       "_origin": "ast"
     },
@@ -2480,7 +2489,7 @@
       "label": "setHeader()",
       "file_type": "code",
       "source_file": "tests/testnet-api.test.ts",
-      "source_location": "L32",
+      "source_location": "L48",
       "_callable": true,
       "_origin": "ast"
     },
@@ -2489,7 +2498,7 @@
       "label": "status()",
       "file_type": "code",
       "source_file": "tests/testnet-api.test.ts",
-      "source_location": "L32",
+      "source_location": "L48",
       "_callable": true,
       "_origin": "ast"
     },
@@ -2498,7 +2507,7 @@
       "label": "json()",
       "file_type": "code",
       "source_file": "tests/testnet-api.test.ts",
-      "source_location": "L32",
+      "source_location": "L48",
       "_callable": true,
       "_origin": "ast"
     },
@@ -2583,6 +2592,15 @@
       "file_type": "code",
       "source_file": "tests/testnet-chain.test.ts",
       "source_location": "L21",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_testnet_chain_test_quotehttpfixture",
+      "label": "quoteHttpFixture()",
+      "file_type": "code",
+      "source_file": "tests/testnet-chain.test.ts",
+      "source_location": "L25",
+      "_callable": true,
       "_origin": "ast"
     },
     {
@@ -2920,6 +2938,39 @@
       "description": "Historical unscored sixth option; conditional on usable native privacy, not a validated available opportunity."
     },
     {
+      "id": "readme_document",
+      "label": "Clearline README: current MVP and historical simulation framing",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "readme_historical_stablefx_pilot",
+      "label": "Historical StableFX simulation and pilot framing; optional future provider",
+      "file_type": "concept",
+      "source_file": "README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "readme_simulation_financial_model",
+      "label": "Simulation: 0.915000 EURC/USDC illustrative rate and 0.25 USDC fee",
+      "file_type": "concept",
+      "source_file": "README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
       "id": "docs_build_log_document",
       "label": "Historical simulation build evidence",
       "file_type": "document",
@@ -2941,6 +2992,28 @@
       "author": null,
       "contributor": null,
       "description": "Nine groups passed, browser errors empty, 375px viewport verified; this proves only simulator workflows, not testnet execution."
+    },
+    {
+      "id": "docs_security_documented_rate_limits",
+      "label": "Security document claims: 50 daily global, 5 daily per IP, 10 lifetime per session",
+      "file_type": "concept",
+      "source_file": "docs/SECURITY.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "docs_security_documented_server_signing",
+      "label": "Security document: server-side signing and approved testnet chain isolation",
+      "file_type": "concept",
+      "source_file": "docs/SECURITY.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
     },
     {
       "id": "docs_testnet_build_log_document",
@@ -3074,30 +3147,8 @@
       "contributor": null
     },
     {
-      "id": "readme_document",
-      "label": "Clearline README: current MVP and historical simulation framing",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "docs_project_map_document",
-      "label": "Clearline project map: October update and dated September proof",
-      "file_type": "document",
-      "source_file": "docs/PROJECT_MAP.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "docs_project_map_verification_snapshot",
-      "label": "Historical 2026-09-27 verification: 54 tests, frontend build, simulator and testnet browser checks",
+      "id": "docs_project_map_baseline_hosted_quote_evidence",
+      "label": "Baseline hosted deployment 8a5f400: isolated 3-USDC diagnostic quoted 2.473494 EURC expected, 2.448759 minimum; persisted on reload with zero transactions; no proof of new retry deployment or conversion/payout execution",
       "file_type": "concept",
       "source_file": "docs/PROJECT_MAP.md",
       "source_location": null,
@@ -3107,206 +3158,8 @@
       "contributor": null
     },
     {
-      "id": "docs_project_map_adapter_mismatch",
-      "label": "Resolved viem adapter mismatch: use chain.id rather than chain.chainId",
-      "file_type": "concept",
-      "source_file": "docs/PROJECT_MAP.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "docs_project_map_public_receipt_proof",
-      "label": "Historical 2026-09-27 independent public receipt proof for local signer",
-      "file_type": "concept",
-      "source_file": "docs/PROJECT_MAP.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "agents_durable_submission",
-      "label": "Persist signed transaction bytes and hash before broadcast; recover original submission",
-      "file_type": "concept",
-      "source_file": "AGENTS.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "agents_cctp_v2_attestation_matching",
-      "label": "CCTP V2: immutable burn binding and nonce, finality, fee and expiry bounds",
-      "file_type": "concept",
-      "source_file": "AGENTS.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "docs_project_map_bridge_gas_pending",
-      "label": "Historical 2026-09-27 CCTP-PROOF-001: verified and reconciled; attestation completed",
-      "file_type": "concept",
-      "source_file": "docs/PROJECT_MAP.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "docs_project_map_clearline",
-      "label": "Clearline stablecoin payment operations desk",
-      "file_type": "concept",
-      "source_file": "docs/PROJECT_MAP.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "docs_project_map_simulation",
-      "label": "Simulation workspace: synthetic balances, no chain proof",
-      "file_type": "concept",
-      "source_file": "docs/PROJECT_MAP.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "docs_project_map_testnet_payments",
-      "label": "Testnet payments workspace",
-      "file_type": "concept",
-      "source_file": "docs/PROJECT_MAP.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "docs_project_map_src_app_tsx",
-      "label": "src/App.tsx: workspace navigation",
-      "file_type": "code",
-      "source_file": "docs/PROJECT_MAP.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "docs_project_map_src_useworkspace_ts",
-      "label": "src/useWorkspace.ts: simulation mutation and persistence",
-      "file_type": "code",
-      "source_file": "docs/PROJECT_MAP.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "docs_project_map_src_domain_ts",
-      "label": "src/domain.ts: exact money and simulator transitions",
-      "file_type": "code",
-      "source_file": "docs/PROJECT_MAP.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "docs_project_map_src_storage_ts",
-      "label": "src/storage.ts: simulation saved-state validation",
-      "file_type": "code",
-      "source_file": "docs/PROJECT_MAP.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "docs_project_map_browser_localstorage",
-      "label": "Browser localStorage: simulation persistence",
-      "file_type": "concept",
-      "source_file": "docs/PROJECT_MAP.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "docs_project_map_src_components_testnetpayments_tsx",
-      "label": "src/components/TestnetPayments.tsx: testnet actions and polling",
-      "file_type": "code",
-      "source_file": "docs/PROJECT_MAP.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "docs_project_map_vite_api_testnet_proxy",
-      "label": "Vite /api/testnet proxy",
-      "file_type": "concept",
-      "source_file": "docs/PROJECT_MAP.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "docs_project_map_server_index_mjs",
-      "label": "server/index.mjs: loopback API and process lock",
-      "file_type": "code",
-      "source_file": "docs/PROJECT_MAP.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "docs_project_map_server_security_mjs",
-      "label": "server/security.mjs: Host, Origin and mutation-token checks",
-      "file_type": "code",
-      "source_file": "docs/PROJECT_MAP.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "docs_project_map_server_service_mjs",
-      "label": "server/service.mjs: payment stages, serialization and recovery",
-      "file_type": "code",
-      "source_file": "docs/PROJECT_MAP.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "docs_project_map_server_model_mjs",
-      "label": "server/model.mjs: exact EURC payout receipt validation",
+      "id": "docs_project_map_scripts_verify_testnet_mjs",
+      "label": "scripts/verify-testnet.mjs: read-only public RPC receipt verification",
       "file_type": "code",
       "source_file": "docs/PROJECT_MAP.md",
       "source_location": null,
@@ -3338,6 +3191,28 @@
       "contributor": null
     },
     {
+      "id": "docs_project_map_server_model_mjs",
+      "label": "server/model.mjs: exact EURC payout receipt validation",
+      "file_type": "code",
+      "source_file": "docs/PROJECT_MAP.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "docs_project_map_server_service_mjs",
+      "label": "server/service.mjs: payment stages, serialization and recovery",
+      "file_type": "code",
+      "source_file": "docs/PROJECT_MAP.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
       "id": "docs_project_map_server_store_mjs",
       "label": "server/store.mjs: fsynced atomic local JSON persistence",
       "file_type": "code",
@@ -3349,10 +3224,10 @@
       "contributor": null
     },
     {
-      "id": "docs_project_map_circle_swap_kit_viem",
-      "label": "Circle Swap Kit with viem adapter",
-      "file_type": "concept",
-      "source_file": "docs/PROJECT_MAP.md",
+      "id": "agents_cctp_v2_attestation_matching",
+      "label": "CCTP V2: immutable burn binding and nonce, finality, fee and expiry bounds",
+      "file_type": "rationale",
+      "source_file": "AGENTS.md",
       "source_location": null,
       "source_url": null,
       "captured_at": null,
@@ -3360,10 +3235,22 @@
       "contributor": null
     },
     {
-      "id": "docs_project_map_base_sepolia_cctp_burn",
-      "label": "Base Sepolia USDC CCTP burn: chain 84532, domain 6",
-      "file_type": "concept",
-      "source_file": "docs/PROJECT_MAP.md",
+      "id": "agents_durable_submission",
+      "label": "Persist signed transaction bytes and hash before broadcast; recover original submission",
+      "file_type": "rationale",
+      "source_file": "AGENTS.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Preserve original signed bytes and hash before broadcasting so recovery replays the same transaction or checks its receipt; timeout never authorizes a duplicate transfer."
+    },
+    {
+      "id": "agents_graph_navigation_boundary",
+      "label": "Generated graph is source-derived navigation, not runtime proof",
+      "file_type": "rationale",
+      "source_file": "AGENTS.md",
       "source_location": null,
       "source_url": null,
       "captured_at": null,
@@ -3371,9 +3258,31 @@
       "contributor": null
     },
     {
-      "id": "docs_project_map_circle_sandbox_attestation",
-      "label": "Circle sandbox CCTP V2 attestation",
-      "file_type": "concept",
+      "id": "agents_sensitive_state_exclusion",
+      "label": "Sensitive runtime state and secrets must be excluded from graphs and outputs",
+      "file_type": "rationale",
+      "source_file": "AGENTS.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "agents_testnet_amount_limits",
+      "label": "Payment limits: >0 and <=100 USDC; Base bridge >0.01 USDC",
+      "file_type": "rationale",
+      "source_file": "AGENTS.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "docs_project_map_adapter_mismatch",
+      "label": "Resolved viem adapter mismatch: use chain.id rather than chain.chainId",
+      "file_type": "rationale",
       "source_file": "docs/PROJECT_MAP.md",
       "source_location": null,
       "source_url": null,
@@ -3384,6 +3293,17 @@
     {
       "id": "docs_project_map_arc_cctp_mint",
       "label": "Arc Testnet USDC CCTP mint: chain 5042002, domain 26",
+      "file_type": "concept",
+      "source_file": "docs/PROJECT_MAP.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "docs_project_map_arc_proof_001",
+      "label": "Historical 2026-09-27 ARC-PROOF-001: 1 USDC to 0.822060 EURC paid",
       "file_type": "concept",
       "source_file": "docs/PROJECT_MAP.md",
       "source_location": null,
@@ -3404,8 +3324,74 @@
       "contributor": null
     },
     {
+      "id": "docs_project_map_base_sepolia_cctp_burn",
+      "label": "Base Sepolia USDC CCTP burn: chain 84532, domain 6",
+      "file_type": "concept",
+      "source_file": "docs/PROJECT_MAP.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "docs_project_map_bridge_gas_pending",
+      "label": "Historical 2026-09-27 CCTP-PROOF-001: verified and reconciled; attestation completed",
+      "file_type": "concept",
+      "source_file": "docs/PROJECT_MAP.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "docs_project_map_cctp_proof_001",
+      "label": "Historical 2026-09-27 CCTP-PROOF-001: 1 bridged USDC to 0.822252 EURC paid",
+      "file_type": "concept",
+      "source_file": "docs/PROJECT_MAP.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "docs_project_map_circle_sandbox_attestation",
+      "label": "Circle sandbox CCTP V2 attestation",
+      "file_type": "concept",
+      "source_file": "docs/PROJECT_MAP.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "docs_project_map_circle_swap_kit_viem",
+      "label": "Circle Swap Kit with viem adapter",
+      "file_type": "concept",
+      "source_file": "docs/PROJECT_MAP.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
       "id": "docs_project_map_eurc_recipient_transfer",
       "label": "Separate Arc EURC recipient transfer with exact transfer log",
+      "file_type": "concept",
+      "source_file": "docs/PROJECT_MAP.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "docs_project_map_public_receipt_proof",
+      "label": "Historical 2026-09-27 independent public receipt proof for local signer",
       "file_type": "concept",
       "source_file": "docs/PROJECT_MAP.md",
       "source_location": null,
@@ -3426,8 +3412,19 @@
       "contributor": null
     },
     {
-      "id": "docs_project_map_hosted_vercel_handlers",
-      "label": "Hosted Vercel api/ handlers: separate execution boundary",
+      "id": "docs_project_map_recovery_boundaries",
+      "label": "Recovery: preserve successful burns; confirmed-revert retries tested; batch path unverified",
+      "file_type": "rationale",
+      "source_file": "docs/PROJECT_MAP.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "docs_project_map_testnet_payments",
+      "label": "Testnet payments workspace",
       "file_type": "concept",
       "source_file": "docs/PROJECT_MAP.md",
       "source_location": null,
@@ -3437,9 +3434,31 @@
       "contributor": null
     },
     {
-      "id": "docs_project_map_server_db_mjs",
-      "label": "server/db.mjs: Turso payment persistence",
-      "file_type": "code",
+      "id": "docs_project_map_verification_snapshot",
+      "label": "Historical 2026-09-27 verification: 54 tests, frontend build, simulator and testnet browser checks",
+      "file_type": "concept",
+      "source_file": "docs/PROJECT_MAP.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "docs_project_map_document",
+      "label": "Clearline project map: October update and dated September proof",
+      "file_type": "document",
+      "source_file": "docs/PROJECT_MAP.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "docs_project_map_testnet_proof_json",
+      "label": "docs/TESTNET_PROOF.json: dated independent receipt evidence",
+      "file_type": "document",
       "source_file": "docs/PROJECT_MAP.md",
       "source_location": null,
       "source_url": null,
@@ -3470,9 +3489,86 @@
       "contributor": null
     },
     {
-      "id": "docs_project_map_hosted_execution_safety_gap",
-      "label": "Hosted gap: asynchronous durability, absent account lock, function budget",
-      "file_type": "concept",
+      "id": "docs_project_map_scripts_ui_refresh_smoke_mjs",
+      "label": "scripts/ui-refresh-smoke.mjs: intercepted synthetic UI checks",
+      "file_type": "code",
+      "source_file": "docs/PROJECT_MAP.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "docs_project_map_server_db_mjs",
+      "label": "server/db.mjs: Turso payment persistence",
+      "file_type": "code",
+      "source_file": "docs/PROJECT_MAP.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "docs_project_map_server_index_mjs",
+      "label": "server/index.mjs: loopback API and process lock",
+      "file_type": "code",
+      "source_file": "docs/PROJECT_MAP.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "docs_project_map_server_security_mjs",
+      "label": "server/security.mjs: Host, Origin and mutation-token checks",
+      "file_type": "code",
+      "source_file": "docs/PROJECT_MAP.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "docs_project_map_src_app_tsx",
+      "label": "src/App.tsx: workspace navigation",
+      "file_type": "code",
+      "source_file": "docs/PROJECT_MAP.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "docs_project_map_src_components_testnetpayments_tsx",
+      "label": "src/components/TestnetPayments.tsx: testnet actions and polling",
+      "file_type": "code",
+      "source_file": "docs/PROJECT_MAP.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "docs_project_map_src_domain_ts",
+      "label": "src/domain.ts: exact money and simulator transitions",
+      "file_type": "code",
+      "source_file": "docs/PROJECT_MAP.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "docs_project_map_src_storage_ts",
+      "label": "src/storage.ts: simulation saved-state validation",
+      "file_type": "code",
       "source_file": "docs/PROJECT_MAP.md",
       "source_location": null,
       "source_url": null,
@@ -3492,8 +3588,8 @@
       "contributor": null
     },
     {
-      "id": "docs_project_map_tests_testnet_api_test_ts",
-      "label": "tests/testnet-api.test.ts: credential-free handler and parsing regressions",
+      "id": "docs_project_map_src_useworkspace_ts",
+      "label": "src/useWorkspace.ts: simulation mutation and persistence",
       "file_type": "code",
       "source_file": "docs/PROJECT_MAP.md",
       "source_location": null,
@@ -3503,8 +3599,8 @@
       "contributor": null
     },
     {
-      "id": "docs_project_map_scripts_ui_refresh_smoke_mjs",
-      "label": "scripts/ui-refresh-smoke.mjs: intercepted synthetic UI checks",
+      "id": "docs_project_map_tests_testnet_api_test_ts",
+      "label": "tests/testnet-api.test.ts: credential-free handler and parsing regressions",
       "file_type": "code",
       "source_file": "docs/PROJECT_MAP.md",
       "source_location": null,
@@ -3526,7 +3622,7 @@
     },
     {
       "id": "agents_verification_2026_10_01",
-      "label": "2026-10-01: 60 unit tests, build and browser checks; no new chain actions",
+      "label": "2026-10-01: 67/67 unit tests, frontend build and synthetic testnet UI checks passed; no new chain transactions approved",
       "file_type": "concept",
       "source_file": "AGENTS.md",
       "source_location": null,
@@ -3536,8 +3632,8 @@
       "contributor": null
     },
     {
-      "id": "docs_project_map_arc_proof_001",
-      "label": "Historical 2026-09-27 ARC-PROOF-001: 1 USDC to 0.822060 EURC paid",
+      "id": "docs_project_map_browser_localstorage",
+      "label": "Browser localStorage: simulation persistence",
       "file_type": "concept",
       "source_file": "docs/PROJECT_MAP.md",
       "source_location": null,
@@ -3547,31 +3643,9 @@
       "contributor": null
     },
     {
-      "id": "docs_project_map_cctp_proof_001",
-      "label": "Historical 2026-09-27 CCTP-PROOF-001: 1 bridged USDC to 0.822252 EURC paid",
+      "id": "docs_project_map_clearline",
+      "label": "Clearline stablecoin payment operations desk",
       "file_type": "concept",
-      "source_file": "docs/PROJECT_MAP.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "docs_project_map_testnet_proof_json",
-      "label": "docs/TESTNET_PROOF.json: dated independent receipt evidence",
-      "file_type": "document",
-      "source_file": "docs/PROJECT_MAP.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "docs_project_map_scripts_verify_testnet_mjs",
-      "label": "scripts/verify-testnet.mjs: read-only public RPC receipt verification",
-      "file_type": "code",
       "source_file": "docs/PROJECT_MAP.md",
       "source_location": null,
       "source_url": null,
@@ -3582,6 +3656,29 @@
     {
       "id": "docs_project_map_exact_eurc_invoice_gap",
       "label": "Exact EURC invoices require target amount, spend and fee policy",
+      "file_type": "rationale",
+      "source_file": "docs/PROJECT_MAP.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "docs_project_map_hosted_execution_safety_gap",
+      "label": "Hosted gap: asynchronous durability, absent account lock, function budget",
+      "file_type": "rationale",
+      "source_file": "docs/PROJECT_MAP.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Local signer proof does not establish hosted payout safety: shared handler saves are asynchronous while the journal requires a completed durable save before broadcast; account-wide locking and the 30-second function budget need dedicated validation."
+    },
+    {
+      "id": "docs_project_map_hosted_vercel_handlers",
+      "label": "Hosted Vercel api/ handlers: separate execution boundary",
       "file_type": "concept",
       "source_file": "docs/PROJECT_MAP.md",
       "source_location": null,
@@ -3591,10 +3688,10 @@
       "contributor": null
     },
     {
-      "id": "readme_historical_stablefx_pilot",
-      "label": "Historical StableFX simulation and pilot framing; optional future provider",
+      "id": "docs_project_map_simulation",
+      "label": "Simulation workspace: synthetic balances, no chain proof",
       "file_type": "concept",
-      "source_file": "README.md",
+      "source_file": "docs/PROJECT_MAP.md",
       "source_location": null,
       "source_url": null,
       "captured_at": null,
@@ -3602,10 +3699,10 @@
       "contributor": null
     },
     {
-      "id": "readme_simulation_financial_model",
-      "label": "Simulation: 0.915000 EURC/USDC illustrative rate and 0.25 USDC fee",
+      "id": "docs_project_map_vite_api_testnet_proxy",
+      "label": "Vite /api/testnet proxy",
       "file_type": "concept",
-      "source_file": "README.md",
+      "source_file": "docs/PROJECT_MAP.md",
       "source_location": null,
       "source_url": null,
       "captured_at": null,
@@ -3613,9 +3710,9 @@
       "contributor": null
     },
     {
-      "id": "agents_sensitive_state_exclusion",
-      "label": "Sensitive runtime state and secrets must be excluded from graphs and outputs",
-      "file_type": "concept",
+      "id": "agents_document",
+      "label": "Clearline agent handoff: updated 2026-10-01",
+      "file_type": "document",
       "source_file": "AGENTS.md",
       "source_location": null,
       "source_url": null,
@@ -3624,9 +3721,55 @@
       "contributor": null
     },
     {
-      "id": "agents_graph_navigation_boundary",
-      "label": "Generated graph is source-derived navigation, not runtime proof",
+      "id": "docs_project_map_verification_2026_10_01",
+      "label": "2026-10-01: 67 unit tests, frontend build and synthetic testnet UI smoke passed; September transaction proofs not rerun",
       "file_type": "concept",
+      "source_file": "docs/PROJECT_MAP.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "docs_project_map_intermediate_circle_quote_availability",
+      "label": "Read-only 3-USDC Circle quote: two HTTP 404 No route available responses, then success with identical 100-bps parameters; 2.480473 EURC estimate, 2.455668 minimum",
+      "file_type": "concept",
+      "source_file": "docs/PROJECT_MAP.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "docs_project_map_estimate_only_quote_retry",
+      "label": "One additional estimate-only retry after SDK three HTTP attempts for error 1003 No route available; same amount and 100-bps slippage; no signing, conversion or payout retry",
+      "file_type": "rationale",
+      "source_file": "docs/PROJECT_MAP.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Identical quote parameters succeeded after transient failures, so recovery retries only estimation once; persistent provider failure stops with amount-specific guidance and never broadens signing authority."
+    },
+    {
+      "id": "docs_project_map_swap_stop_limit",
+      "label": "Swap Kit approved minimum output passed as integer base-unit stop-limit string",
+      "file_type": "rationale",
+      "source_file": "docs/PROJECT_MAP.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Match the installed Swap Kit contract while preserving the user's approved minimum output."
+    },
+    {
+      "id": "agents_quote_retry_boundary",
+      "label": "Intermittent 3-USDC quote recovery preserves amount and 100 bps; one additional estimate retry; signing/conversion/payout are not automatically retried",
+      "file_type": "rationale",
       "source_file": "AGENTS.md",
       "source_location": null,
       "source_url": null,
@@ -3635,41 +3778,8 @@
       "contributor": null
     },
     {
-      "id": "docs_security_documented_rate_limits",
-      "label": "Security document claims: 50 daily global, 5 daily per IP, 10 lifetime per session",
-      "file_type": "concept",
-      "source_file": "docs/SECURITY.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "docs_security_documented_server_signing",
-      "label": "Security document: server-side signing and approved testnet chain isolation",
-      "file_type": "concept",
-      "source_file": "docs/SECURITY.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "agents_testnet_amount_limits",
-      "label": "Payment limits: >0 and <=100 USDC; Base bridge >0.01 USDC",
-      "file_type": "concept",
-      "source_file": "AGENTS.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
-      "id": "docs_project_map_recovery_boundaries",
-      "label": "Recovery: preserve successful burns; confirmed-revert retries tested; batch path unverified",
+      "id": "docs_project_map_quote_http_fixture_tests",
+      "label": "Installed SDK HTTP-fixture tests exercise real wire requests, base-unit conversion and Circle error parsing",
       "file_type": "concept",
       "source_file": "docs/PROJECT_MAP.md",
       "source_location": null,
@@ -5899,7 +6009,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.85,
       "source_file": "server/chain.mjs",
-      "source_location": "L215",
+      "source_location": "L230",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -5911,7 +6021,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.85,
       "source_file": "server/chain.mjs",
-      "source_location": "L221",
+      "source_location": "L236",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -5923,7 +6033,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.85,
       "source_file": "server/chain.mjs",
-      "source_location": "L221",
+      "source_location": "L236",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -5935,7 +6045,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.85,
       "source_file": "server/chain.mjs",
-      "source_location": "L221",
+      "source_location": "L236",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -5947,7 +6057,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.85,
       "source_file": "server/chain.mjs",
-      "source_location": "L221",
+      "source_location": "L236",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -8765,6 +8875,17 @@
     },
     {
       "source": "src_components_testnetpayments",
+      "target": "src_testnet_api_friendlytestneterror",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/TestnetPayments.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "src_components_testnetpayments",
       "target": "src_testnet_api_readtestnetresponse",
       "relation": "imports",
       "context": "import",
@@ -8942,7 +9063,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/components/TestnetPayments.tsx",
-      "source_location": "L103",
+      "source_location": "L109",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -8953,7 +9074,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/components/TestnetPayments.tsx",
-      "source_location": "L104",
+      "source_location": "L110",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -8964,7 +9085,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/components/TestnetPayments.tsx",
-      "source_location": "L118",
+      "source_location": "L124",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -8975,7 +9096,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/components/TestnetPayments.tsx",
-      "source_location": "L138",
+      "source_location": "L144",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -9867,11 +9988,21 @@
     },
     {
       "source": "src_testnet_api",
-      "target": "src_testnet_api_readtestnetresponse",
+      "target": "src_testnet_api_friendlytestneterror",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/testnet-api.ts",
       "source_location": "L1",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "src_testnet_api",
+      "target": "src_testnet_api_readtestnetresponse",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/testnet-api.ts",
+      "source_location": "L11",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -10372,7 +10503,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/testnet-api.test.ts",
-      "source_location": "L32",
+      "source_location": "L48",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -10382,7 +10513,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/testnet-api.test.ts",
-      "source_location": "L32",
+      "source_location": "L48",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -10392,7 +10523,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/testnet-api.test.ts",
-      "source_location": "L32",
+      "source_location": "L48",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -10402,7 +10533,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/testnet-api.test.ts",
-      "source_location": "L42",
+      "source_location": "L58",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -10412,7 +10543,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/testnet-api.test.ts",
-      "source_location": "L42",
+      "source_location": "L58",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -10422,7 +10553,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/testnet-api.test.ts",
-      "source_location": "L42",
+      "source_location": "L58",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -10446,7 +10577,7 @@
       "deferred": true,
       "confidence": "EXTRACTED",
       "source_file": "tests/testnet-api.test.ts",
-      "source_location": "L29",
+      "source_location": "L45",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -10458,7 +10589,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.85,
       "source_file": "tests/testnet-api.test.ts",
-      "source_location": "L34",
+      "source_location": "L50",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -10753,12 +10884,44 @@
     },
     {
       "source": "tests_testnet_chain_test",
+      "target": "tests_testnet_chain_test_quotehttpfixture",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/testnet-chain.test.ts",
+      "source_location": "L25",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_testnet_chain_test_quotehttpfixture",
       "target": "tests_testnet_chain_test_fixture",
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/testnet-chain.test.ts",
-      "source_location": "L24",
+      "source_location": "L26",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_testnet_chain_test",
+      "target": "tests_testnet_chain_test_quotehttpfixture",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/testnet-chain.test.ts",
+      "source_location": "L50",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_testnet_chain_test",
+      "target": "tests_testnet_chain_test_fixture",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/testnet-chain.test.ts",
+      "source_location": "L94",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -12048,6 +12211,17 @@
       "_origin": "ast"
     },
     {
+      "source": "src_components_testnetpayments_testnetpayments",
+      "target": "src_testnet_api_friendlytestneterror",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/TestnetPayments.tsx",
+      "source_location": "L96",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
       "source": "src_csv_parseimport",
       "target": "src_domain_validateinput",
       "relation": "calls",
@@ -12446,7 +12620,7 @@
     },
     {
       "source": "tests_testnet_api_test",
-      "target": "src_testnet_api_readtestnetresponse",
+      "target": "src_testnet_api_friendlytestneterror",
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
@@ -12458,13 +12632,25 @@
     },
     {
       "source": "tests_testnet_api_test",
+      "target": "src_testnet_api_readtestnetresponse",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "tests/testnet-api.test.ts",
+      "source_location": "L22",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_testnet_api_test",
       "target": "api_testnet_payments_action_handler",
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "tests/testnet-api.test.ts",
-      "source_location": "L33",
+      "source_location": "L49",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -12476,7 +12662,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.85,
       "source_file": "tests/testnet-api.test.ts",
-      "source_location": "L35",
+      "source_location": "L51",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -12575,6 +12761,36 @@
       "weight": 1.0
     },
     {
+      "source": "readme_document",
+      "target": "docs_project_map_document",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/README.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "readme_historical_stablefx_pilot",
+      "target": "docs_project_map_clearline",
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/README.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "readme_simulation_financial_model",
+      "target": "docs_project_map_simulation",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/README.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
       "source": "docs_build_log_document",
       "target": "docs_superpowers_plans_2026_09_27_clearline_document",
       "relation": "references",
@@ -12603,6 +12819,26 @@
       "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/BUILD_LOG.md",
       "source_location": null,
       "weight": 1.0
+    },
+    {
+      "source": "docs_security_documented_rate_limits",
+      "target": "docs_project_map_server_db_mjs",
+      "relation": "references",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/SECURITY.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_security_documented_server_signing",
+      "target": "docs_project_map_testnet_payments",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/SECURITY.md",
+      "source_location": null,
+      "weight": 1
     },
     {
       "source": "docs_testnet_build_log_document",
@@ -12815,52 +13051,22 @@
       "weight": 1.0
     },
     {
-      "source": "readme_document",
-      "target": "docs_project_map_document",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1,
-      "source_file": "/home/citrux/Sides/chained_blocks/arc/README.md",
-      "source_location": null,
-      "weight": 1
-    },
-    {
       "source": "docs_project_map_document",
-      "target": "docs_project_map_verification_snapshot",
+      "target": "docs_project_map_baseline_hosted_quote_evidence",
       "relation": "references",
       "confidence": "EXTRACTED",
-      "confidence_score": 1,
+      "confidence_score": 1.0,
       "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
       "source_location": null,
-      "weight": 1
+      "weight": 1.0
     },
     {
-      "source": "docs_project_map_document",
-      "target": "docs_project_map_public_receipt_proof",
+      "source": "agents_cctp_v2_attestation_matching",
+      "target": "docs_project_map_circle_sandbox_attestation",
       "relation": "references",
       "confidence": "EXTRACTED",
       "confidence_score": 1,
-      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
-      "source_location": null,
-      "weight": 1
-    },
-    {
-      "source": "docs_project_map_adapter_mismatch",
-      "target": "docs_project_map_circle_swap_kit_viem",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1,
-      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
-      "source_location": null,
-      "weight": 1
-    },
-    {
-      "source": "docs_project_map_public_receipt_proof",
-      "target": "docs_project_map_testnet_proof_json",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1,
-      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/AGENTS.md",
       "source_location": null,
       "weight": 1
     },
@@ -12875,8 +13081,8 @@
       "weight": 1
     },
     {
-      "source": "agents_cctp_v2_attestation_matching",
-      "target": "docs_project_map_circle_sandbox_attestation",
+      "source": "agents_graph_navigation_boundary",
+      "target": "docs_project_map_testnet_proof_json",
       "relation": "references",
       "confidence": "EXTRACTED",
       "confidence_score": 1,
@@ -12885,482 +13091,32 @@
       "weight": 1
     },
     {
-      "source": "docs_project_map_bridge_gas_pending",
-      "target": "docs_project_map_cctp_proof_001",
+      "source": "agents_sensitive_state_exclusion",
+      "target": "agents_graph_navigation_boundary",
       "relation": "references",
       "confidence": "EXTRACTED",
       "confidence_score": 1,
-      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/AGENTS.md",
       "source_location": null,
       "weight": 1
     },
     {
-      "source": "docs_project_map_clearline",
-      "target": "docs_project_map_simulation",
+      "source": "agents_testnet_amount_limits",
+      "target": "docs_project_map_base_sepolia_cctp_burn",
       "relation": "references",
       "confidence": "EXTRACTED",
       "confidence_score": 1,
-      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/AGENTS.md",
       "source_location": null,
       "weight": 1
     },
     {
-      "source": "docs_project_map_clearline",
+      "source": "agents_testnet_amount_limits",
       "target": "docs_project_map_testnet_payments",
       "relation": "references",
       "confidence": "EXTRACTED",
       "confidence_score": 1,
-      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
-      "source_location": null,
-      "weight": 1
-    },
-    {
-      "source": "docs_project_map_src_app_tsx",
-      "target": "docs_project_map_simulation",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1,
-      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
-      "source_location": null,
-      "weight": 1
-    },
-    {
-      "source": "docs_project_map_src_app_tsx",
-      "target": "docs_project_map_src_components_testnetpayments_tsx",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1,
-      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
-      "source_location": null,
-      "weight": 1
-    },
-    {
-      "source": "docs_project_map_simulation",
-      "target": "docs_project_map_src_useworkspace_ts",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1,
-      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
-      "source_location": null,
-      "weight": 1
-    },
-    {
-      "source": "docs_project_map_src_useworkspace_ts",
-      "target": "docs_project_map_src_domain_ts",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1,
-      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
-      "source_location": null,
-      "weight": 1
-    },
-    {
-      "source": "docs_project_map_src_useworkspace_ts",
-      "target": "docs_project_map_src_storage_ts",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1,
-      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
-      "source_location": null,
-      "weight": 1
-    },
-    {
-      "source": "docs_project_map_src_storage_ts",
-      "target": "docs_project_map_browser_localstorage",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1,
-      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
-      "source_location": null,
-      "weight": 1
-    },
-    {
-      "source": "docs_project_map_testnet_payments",
-      "target": "docs_project_map_src_components_testnetpayments_tsx",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1,
-      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
-      "source_location": null,
-      "weight": 1
-    },
-    {
-      "source": "docs_project_map_src_components_testnetpayments_tsx",
-      "target": "docs_project_map_vite_api_testnet_proxy",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1,
-      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
-      "source_location": null,
-      "weight": 1
-    },
-    {
-      "source": "docs_project_map_vite_api_testnet_proxy",
-      "target": "docs_project_map_server_index_mjs",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1,
-      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
-      "source_location": null,
-      "weight": 1
-    },
-    {
-      "source": "docs_project_map_server_index_mjs",
-      "target": "docs_project_map_server_security_mjs",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1,
-      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
-      "source_location": null,
-      "weight": 1
-    },
-    {
-      "source": "docs_project_map_server_index_mjs",
-      "target": "docs_project_map_server_service_mjs",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1,
-      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
-      "source_location": null,
-      "weight": 1
-    },
-    {
-      "source": "docs_project_map_server_service_mjs",
-      "target": "docs_project_map_server_model_mjs",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1,
-      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
-      "source_location": null,
-      "weight": 1
-    },
-    {
-      "source": "docs_project_map_server_service_mjs",
-      "target": "docs_project_map_server_chain_mjs",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1,
-      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
-      "source_location": null,
-      "weight": 1
-    },
-    {
-      "source": "docs_project_map_server_service_mjs",
-      "target": "docs_project_map_server_store_mjs",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1,
-      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
-      "source_location": null,
-      "weight": 1
-    },
-    {
-      "source": "docs_project_map_server_chain_mjs",
-      "target": "docs_project_map_server_journal_mjs",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1,
-      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
-      "source_location": null,
-      "weight": 1
-    },
-    {
-      "source": "docs_project_map_server_journal_mjs",
-      "target": "docs_project_map_server_store_mjs",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1,
-      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
-      "source_location": null,
-      "weight": 1
-    },
-    {
-      "source": "docs_project_map_server_chain_mjs",
-      "target": "docs_project_map_circle_swap_kit_viem",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1,
-      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
-      "source_location": null,
-      "weight": 1
-    },
-    {
-      "source": "docs_project_map_server_chain_mjs",
-      "target": "docs_project_map_base_sepolia_cctp_burn",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1,
-      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
-      "source_location": null,
-      "weight": 1
-    },
-    {
-      "source": "docs_project_map_base_sepolia_cctp_burn",
-      "target": "docs_project_map_circle_sandbox_attestation",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1,
-      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
-      "source_location": null,
-      "weight": 1
-    },
-    {
-      "source": "docs_project_map_circle_sandbox_attestation",
-      "target": "docs_project_map_arc_cctp_mint",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1,
-      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
-      "source_location": null,
-      "weight": 1
-    },
-    {
-      "source": "docs_project_map_circle_swap_kit_viem",
-      "target": "docs_project_map_arc_usdc_eurc_conversion",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1,
-      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
-      "source_location": null,
-      "weight": 1
-    },
-    {
-      "source": "docs_project_map_arc_usdc_eurc_conversion",
-      "target": "docs_project_map_eurc_recipient_transfer",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1,
-      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
-      "source_location": null,
-      "weight": 1
-    },
-    {
-      "source": "docs_project_map_eurc_recipient_transfer",
-      "target": "docs_project_map_reconciliation",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1,
-      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
-      "source_location": null,
-      "weight": 1
-    },
-    {
-      "source": "docs_project_map_server_model_mjs",
-      "target": "docs_project_map_eurc_recipient_transfer",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1,
-      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
-      "source_location": null,
-      "weight": 1
-    },
-    {
-      "source": "docs_project_map_clearline",
-      "target": "docs_project_map_hosted_vercel_handlers",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1,
-      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
-      "source_location": null,
-      "weight": 1
-    },
-    {
-      "source": "docs_project_map_hosted_vercel_handlers",
-      "target": "docs_project_map_server_db_mjs",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1,
-      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
-      "source_location": null,
-      "weight": 1
-    },
-    {
-      "source": "docs_project_map_hosted_vercel_handlers",
-      "target": "docs_project_map_api_testnet_payments_action_mjs",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1,
-      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
-      "source_location": null,
-      "weight": 1
-    },
-    {
-      "source": "docs_project_map_hosted_vercel_handlers",
-      "target": "docs_project_map_api_testnet_payments_shared_mjs",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1,
-      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
-      "source_location": null,
-      "weight": 1
-    },
-    {
-      "source": "docs_project_map_api_testnet_payments_shared_mjs",
-      "target": "docs_project_map_hosted_execution_safety_gap",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1,
-      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
-      "source_location": null,
-      "weight": 1
-    },
-    {
-      "source": "docs_project_map_server_journal_mjs",
-      "target": "docs_project_map_hosted_execution_safety_gap",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1,
-      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
-      "source_location": null,
-      "weight": 1
-    },
-    {
-      "source": "docs_project_map_api_testnet_payments_action_mjs",
-      "target": "docs_project_map_hosted_execution_safety_gap",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1,
-      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
-      "source_location": null,
-      "weight": 1
-    },
-    {
-      "source": "docs_project_map_tests_testnet_api_test_ts",
-      "target": "docs_project_map_api_testnet_payments_action_mjs",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1,
-      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
-      "source_location": null,
-      "weight": 1
-    },
-    {
-      "source": "docs_project_map_tests_testnet_api_test_ts",
-      "target": "docs_project_map_src_testnet_api_ts",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1,
-      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
-      "source_location": null,
-      "weight": 1
-    },
-    {
-      "source": "docs_project_map_src_components_testnetpayments_tsx",
-      "target": "docs_project_map_src_testnet_api_ts",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1,
-      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
-      "source_location": null,
-      "weight": 1
-    },
-    {
-      "source": "docs_project_map_scripts_ui_refresh_smoke_mjs",
-      "target": "docs_project_map_src_components_testnetpayments_tsx",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1,
-      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
-      "source_location": null,
-      "weight": 1
-    },
-    {
-      "source": "docs_project_map_arc_proof_001",
-      "target": "docs_project_map_testnet_proof_json",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1,
-      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
-      "source_location": null,
-      "weight": 1
-    },
-    {
-      "source": "docs_project_map_cctp_proof_001",
-      "target": "docs_project_map_testnet_proof_json",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1,
-      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
-      "source_location": null,
-      "weight": 1
-    },
-    {
-      "source": "docs_project_map_scripts_verify_testnet_mjs",
-      "target": "docs_project_map_testnet_proof_json",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1,
-      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
-      "source_location": null,
-      "weight": 1
-    },
-    {
-      "source": "docs_project_map_arc_proof_001",
-      "target": "docs_project_map_eurc_recipient_transfer",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1,
-      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
-      "source_location": null,
-      "weight": 1
-    },
-    {
-      "source": "docs_project_map_cctp_proof_001",
-      "target": "docs_project_map_base_sepolia_cctp_burn",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1,
-      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
-      "source_location": null,
-      "weight": 1
-    },
-    {
-      "source": "docs_project_map_cctp_proof_001",
-      "target": "docs_project_map_arc_cctp_mint",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1,
-      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
-      "source_location": null,
-      "weight": 1
-    },
-    {
-      "source": "docs_project_map_cctp_proof_001",
-      "target": "docs_project_map_eurc_recipient_transfer",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1,
-      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
-      "source_location": null,
-      "weight": 1
-    },
-    {
-      "source": "docs_project_map_clearline",
-      "target": "docs_project_map_exact_eurc_invoice_gap",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1,
-      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
-      "source_location": null,
-      "weight": 1
-    },
-    {
-      "source": "docs_project_map_server_chain_mjs",
-      "target": "docs_project_map_recovery_boundaries",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1,
-      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
-      "source_location": null,
-      "weight": 1
-    },
-    {
-      "source": "docs_project_map_server_service_mjs",
-      "target": "docs_project_map_recovery_boundaries",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1,
-      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/AGENTS.md",
       "source_location": null,
       "weight": 1
     },
@@ -13395,81 +13151,701 @@
       "weight": 1
     },
     {
-      "source": "readme_historical_stablefx_pilot",
-      "target": "docs_project_map_clearline",
-      "relation": "conceptually_related_to",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1,
-      "source_file": "/home/citrux/Sides/chained_blocks/arc/README.md",
-      "source_location": null,
-      "weight": 1
-    },
-    {
-      "source": "readme_simulation_financial_model",
-      "target": "docs_project_map_simulation",
+      "source": "docs_project_map_adapter_mismatch",
+      "target": "docs_project_map_circle_swap_kit_viem",
       "relation": "references",
       "confidence": "EXTRACTED",
       "confidence_score": 1,
-      "source_file": "/home/citrux/Sides/chained_blocks/arc/README.md",
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
       "source_location": null,
       "weight": 1
     },
     {
-      "source": "agents_sensitive_state_exclusion",
-      "target": "agents_graph_navigation_boundary",
+      "source": "docs_project_map_api_testnet_payments_action_mjs",
+      "target": "docs_project_map_hosted_execution_safety_gap",
       "relation": "references",
       "confidence": "EXTRACTED",
       "confidence_score": 1,
-      "source_file": "/home/citrux/Sides/chained_blocks/arc/AGENTS.md",
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
       "source_location": null,
       "weight": 1
     },
     {
-      "source": "agents_graph_navigation_boundary",
+      "source": "docs_project_map_api_testnet_payments_shared_mjs",
+      "target": "docs_project_map_hosted_execution_safety_gap",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_arc_proof_001",
+      "target": "docs_project_map_eurc_recipient_transfer",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_arc_proof_001",
       "target": "docs_project_map_testnet_proof_json",
       "relation": "references",
       "confidence": "EXTRACTED",
       "confidence_score": 1,
-      "source_file": "/home/citrux/Sides/chained_blocks/arc/AGENTS.md",
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
       "source_location": null,
       "weight": 1
     },
     {
-      "source": "docs_security_documented_rate_limits",
-      "target": "docs_project_map_server_db_mjs",
-      "relation": "references",
-      "confidence": "INFERRED",
-      "confidence_score": 0.85,
-      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/SECURITY.md",
-      "source_location": null,
-      "weight": 1
-    },
-    {
-      "source": "docs_security_documented_server_signing",
-      "target": "docs_project_map_testnet_payments",
+      "source": "docs_project_map_arc_usdc_eurc_conversion",
+      "target": "docs_project_map_eurc_recipient_transfer",
       "relation": "references",
       "confidence": "EXTRACTED",
       "confidence_score": 1,
-      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/SECURITY.md",
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
       "source_location": null,
       "weight": 1
     },
     {
-      "source": "agents_testnet_amount_limits",
+      "source": "docs_project_map_base_sepolia_cctp_burn",
+      "target": "docs_project_map_circle_sandbox_attestation",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_bridge_gas_pending",
+      "target": "docs_project_map_cctp_proof_001",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_cctp_proof_001",
+      "target": "docs_project_map_arc_cctp_mint",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_cctp_proof_001",
       "target": "docs_project_map_base_sepolia_cctp_burn",
       "relation": "references",
       "confidence": "EXTRACTED",
       "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_cctp_proof_001",
+      "target": "docs_project_map_eurc_recipient_transfer",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_cctp_proof_001",
+      "target": "docs_project_map_testnet_proof_json",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_circle_sandbox_attestation",
+      "target": "docs_project_map_arc_cctp_mint",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_circle_swap_kit_viem",
+      "target": "docs_project_map_arc_usdc_eurc_conversion",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_clearline",
+      "target": "docs_project_map_exact_eurc_invoice_gap",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_clearline",
+      "target": "docs_project_map_hosted_vercel_handlers",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_clearline",
+      "target": "docs_project_map_simulation",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_clearline",
+      "target": "docs_project_map_testnet_payments",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_document",
+      "target": "docs_project_map_public_receipt_proof",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_document",
+      "target": "docs_project_map_verification_snapshot",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_eurc_recipient_transfer",
+      "target": "docs_project_map_reconciliation",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_hosted_vercel_handlers",
+      "target": "docs_project_map_api_testnet_payments_action_mjs",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_hosted_vercel_handlers",
+      "target": "docs_project_map_api_testnet_payments_shared_mjs",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_hosted_vercel_handlers",
+      "target": "docs_project_map_server_db_mjs",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_public_receipt_proof",
+      "target": "docs_project_map_testnet_proof_json",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_scripts_ui_refresh_smoke_mjs",
+      "target": "docs_project_map_src_components_testnetpayments_tsx",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_scripts_verify_testnet_mjs",
+      "target": "docs_project_map_testnet_proof_json",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_server_chain_mjs",
+      "target": "docs_project_map_base_sepolia_cctp_burn",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_server_chain_mjs",
+      "target": "docs_project_map_circle_swap_kit_viem",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_server_chain_mjs",
+      "target": "docs_project_map_recovery_boundaries",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_server_chain_mjs",
+      "target": "docs_project_map_server_journal_mjs",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_server_index_mjs",
+      "target": "docs_project_map_server_security_mjs",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_server_index_mjs",
+      "target": "docs_project_map_server_service_mjs",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_server_journal_mjs",
+      "target": "docs_project_map_hosted_execution_safety_gap",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_server_journal_mjs",
+      "target": "docs_project_map_server_store_mjs",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_server_model_mjs",
+      "target": "docs_project_map_eurc_recipient_transfer",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_server_service_mjs",
+      "target": "docs_project_map_recovery_boundaries",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_server_service_mjs",
+      "target": "docs_project_map_server_chain_mjs",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_server_service_mjs",
+      "target": "docs_project_map_server_model_mjs",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_server_service_mjs",
+      "target": "docs_project_map_server_store_mjs",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_simulation",
+      "target": "docs_project_map_src_useworkspace_ts",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_src_app_tsx",
+      "target": "docs_project_map_simulation",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_src_app_tsx",
+      "target": "docs_project_map_src_components_testnetpayments_tsx",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_src_components_testnetpayments_tsx",
+      "target": "docs_project_map_src_testnet_api_ts",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_src_components_testnetpayments_tsx",
+      "target": "docs_project_map_vite_api_testnet_proxy",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_src_storage_ts",
+      "target": "docs_project_map_browser_localstorage",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_src_useworkspace_ts",
+      "target": "docs_project_map_src_domain_ts",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_src_useworkspace_ts",
+      "target": "docs_project_map_src_storage_ts",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_testnet_payments",
+      "target": "docs_project_map_src_components_testnetpayments_tsx",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_tests_testnet_api_test_ts",
+      "target": "docs_project_map_api_testnet_payments_action_mjs",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_tests_testnet_api_test_ts",
+      "target": "docs_project_map_src_testnet_api_ts",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_vite_api_testnet_proxy",
+      "target": "docs_project_map_server_index_mjs",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "agents_document",
+      "target": "docs_project_map_document",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
       "source_file": "/home/citrux/Sides/chained_blocks/arc/AGENTS.md",
       "source_location": null,
       "weight": 1
     },
     {
-      "source": "agents_testnet_amount_limits",
-      "target": "docs_project_map_testnet_payments",
+      "source": "agents_document",
+      "target": "agents_durable_submission",
       "relation": "references",
       "confidence": "EXTRACTED",
       "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/AGENTS.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "agents_document",
+      "target": "agents_cctp_v2_attestation_matching",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/AGENTS.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "agents_document",
+      "target": "agents_verification_2026_10_01",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/AGENTS.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "agents_document",
+      "target": "agents_quote_retry_boundary",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/AGENTS.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "agents_document",
+      "target": "docs_project_map_hosted_execution_safety_gap",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/AGENTS.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_document",
+      "target": "docs_project_map_verification_2026_10_01",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_document",
+      "target": "docs_project_map_intermediate_circle_quote_availability",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_document",
+      "target": "docs_project_map_estimate_only_quote_retry",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_document",
+      "target": "docs_project_map_hosted_execution_safety_gap",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_server_chain_mjs",
+      "target": "docs_project_map_estimate_only_quote_retry",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_server_chain_mjs",
+      "target": "docs_project_map_swap_stop_limit",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_estimate_only_quote_retry",
+      "target": "docs_project_map_intermediate_circle_quote_availability",
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_estimate_only_quote_retry",
+      "target": "docs_project_map_quote_http_fixture_tests",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_verification_2026_10_01",
+      "target": "docs_project_map_scripts_ui_refresh_smoke_mjs",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_verification_2026_10_01",
+      "target": "docs_project_map_quote_http_fixture_tests",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "agents_quote_retry_boundary",
+      "target": "docs_project_map_estimate_only_quote_retry",
+      "relation": "semantically_similar_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/AGENTS.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "agents_verification_2026_10_01",
+      "target": "docs_project_map_verification_2026_10_01",
+      "relation": "semantically_similar_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
       "source_file": "/home/citrux/Sides/chained_blocks/arc/AGENTS.md",
       "source_location": null,
       "weight": 1

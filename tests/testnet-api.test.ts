@@ -1,6 +1,22 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
+test('route errors offer quote recovery instead of a raw provider exception', async () => {
+  const { friendlyTestnetError } = await import('../src/testnet-api.ts');
+  const message = friendlyTestnetError('Stablecoin Service createSwap failed: Route or resource not found. Details: No route available');
+  assert.match(message, /testnet.*route/i);
+  assert.match(message, /quote.*again/i);
+  assert.doesNotMatch(message, /createSwap|private key|not moved/i);
+});
+
+test('slippage guidance does not claim funds were untouched without receipt evidence', async () => {
+  const { friendlyTestnetError } = await import('../src/testnet-api.ts');
+  const message = friendlyTestnetError('Unable to calculate slippage for the requested stop limit');
+  assert.match(message, /minimum.*EURC/i);
+  assert.match(message, /status/i);
+  assert.doesNotMatch(message, /not moved|pool moved/i);
+});
+
 test('plain-text server failures show HTTP status instead of a JSON parsing error', async () => {
   const { readTestnetResponse } = await import('../src/testnet-api.ts');
   await assert.rejects(readTestnetResponse(new Response('A server error has occurred', { status: 500 })), error => {

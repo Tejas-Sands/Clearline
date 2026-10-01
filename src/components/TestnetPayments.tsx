@@ -2,7 +2,7 @@ import { useEffect, useState, type ReactNode } from 'react';
 import { ArrowDownToLine, ArrowRight, ArrowUpRight, Check, CheckCheck, CircleAlert, Copy, ExternalLink, LoaderCircle, Plus, RefreshCw, Wallet, X } from 'lucide-react';
 import { displayMoney } from '../domain.ts';
 import { downloadFile } from '../csv.ts';
-import { readTestnetResponse } from '../testnet-api.ts';
+import { friendlyTestnetError, readTestnetResponse } from '../testnet-api.ts';
 
 type Tx = { hash: string; step: string; chain: 'arc' | 'base'; status: string; blockNumber?: string };
 type LivePayment = {
@@ -93,10 +93,7 @@ export function TestnetPayments() {
   const active = snapshot?.payments.find(p => p.id === selected) ?? snapshot?.payments[0];
   const disabled = !!working || !!snapshot?.busy;
   const visibleError = error || connectionError;
-  const friendlyMessage = (message: string) => /slippage|stop limit/i.test(message)
-    ? 'The live pool moved while the swap was being prepared. Your approved amount was not moved. Request a fresh quote and try again.'
-    : message;
-  const friendlyError = friendlyMessage(visibleError);
+  const friendlyError = friendlyTestnetError(visibleError);
   const pendingAction = working || snapshot?.busy?.action || '';
   const isActionLoading = (...actions: string[]) => actions.includes(pendingAction);
   const actionIcon = (actions: string[], fallback: ReactNode) => isActionLoading(...actions)
@@ -133,7 +130,7 @@ export function TestnetPayments() {
           <div className="next-step"><strong>{quoteExpired && active.status === 'quoted' ? 'Your quote expired. Get a fresh one.' : guidance[active.status]?.[0]}</strong><p>{quoteExpired && active.status === 'quoted' ? 'Quotes last 60 seconds. Refresh to review the latest output before approving.' : guidance[active.status]?.[1]}</p>{active.source === 'arc' && active.status === 'funded' && <p>Check the Arc wallet balance above covers your amount plus network fees.</p>}</div>
           <dl className="detail-facts"><div><dt>You send</dt><dd>{displayMoney(active.amount)} USDC</dd></div>{active.fundedAmount && <div><dt>Arrived after bridge fees</dt><dd>{displayMoney(active.fundedAmount)} USDC</dd></div>}<div><dt>Recipient wallet</dt><dd className="live-recipient">{active.recipient}</dd></div>{active.outputAmount && <div><dt>Converted amount</dt><dd>{displayMoney(active.outputAmount)} EURC</dd></div>}</dl>
           {active.quote && ['quoted','swapping'].includes(active.status) && <div className="live-quote"><span className="eyebrow">LIVE TESTNET ESTIMATE</span><h3>{displayMoney(active.quote.expected)} EURC</h3><p>Minimum approved output: <strong>{displayMoney(active.quote.minimum)} EURC</strong></p><p>{now >= active.quote.expiresAt ? 'Approval expired — request a fresh quote.' : `Approve within ${Math.max(0, Math.ceil((active.quote.expiresAt - now) / 1000))}s`}</p><ul>{active.quote.fees.map((fee, i) => <li key={i}>{fee.type ?? 'Provider'} fee: {fee.amount} {fee.token}</li>)}</ul></div>}
-          {active.error && <div className="notice error" role="alert"><CircleAlert size={19} /><span>{friendlyMessage(active.error)}</span></div>}
+          {active.error && <div className="notice error" role="alert"><CircleAlert size={19} /><span>{friendlyTestnetError(active.error)}</span></div>}
           <div className="live-actions">
             {active.status === 'created' && <><p>CCTP burns the source USDC and mints it on Arc. Allow up to 0.01 USDC protocol fee plus network gas; standard attestation can take several minutes.</p><button className="button primary full" disabled={disabled} aria-busy={isActionLoading('bridge')} onClick={() => void post(`/payments/${active.id}/bridge`)}>{actionIcon(['bridge'], <ArrowRight size={16} />)}Approve CCTP funding</button></>}
             {['funded','quoted'].includes(active.status) && <button className={`button ${active.status === 'funded' || quoteExpired ? 'primary' : 'secondary'} full`} disabled={disabled} aria-busy={isActionLoading('quote')} onClick={() => void post(`/payments/${active.id}/quote`)}>{actionIcon(['quote'], <ArrowRight size={16} />)}{active.quote ? 'Refresh quote' : 'Get live swap quote'}</button>}
