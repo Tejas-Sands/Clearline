@@ -34,7 +34,7 @@ const steps = [
     number: '05',
     label: 'Reconcile',
     description: 'Each transaction hash is independently verifiable. Match the payment to its invoice and export.',
-    token: '✓',
+    token: 'Matched',
     color: 'step-settled',
   },
 ];
@@ -58,7 +58,7 @@ const proofs = [
   },
 ];
 
-export function Landing({ onDemo, onProof }: { onDemo: () => void; onProof: () => void }) {
+export function Landing({ onDemo, onProof, onTestnet }: { onDemo: () => void; onProof: () => void; onTestnet: () => void }) {
   return (
     <div className="landing">
       {/* Nav */}
@@ -78,20 +78,21 @@ export function Landing({ onDemo, onProof }: { onDemo: () => void; onProof: () =
             Arc Testnet · two reconciled payments verified onchain
           </div>
           <h1 className="landing-h1">
-            Stablecoin invoice<br />
-            payments, <em>end to end</em>.
+            Your payments.<br />
+            A little <em>more clarity</em>.
           </h1>
           <p className="landing-subtitle">
-            Clearline moves supplier invoices from obligation to settled EURC recipient payment — with every bridge, conversion, and payout independently verifiable onchain.
+            Send USDC, convert to EURC, and pay your recipient. Clearline guides you from the first invoice to the final matched record, one clear step at a time.
           </p>
           <div className="landing-hero-actions">
-            <button className="button primary landing-cta" id="try-demo-btn" onClick={onDemo}>
-              Try the guided demo <ArrowRight size={18} />
+            <button className="button primary landing-cta" onClick={onTestnet}>
+              Make a testnet payment <ArrowRight size={18} aria-hidden="true" />
             </button>
-            <button className="landing-proof-link" onClick={onProof}>
-              View verified transactions <ArrowUpRight size={16} />
+            <button className="button secondary landing-cta" id="try-demo-btn" onClick={onDemo}>
+              Explore the simulation <ArrowUpRight size={16} aria-hidden="true" />
             </button>
           </div>
+          <p className="landing-start-hint">New here? The simulation works instantly. Testnet payments use free test tokens.</p>
           <div className="landing-stats">
             <div className="landing-stat">
               <strong>2</strong>

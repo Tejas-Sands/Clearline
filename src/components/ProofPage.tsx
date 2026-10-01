@@ -131,7 +131,7 @@ export function ProofPage({ onBack }: { onBack: () => void }) {
               <span className="proof-route">{routeLabel(payment.source)}</span>
             </div>
 
-            <div className="proof-summary-grid">
+            <dl className="proof-summary-grid">
               <div className="proof-summary-item">
                 <dt>Source input</dt>
                 <dd>{payment.sourceUSDC} USDC</dd>
@@ -158,7 +158,7 @@ export function ProofPage({ onBack }: { onBack: () => void }) {
                 <dt>Recipient</dt>
                 <dd className="proof-addr">{shortAddr(payment.recipient)}</dd>
               </div>
-            </div>
+            </dl>
 
             <h3 className="proof-tx-heading">Transaction receipts</h3>
             <div className="proof-tx-list">

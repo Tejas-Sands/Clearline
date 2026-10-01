@@ -26,7 +26,7 @@ const pause = ms => new Promise(resolve => setTimeout(resolve, ms));
 const passed = message => console.log(`PASS ${message}`);
 
 try {
-  browser('open', origin);
+  browser('open', `${origin}/#overview`);
   browser('set', 'viewport', '1440', '1000');
   browser('snapshot', '-i');
   assert.equal(evaluate('document.querySelector("h1").textContent'), 'Settlement overview');

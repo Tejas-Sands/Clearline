@@ -1,13 +1,1 @@
-{
-  "0": "App.tsx",
-  "1": "Current architecture and evidence map",
-  "2": "server/index.mjs",
-  "3": "chain.mjs",
-  "4": "package.json",
-  "5": "domain.ts",
-  "6": "compilerOptions",
-  "7": "payments/index.mjs",
-  "8": "Historical six-opportunity shortlist",
-  "9": "ProofPage.tsx",
-  "10": "api/**/*.mjs"
-}
+{"0": "Simulation workspace and money", "1": "Chain execution and validation", "2": "Historical plans and proof", "3": "Local signer and recovery", "4": "Hosted API and database", "5": "Current architecture and boundaries", "6": "Testnet UI and responses", "7": "TypeScript configuration", "8": "Simulator browser checks", "9": "Package integration references", "10": "Public transaction proof UI", "11": "Runtime dependencies", "12": "Development and test scripts", "13": "Build tool dependencies", "14": "React HTML entry point", "15": "Vercel function configuration", "16": "Dependency compatibility overrides", "17": "Node runtime requirement"}

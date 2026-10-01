@@ -6,6 +6,13 @@
       "input_tokens": null,
       "output_tokens": null,
       "note": "Host-session semantic extraction was not metered; no external semantic API used."
+    },
+    {
+      "date": "2026-10-01T07:58:43.209280+00:00",
+      "input_tokens": null,
+      "output_tokens": null,
+      "token_usage_available": false,
+      "files": 60
     }
   ],
   "total_input_tokens": null,

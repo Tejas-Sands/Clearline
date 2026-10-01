@@ -7,8 +7,8 @@
 // Circle's attestation API and advances when ready — no function timeout issue.
 import { ensureSchema, loadPayment, savePayment } from '../../../server/db.mjs';
 import { assertAction, publicPayment } from '../../../server/model.mjs';
-import { authorizeVercelRequest, getSessionId } from '../../../_auth.mjs';
-import { makeDbStore, cleanError } from '../_shared.mjs';
+import { authorizeVercelRequest, getSessionId } from '../../_auth.mjs';
+import { makeDbStore, cleanError } from './_shared.mjs';
 
 // Helper: check if another payment for this sender has an unresolved transaction.
 function checkUnresolved(payments, currentId) {

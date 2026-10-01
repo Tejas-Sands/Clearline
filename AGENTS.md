@@ -1,6 +1,6 @@
 # Clearline: agent handoff
 
-Last reviewed: 2026-09-27. Read this first, then [the project map](docs/PROJECT_MAP.md). Treat this as a dated handoff; verify code and current evidence before updating status.
+Last reviewed: 2026-10-01. Read this first, then [the project map](docs/PROJECT_MAP.md). Treat this as a dated handoff; verify code and current evidence before updating status.
 
 ## Product and current direction
 
@@ -12,6 +12,10 @@ There are **two separate workspaces**:
 - **Testnet payments:** Both direct-Arc and Base Sepolia → CCTP → Arc → swap → recipient payment → reconciliation are **verified onchain**. Original burns survive server restarts; reverted-stage retries are regression tested.
 
 Snapshot evidence (2026-09-27): **54/54 tests**, frontend build, simulator browser checks and testnet browser checks passed. `ARC-PROOF-001` is reconciled: 1 USDC input → 0.822060 EURC paid to the local test recipient. `CCTP-PROOF-001` also reconciled: 1 USDC burned on Base → 1 USDC minted on Arc → 0.822252 EURC paid. All ten recorded transaction receipts independently verified in `docs/TESTNET_PROOF.json`. Current balances: 18.963038 Arc USDC, 19 Base USDC, 0.000998997742905892 Base ETH. Initial SDK and approval-journal bugs are fixed. `funded` on direct-Arc records is still a workflow state, not proof of sufficient wallet funds.
+
+2026-10-01 update: the UI uses warmer sage surfaces, larger controls, separated workspace navigation, and a testnet progress/next-action guide. Fixed two broken imports that prevented `api/testnet/payments/action.mjs` from loading on Vercel. The frontend handles non-JSON API failures without showing a JSON parser exception. **60/60 unit tests**, frontend build, simulator browser checks, and synthetic testnet UI checks passed; no new chain transactions were approved. The September proof and balances above are historical snapshots, not newly checked balances.
+
+The repository now also has `api/` Vercel handlers and `server/db.mjs` Turso persistence. Their execution guarantees are not covered by the original local onchain proof. In particular, `_shared.mjs` schedules asynchronous database writes while `journal.mjs` expects synchronous durable saves, and the hosted action handler has no enforced account-wide operation lock. These boundaries need an execution-safety review before treating hosted payouts as equivalent to the verified local signer.
 
 ## Read next / navigate
 
@@ -35,10 +39,11 @@ npm test                   # Node tests; requires Node >=22.18
 npm run build              # frontend TypeScript + Vite build
 npm run test:e2e           # existing simulator smoke; requires agent-browser + Chrome + running UI
 node scripts/testnet-browser-smoke.mjs  # existing reconciled records; no new transfer approvals
+node scripts/ui-refresh-smoke.mjs      # synthetic API/UI checks; no signer or chain transactions
 node scripts/verify-testnet.mjs         # independent read-only RPC proof; prints public JSON
 ```
 
-`npm run build` does **not** typecheck `server/*.mjs`; `tsconfig.json` includes `src` and `vite.config.ts`. `test:e2e` covers the simulator; the separate testnet script checks completed records, export, persistence and duplicate rejection. No usable Git repository/history is available; do not invent commits or branch state.
+`npm run build` does **not** typecheck `server/*.mjs` or `api/*.mjs`; `tsconfig.json` includes `src` and `vite.config.ts`. `test:e2e` covers the simulator; the separate testnet script checks completed records, export, persistence and duplicate rejection. `tests/testnet-api.test.ts` loads the deployed action handler and checks credential-free rejection paths and frontend response parsing. A Git repository and history are now available; verify its current status before editing or pushing.
 
 ## Invariants to preserve
 
