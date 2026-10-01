@@ -18,10 +18,10 @@
     "semantic_hash": "0d89359f567a0d18954e62539a1c6b0c"
   },
   "server/chain.mjs": {
-    "mtime": 1790845308.1157866,
-    "seen": 1790845652.781092,
-    "ast_hash": "ffb1d195cf802b00f1b7878fb19bde9b",
-    "semantic_hash": "ffb1d195cf802b00f1b7878fb19bde9b"
+    "mtime": 1790846560.0378792,
+    "seen": 1790847230.9558978,
+    "ast_hash": "cf8890504dc3dd27d0b6b85bb0d1eb90",
+    "semantic_hash": "cf8890504dc3dd27d0b6b85bb0d1eb90"
   },
   "server/index.mjs": {
     "mtime": 1790455032.4474318,
@@ -180,10 +180,10 @@
     "semantic_hash": "486a396d866e874e25a89a1be214ab60"
   },
   "AGENTS.md": {
-    "mtime": 1790845477.125621,
-    "seen": 1790845652.781274,
-    "ast_hash": "41807782402d8d05a28eff42f5dabcb6",
-    "semantic_hash": "41807782402d8d05a28eff42f5dabcb6"
+    "mtime": 1790846970.9688838,
+    "seen": 1790847230.9560792,
+    "ast_hash": "03662e828363706cf128f47014907452",
+    "semantic_hash": "03662e828363706cf128f47014907452"
   },
   "ARC_TOP_6_USE_CASES.md": {
     "mtime": 1790449314.77703,
@@ -204,10 +204,10 @@
     "semantic_hash": "635649752f30e6fbc932010eeae5c7e8"
   },
   "docs/PROJECT_MAP.md": {
-    "mtime": 1790845679.4676201,
-    "seen": 1790845745.175364,
-    "ast_hash": "2c321ba8579d76d1ba03e2790f93afe0",
-    "semantic_hash": "2c321ba8579d76d1ba03e2790f93afe0"
+    "mtime": 1790846971.1178837,
+    "seen": 1790847230.9560983,
+    "ast_hash": "f50279857744b508e560869a54bb48e4",
+    "semantic_hash": "f50279857744b508e560869a54bb48e4"
   },
   "docs/TESTNET_BUILD_LOG.md": {
     "mtime": 1790491822.6734104,
@@ -258,10 +258,10 @@
     "semantic_hash": "d53bc1a1439a0bb8060635f5398f80c5"
   },
   "tests/testnet-chain.test.ts": {
-    "mtime": 1790845408.5852826,
-    "seen": 1790845652.7812352,
-    "ast_hash": "c9f3445ddfd6c4ec329e03006c2d5877",
-    "semantic_hash": "c9f3445ddfd6c4ec329e03006c2d5877"
+    "mtime": 1790846490.5718784,
+    "seen": 1790847230.9560435,
+    "ast_hash": "5c3eb7ef122e30bb7ee89e644a968cb1",
+    "semantic_hash": "5c3eb7ef122e30bb7ee89e644a968cb1"
   },
   "tests/fixtures/cctp-base-burn.json": {
     "mtime": 1790490217.3987796,

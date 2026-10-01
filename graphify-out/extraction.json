@@ -3622,7 +3622,7 @@
     },
     {
       "id": "agents_verification_2026_10_01",
-      "label": "2026-10-01: 67/67 unit tests, frontend build and synthetic testnet UI checks passed; no new chain transactions approved",
+      "label": "2026-10-01: 69/69 unit tests and frontend build passed; preceding UI/quote update passed synthetic testnet and simulator browser checks; no new chain transactions approved",
       "file_type": "concept",
       "source_file": "AGENTS.md",
       "source_location": null,
@@ -3722,7 +3722,7 @@
     },
     {
       "id": "docs_project_map_verification_2026_10_01",
-      "label": "2026-10-01: 67 unit tests, frontend build and synthetic testnet UI smoke passed; September transaction proofs not rerun",
+      "label": "2026-10-01: 69 unit tests and frontend build passed; preceding UI/quote update passed synthetic testnet and simulator browser checks; September transaction proofs not rerun",
       "file_type": "concept",
       "source_file": "docs/PROJECT_MAP.md",
       "source_location": null,
@@ -3756,7 +3756,7 @@
     },
     {
       "id": "docs_project_map_swap_stop_limit",
-      "label": "Swap Kit approved minimum output passed as integer base-unit stop-limit string",
+      "label": "Public Swap Kit stopLimit uses human-readable EURC; stored minima and Circle HTTP stopLimit use integer base units",
       "file_type": "rationale",
       "source_file": "docs/PROJECT_MAP.md",
       "source_location": null,
@@ -3764,7 +3764,8 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "rationale": "Match the installed Swap Kit contract while preserving the user's approved minimum output."
+      "rationale": "The incorrect 8a5f400 change passed stored integers to the public SDK, whose resolveSwapConfig scaled them again. Format the stored six-decimal minimum as a human-readable amount before SwapKit.swap/estimate; the SDK restores exactly the approved integer for Circle.",
+      "description": "Stored 2455668 \u2192 formatUnits(minimum, 6) \u2192 public SDK 2.455668 \u2192 resolveSwapConfig \u2192 Circle HTTP 2455668. Passing public SDK 2455668 instead emitted 2455668000000. Stored quote minima and receipt verification remain integers; retain 100-bps slippage."
     },
     {
       "id": "agents_quote_retry_boundary",
@@ -3779,11 +3780,282 @@
     },
     {
       "id": "docs_project_map_quote_http_fixture_tests",
-      "label": "Installed SDK HTTP-fixture tests exercise real wire requests, base-unit conversion and Circle error parsing",
+      "label": "Installed SDK HTTP-fixture regressions exercise real wire requests, base-unit conversion and Circle error parsing",
       "file_type": "concept",
       "source_file": "docs/PROJECT_MAP.md",
       "source_location": null,
       "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "description": "Three SwapKit.swap HTTP-boundary tests use real installed parameter resolution, reject the provider response before approval/signing, and cover 3-USDC, sub-EURC, and one-micro-EURC floors. Replace the mocked swap test that reinforced incorrect stop-limit units. Quote recovery fixtures also exercise installed SDK request/error parsing."
+    },
+    {
+      "id": "docs_project_map_testnet_route",
+      "label": "Base \u2192 CCTP \u2192 Arc \u2192 swap \u2192 EURC payout",
+      "file_type": "concept",
+      "source_file": "docs/PROJECT_MAP.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "description": "Historical 2026-09-27 local signer evidence: Both routes verified: direct Arc skips CCTP; crosschain proof used one 1-USDC Base burn, Circle attestation, one 1-USDC Arc mint, USDC/EURC conversion and exact recipient transfer before reconciliation. No second burn; distinct transactions are not one atomic crosschain payment."
+    },
+    {
+      "id": "docs_project_map_cctp_funding",
+      "label": "CCTP USDC funding",
+      "file_type": "concept",
+      "source_file": "docs/PROJECT_MAP.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "description": "Historical 2026-09-27 local signer evidence: Verified direct CCTP approval/burn, Circle attestation and Arc mint: exactly 1 USDC burned once and minted once. Standard attestation took about 24 minutes, executed finality 2000, zero CCTP token fee for this transfer. Immutable-message/nonce/finality/fee checks and sourceTxHash binding passed live recovery. Base domain 6/Arc 26; configured fee cap 0.01 USDC. Reverted-stage retries remain mocked-RPC regression evidence."
+    },
+    {
+      "id": "docs_project_map_circle_swap_kit",
+      "label": "Circle Swap Kit conversion",
+      "file_type": "concept",
+      "source_file": "docs/PROJECT_MAP.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "description": "Historical 2026-09-27 local signer evidence: USDC/EURC estimate/swap via installed viem adapter. Direct proof converted 1 USDC to 0.822060 EURC (minimum 0.813844); crosschain proof converted 1 USDC to 0.822252 EURC (minimum 0.813463). Fixed factory/approval classification; not a direct Uniswap SDK integration or identified pool proof."
+    },
+    {
+      "id": "docs_project_map_recipient_payout",
+      "label": "Separate EURC recipient payout",
+      "file_type": "concept",
+      "source_file": "docs/PROJECT_MAP.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "description": "Historical 2026-09-27 local signer evidence: Separate exact ERC-20 payouts verified: 0.822060 EURC for direct proof and 0.822252 EURC for crosschain proof, both to local test recipient and reconciled. Paid requires expected successful receipt and exact token/sender/recipient/amount log; payout revalidates conversion."
+    },
+    {
+      "id": "docs_project_map_swap_receipt_gap",
+      "label": "Resolved conversion and approval receipt gates",
+      "file_type": "concept",
+      "source_file": "docs/PROJECT_MAP.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "description": "Resolved: conversion requires verified output/minimum and successful swap receipt; SDK approval receipts update the journal; payout rechecks conversion. Earlier null-result conversion risk reproduced by tests and fixed."
+    },
+    {
+      "id": "docs_project_map_exact_eurc_gap",
+      "label": "Exact EURC invoice settlement missing",
+      "file_type": "concept",
+      "source_file": "docs/PROJECT_MAP.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "description": "Current obligation fixes USDC input and pays variable EURC output; exact euro invoices need target EURC, maximum source spend, fees and under/overpayment rules."
+    },
+    {
+      "id": "docs_project_map_pilot_readiness",
+      "label": "Production pilot requirements remain",
+      "file_type": "concept",
+      "source_file": "docs/PROJECT_MAP.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "description": "Turso payment persistence exists; hosted durability, account-wide idempotency, roles/approvals, custody and wallet policy, monitoring, auditable accounting and operational validation remain. Local proof does not establish hosted payout safety."
+    },
+    {
+      "id": "docs_project_map_testnet_api",
+      "label": "Testnet API lifecycle",
+      "file_type": "concept",
+      "source_file": "docs/PROJECT_MAP.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "description": "GET snapshot/session token; POST creation, refresh and bridge/quote/swap/pay/recover/retry/reconcile actions. Actions run asynchronously; UI polls every 2.5 seconds. Public serialization strips signed bytes."
+    },
+    {
+      "id": "docs_project_map_testnet_lifecycle",
+      "label": "Distinct persisted testnet stages",
+      "file_type": "concept",
+      "source_file": "docs/PROJECT_MAP.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "description": "Base created\u2192bridging\u2192funded; Arc starts funded; quoted\u2192swapping\u2192converted\u2192paying\u2192paid\u2192reconciled. Recover bridging/swapping/paying only. Explicit retry requires freshly confirmed reverted bridge stage; retrying mint preserves successful burn. Only paid reconciles; quote expires in 60 seconds."
+    },
+    {
+      "id": "docs_project_map_reverted_bridge_retry",
+      "label": "Receipt-proven reverted CCTP retry",
+      "file_type": "rationale",
+      "source_file": "docs/PROJECT_MAP.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "description": "Explicit retry requires fresh verification of the current reverted bridge receipt, preserves prior hashes and advances that stage attempt; retrying mint never repeats a successful burn. Mocked RPC regression coverage; no live reverted bridge proof.",
+      "rationale": "A confirmed revert permits a controlled new attempt; timeout or pending attestation alone does not authorize another transfer."
+    },
+    {
+      "id": "docs_project_map_recovery_limits",
+      "label": "Remaining recovery coverage boundary",
+      "file_type": "concept",
+      "source_file": "docs/PROJECT_MAP.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "description": "Historical 2026-09-27 local signer evidence: Approval-only recovery, converted state, and confirmed CCTP burn during approximately 24-minute attestation wait survived actual server restarts. Original burn used once; both proofs reconciled. Reverted-stage retries use mocked RPC and fresh receipt checks. Full network fault/reversion coverage and SDK atomic batch recovery remain unestablished; reviewed live path is sequential."
+    },
+    {
+      "id": "agents_clearline",
+      "label": "Clearline payment operations desk",
+      "file_type": "concept",
+      "source_file": "AGENTS.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "description": "Current scope: invoice/reference, funding, approved conversion, recipient payment, reconciliation and export; StableFX is optional future integration."
+    },
+    {
+      "id": "agents_reconciliation",
+      "label": "Reconciliation changes accounting only",
+      "file_type": "rationale",
+      "source_file": "AGENTS.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "description": "Only paid testnet payments can reconcile; reconciliation does not move funds.",
+      "rationale": "A matched record must not trigger another debit or substitute for beneficiary receipt proof."
+    },
+    {
+      "id": "agents_testnet_allowlist",
+      "label": "Testnet network allowlist",
+      "file_type": "rationale",
+      "source_file": "AGENTS.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "description": "Only Arc Testnet 5042002 and Base Sepolia 84532; CCTP domain IDs are separate.",
+      "rationale": "Reject mainnet and preserve chain/RPC validation while fixing adapter identifiers."
+    },
+    {
+      "id": "agents_exact_money",
+      "label": "Integer money and shared Arc USDC balance",
+      "file_type": "rationale",
+      "source_file": "AGENTS.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "description": "Six-decimal integer strings and bigint; native Arc USDC 18 decimals and ERC-20 6 decimals represent the same balance.",
+      "rationale": "Avoid floating-point ledger errors and double-counting the native and ERC-20 interfaces."
+    },
+    {
+      "id": "agents_workspace_separation",
+      "label": "Simulation/testnet data separation",
+      "file_type": "rationale",
+      "source_file": "AGENTS.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "description": "Simulation localStorage and testnet disk records and exports remain separate.",
+      "rationale": "Synthetic outcomes must not be confused with chain evidence."
+    },
+    {
+      "id": "agents_local_signer_safeguards",
+      "label": "Loopback signer request safeguards",
+      "file_type": "rationale",
+      "source_file": "AGENTS.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "description": "Keep Host, Origin and session-token checks with loopback binding.",
+      "rationale": "These protect a local development signer but are not production identity/authentication."
+    },
+    {
+      "id": "agents_sensitive_runtime_exclusion",
+      "label": "Exclude private runtime state and secrets",
+      "file_type": "rationale",
+      "source_file": "AGENTS.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "description": "Do not index .clearline-testnet, read wallet.json or expose keys, raw signed bytes, credentials or VITE secrets in UI, logs, exports, docs or graphs.",
+      "rationale": "Generated navigation must not leak signer secrets or transaction journal material."
+    },
+    {
+      "id": "agents_test_amount_limits",
+      "label": "Small testnet payment limits",
+      "file_type": "concept",
+      "source_file": "AGENTS.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "description": "More than zero and at most 100 USDC; Base bridge currently requires more than 0.01 USDC. Fee cap is code configuration, not universal protocol guarantee."
+    },
+    {
+      "id": "agents_swap_stop_limit_api_boundary",
+      "label": "Stored and Circle HTTP stop limits are base units; public SwapKit.swap/estimate stop limits are human-readable decimals",
+      "file_type": "rationale",
+      "source_file": "AGENTS.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Preserve the approved minimum through SDK parameter resolution; never pass stored integers directly to the public stopLimit or test only a mocked public swap call."
+    },
+    {
+      "id": "docs_project_map_stop_limit_constrained_estimate",
+      "label": "Read-only 3-USDC constrained estimate accepted Circle stopLimit 2447149 at unchanged 100 bps",
+      "file_type": "concept",
+      "source_file": "docs/PROJECT_MAP.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "description": "Estimated 2.473814 EURC with minimum 2.447149 EURC. Identical correctly formed requests returned intermittent route/slippage failures before success; an absolute-floor-only diagnostic also failed intermittently. No conflict between slippage and floor was established; this proves request formation and estimate acceptance, not conversion/payout. No chain transactions approved."
+    },
+    {
+      "id": "docs_project_map_public_swapkit_stop_limit_configuration",
+      "label": "Circle public Swap Kit configuration example uses human-readable stop limits",
+      "file_type": "document",
+      "source_file": "docs/PROJECT_MAP.md",
+      "source_location": null,
+      "source_url": "https://github.com/circlefin/skills/blob/master/plugins/circle/skills/swap-tokens/references/slippage-fees.md",
       "captured_at": null,
       "author": null,
       "contributor": null
@@ -6009,7 +6281,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.85,
       "source_file": "server/chain.mjs",
-      "source_location": "L230",
+      "source_location": "L229",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -6021,7 +6293,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.85,
       "source_file": "server/chain.mjs",
-      "source_location": "L236",
+      "source_location": "L235",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -6033,7 +6305,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.85,
       "source_file": "server/chain.mjs",
-      "source_location": "L236",
+      "source_location": "L235",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -6045,7 +6317,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.85,
       "source_file": "server/chain.mjs",
-      "source_location": "L236",
+      "source_location": "L235",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -6057,7 +6329,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.85,
       "source_file": "server/chain.mjs",
-      "source_location": "L236",
+      "source_location": "L235",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -12667,6 +12939,18 @@
       "_origin": "ast"
     },
     {
+      "source": "tests_testnet_chain_test",
+      "target": "server_index_body",
+      "relation": "indirect_call",
+      "context": "argument",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "tests/testnet-chain.test.ts",
+      "source_location": "L134",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
       "source": "tests_testnet_model_test",
       "target": "tests_testnet_api_test_status",
       "relation": "indirect_call",
@@ -13055,10 +13339,10 @@
       "target": "docs_project_map_baseline_hosted_quote_evidence",
       "relation": "references",
       "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
+      "confidence_score": 1,
       "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
       "source_location": null,
-      "weight": 1.0
+      "weight": 1
     },
     {
       "source": "agents_cctp_v2_attestation_matching",
@@ -13849,6 +14133,296 @@
       "source_file": "/home/citrux/Sides/chained_blocks/arc/AGENTS.md",
       "source_location": null,
       "weight": 1
+    },
+    {
+      "source": "agents_document",
+      "target": "agents_swap_stop_limit_api_boundary",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/AGENTS.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "agents_swap_stop_limit_api_boundary",
+      "target": "docs_project_map_swap_stop_limit",
+      "relation": "semantically_similar_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/AGENTS.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_document",
+      "target": "docs_project_map_swap_stop_limit",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_document",
+      "target": "docs_project_map_stop_limit_constrained_estimate",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_swap_stop_limit",
+      "target": "docs_project_map_public_swapkit_stop_limit_configuration",
+      "relation": "cites",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_swap_stop_limit",
+      "target": "docs_project_map_quote_http_fixture_tests",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_swap_stop_limit",
+      "target": "docs_project_map_stop_limit_constrained_estimate",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_stop_limit_constrained_estimate",
+      "target": "docs_project_map_intermediate_circle_quote_availability",
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_stop_limit_constrained_estimate",
+      "target": "docs_project_map_verification_2026_10_01",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_quote_http_fixture_tests",
+      "target": "docs_project_map_circle_swap_kit_viem",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_document",
+      "target": "docs_project_map_testnet_route",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_document",
+      "target": "docs_project_map_cctp_funding",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_document",
+      "target": "docs_project_map_circle_swap_kit",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_document",
+      "target": "docs_project_map_recipient_payout",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_document",
+      "target": "docs_project_map_swap_receipt_gap",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_document",
+      "target": "docs_project_map_exact_eurc_gap",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_document",
+      "target": "docs_project_map_pilot_readiness",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_document",
+      "target": "docs_project_map_testnet_api",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_document",
+      "target": "docs_project_map_testnet_lifecycle",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_document",
+      "target": "docs_project_map_reverted_bridge_retry",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "docs_project_map_document",
+      "target": "docs_project_map_recovery_limits",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/docs/PROJECT_MAP.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "agents_document",
+      "target": "agents_clearline",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/AGENTS.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "agents_document",
+      "target": "agents_reconciliation",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/AGENTS.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "agents_document",
+      "target": "agents_testnet_allowlist",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/AGENTS.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "agents_document",
+      "target": "agents_exact_money",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/AGENTS.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "agents_document",
+      "target": "agents_workspace_separation",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/AGENTS.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "agents_document",
+      "target": "agents_local_signer_safeguards",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/AGENTS.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "agents_document",
+      "target": "agents_sensitive_runtime_exclusion",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/AGENTS.md",
+      "source_location": null,
+      "weight": 1
+    },
+    {
+      "source": "agents_document",
+      "target": "agents_test_amount_limits",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "/home/citrux/Sides/chained_blocks/arc/AGENTS.md",
+      "source_location": null,
+      "weight": 1
     }
   ],
   "hyperedges": [
@@ -13860,6 +14434,20 @@
         "docs_project_map_arc_usdc_eurc_conversion",
         "docs_project_map_eurc_recipient_transfer",
         "docs_project_map_reconciliation"
+      ],
+      "relation": "form",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "docs/PROJECT_MAP.md"
+    },
+    {
+      "id": "docs_project_map_approved_minimum_api_boundary",
+      "label": "Approved minimum preserved across stored base units, public SDK decimal configuration, and Circle wire request; real SDK HTTP regressions",
+      "nodes": [
+        "docs_project_map_swap_stop_limit",
+        "docs_project_map_circle_swap_kit_viem",
+        "docs_project_map_quote_http_fixture_tests",
+        "docs_project_map_stop_limit_constrained_estimate"
       ],
       "relation": "form",
       "confidence": "EXTRACTED",

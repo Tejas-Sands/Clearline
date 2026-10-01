@@ -113,18 +113,37 @@ test('quote adapter cannot submit transactions', async t => {
   assert.equal(payment.transactions.length, 0);
 });
 
-test('swap passes the approved minimum as an integer base-unit stop limit', async t => {
-  const { chain, payment } = fixture(t);
-  payment.attempt = 1;
-  payment.quote = { minimum: '890000' };
-  let submitted;
-  t.mock.method(SwapKit.prototype, 'swap', async params => {
-    submitted = params;
-    return {};
+for (const { amount, minimum } of [
+  { amount: '3000000', minimum: '2455668' },
+  { amount: '1000000', minimum: '890000' },
+  { amount: '1000000', minimum: '1' },
+]) {
+  test(`installed SDK sends the exact approved ${minimum}-unit minimum to Circle`, async t => {
+    const { store, chain, payment } = fixture(t);
+    payment.amount = amount;
+    payment.attempt = 1;
+    payment.quote = { minimum };
+    const requests = [];
+    store.save = () => { throw new Error('This test must stop before signing'); };
+    t.mock.method(globalThis, 'fetch', async (url, options) => {
+      const body = JSON.parse(options.body);
+      if (!String(url).includes('/stablecoinKits/swap')) {
+        assert.equal(body.method, 'eth_chainId', 'No signing or broadcast RPC allowed');
+        return Response.json({ jsonrpc: '2.0', id: body.id, result: '0x4cef52' });
+      }
+      requests.push(body);
+      // Stop the real SDK at the provider boundary, before any approval/signing.
+      return Response.json({ message: 'Wire request captured; stop before submission' }, { status: 400 });
+    });
+    await assert.rejects(chain.swap(payment), /Wire request captured/);
+    assert.equal(requests.length, 1);
+    assert.equal(requests[0].amount, amount);
+    assert.equal(requests[0].stopLimit, minimum, 'The SDK must convert the approved minimum exactly once');
+    assert.equal(requests[0].slippageBps, 100);
+    assert.equal(payment.quote.minimum, minimum);
+    assert.equal(payment.transactions.length, 0);
   });
-  await chain.swap(payment);
-  assert.equal(submitted.config.stopLimit, '890000');
-});
+}
 
 test('unexpected RPC chain is rejected before calling the swap provider', async t => {
   const { chain, payment } = fixture(t, '0x1');
