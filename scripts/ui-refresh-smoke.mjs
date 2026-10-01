@@ -72,6 +72,7 @@ try {
   browser('screenshot', resolve(artifacts, 'refresh-testnet-desktop.png'), '--full');
 
   click('Get live swap quote');
+  assert.equal(evaluate('document.querySelector("button[aria-busy=\\"true\\"] .spin") !== null'), true, 'Quote action shows an animated loading indicator');
   wait('HTTP 500');
   assert.equal(evaluate('document.body.textContent.includes("Unexpected token")'), false);
   assert.equal(evaluate('document.querySelector(".payment-progress [aria-current=step]").textContent.includes("Quote")'), true);

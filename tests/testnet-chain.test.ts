@@ -43,6 +43,19 @@ test('quote adapter cannot submit transactions', async t => {
   assert.equal(payment.transactions.length, 0);
 });
 
+test('swap passes the approved minimum as an integer base-unit stop limit', async t => {
+  const { chain, payment } = fixture(t);
+  payment.attempt = 1;
+  payment.quote = { minimum: '890000' };
+  let submitted;
+  t.mock.method(SwapKit.prototype, 'swap', async params => {
+    submitted = params;
+    return {};
+  });
+  await chain.swap(payment);
+  assert.equal(submitted.config.stopLimit, '890000');
+});
+
 test('unexpected RPC chain is rejected before calling the swap provider', async t => {
   const { chain, payment } = fixture(t, '0x1');
   const provider = t.mock.method(SwapKit.prototype, 'estimate', async () => estimate);

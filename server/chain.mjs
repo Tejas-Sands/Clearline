@@ -208,7 +208,11 @@ export function makeChain(store) {
     async swap(p) {
       await checkNetwork('arc');
       const options = params(p, true);
-      options.config.stopLimit = formatUnits(BigInt(p.quote.minimum), 6);
+      // Swap Kit expects stopLimit in token base units (USDC/EURC use 6 decimals).
+      // Keep the approved minimum exact so the SDK and our receipt guard enforce
+      // the same floor; converting it to a human-readable decimal breaks route
+      // slippage calculation for small testnet payments.
+      options.config.stopLimit = p.quote.minimum;
       await kit.swap(options);
       return finishSwap(p);
     },

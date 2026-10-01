@@ -1,12 +1,19 @@
 # Graph Report - arc  (2026-10-01)
 
 ## Corpus Check
-- Corpus is ~32,482 words - fits in a single context window. You may not need a graph.
+- 59 files · ~32,721 words
+- Verdict: corpus is large enough that graph structure adds value.
+- Unclassified: 4 file(s) not represented in the graph (top: (none) 3, .css 1)
 
 ## Summary
 - 416 nodes · 875 edges · 18 communities (17 shown, 1 thin omitted)
 - Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 20 edges (avg confidence: 0.85)
-- Token cost: host-agent semantic extraction usage not exposed; not measured.
+- Token cost: 0 input · 0 output
+
+## Graph Freshness
+- Built from commit: `850ac30e`
+- Run `git rev-parse HEAD` and compare to check if the graph is stale.
+- Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
 - Simulation workspace and money
@@ -150,10 +157,3 @@ _Questions this graph is uniquely positioned to answer:_
   _Cohesion score 0.060805860805860805 - nodes in this community are weakly interconnected._
 - **Should `Chain execution and validation` be split into smaller, more focused modules?**
   _Cohesion score 0.08469449485783424 - nodes in this community are weakly interconnected._
-## Evidence boundary
-
-Generated code relationships are structural navigation; document relationships include historical and inferred claims. The October 1 checks use synthetic API responses and do not establish new onchain proof or hosted payout durability.
-
-## Extraction integrity warnings
-
-Raw extraction has 0 dangling endpoint edges, 1 self-loop, and 44 same-endpoint edges collapsed by the default undirected graph. Repeated call/contains relationships can collapse; this graph is navigation, not a lossless call trace.
