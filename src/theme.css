@@ -1,5 +1,5 @@
 :root { color-scheme: light; color: var(--ink); background: var(--canvas); }
-.theme-toggle { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-width: 44px; min-height: 44px; padding: 10px 13px; border: 1px solid var(--line); border-radius: 12px; color: var(--ink); background: var(--surface); font-size: 12px; font-weight: 650; flex-shrink: 0; }
+.theme-toggle { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; padding: 10px; border: 1px solid var(--line); border-radius: 12px; color: var(--ink); background: var(--surface); flex-shrink: 0; }
 .theme-toggle:hover { background: var(--mint); border-color: var(--green); }
 
 :root[data-theme="dark"] {
@@ -178,8 +178,6 @@
 [data-theme="dark"] .home-option-label { color: var(--muted); }
 
 @media (max-width: 600px) {
-  .theme-toggle { padding: 10px; }
-  .theme-toggle span { display: none; }
   .home-nav nav { gap: 8px; }
   .topbar-right { gap: 8px; }
   .topbar-divider { display: none; }

@@ -14,6 +14,5 @@ export function ThemeToggle() {
 
   return <button className="theme-toggle" type="button" onClick={toggleTheme} aria-label={`Switch to ${dark ? 'light' : 'dark'} mode`} title={`Switch to ${dark ? 'light' : 'dark'} mode`}>
     {dark ? <Sun size={18} aria-hidden="true" /> : <Moon size={18} aria-hidden="true" />}
-    <span>{dark ? 'Light' : 'Dark'}</span>
   </button>;
 }
