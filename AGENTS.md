@@ -1,6 +1,6 @@
 # Clearline: agent handoff
 
-Last reviewed: 2026-10-01. Read this first, then [the project map](docs/PROJECT_MAP.md). Treat this as a dated handoff; verify code and current evidence before updating status.
+Last reviewed: 2026-10-02. Read this first, then [the project map](docs/PROJECT_MAP.md). Treat this as a dated handoff; verify code and current evidence before updating status.
 
 ## Product and current direction
 
@@ -20,6 +20,10 @@ Hosted conversion checkpoint fix (2026-10-01): the journal passed `_shared.mjs`'
 The repository now also has `api/` Vercel handlers and `server/db.mjs` Turso persistence. Their execution guarantees are not covered by the original local onchain proof. The per-store save ordering is regression tested, but the hosted action handler still has no enforced account-wide operation lock. Cross-request concurrency, hosted function timeout/crash recovery, and actual database fault outcomes need dedicated validation before treating hosted payouts as equivalent to the verified local signer.
 
 ## Read next / navigate
+
+Homepage learning guide (2026-10-01): `Landing.tsx` now introduces the product in plain language with an illustrated invoice-to-payment path. `PaymentWalkthrough.tsx` embeds a five-stage, browser-only example (invoice → demo funding → conversion approval → recipient payment → matching), three source-amount presets, exact integer balance accounting, reset/back controls, and a sample receipt. It uses a fixed illustrative 0.915 rate and 0.25-USDC fee and has no API calls or workspace persistence. The conceptual recipient payout is a teaching preview, not an added payout capability in the existing simulation workspace. FAQs explain wallets, token names, reconciliation, test assets and the variable-EURC-output limitation. **76/76 unit tests**, frontend build, homepage browser checks, existing synthetic UI checks and simulation browser checks passed. Homepage checks cover all amounts, workspace/API isolation, keyboard operation, desktop/mobile layouts and automated WCAG A/AA audits. No chain action was approved.
+
+Dark mode (2026-10-02): the homepage, walkthrough, simulation, testnet and proof pages now share a forest/sage dark theme. `index.html` selects the saved `clearline.theme.v1` preference, or the device theme, before rendering. `ThemeToggle.tsx` exposes a persistent sun/moon control in each page header; `src/theme.css` defines dark tokens and overrides existing fixed surface/status colors. **76/76 unit tests**, frontend build, homepage checks, synthetic UI checks, simulator checks and the new theme browser smoke passed. Theme checks cover device defaults, saved preference across reload/navigation, desktop/mobile, all walkthrough stages, payment drawer/new-payment forms, proof, synthetic testnet receipt/hover states, quote loading, reduced motion and automated WCAG A/AA audits. No signing API or token-moving requests were used. Publishing this UI update was authorized; that does not authorize new live payments.
 
 1. [docs/PROJECT_MAP.md](docs/PROJECT_MAP.md): architecture, file map, evidence, gaps, and CCTP/DEX decision.
 2. [docs/superpowers/specs/2026-09-27-clearline-testnet.md](docs/superpowers/specs/2026-09-27-clearline-testnet.md): testnet scope and acceptance criteria.
@@ -42,6 +46,8 @@ npm run build              # frontend TypeScript + Vite build
 npm run test:e2e           # existing simulator smoke; requires agent-browser + Chrome + running UI
 node scripts/testnet-browser-smoke.mjs  # existing reconciled records; no new transfer approvals
 node scripts/ui-refresh-smoke.mjs      # synthetic API/UI checks; no signer or chain transactions
+node scripts/landing-browser-smoke.mjs # embedded homepage walkthrough; no API or workspace writes
+node scripts/theme-browser-smoke.mjs   # light/dark preference, contrast and synthetic UI checks; no signer
 node scripts/verify-testnet.mjs         # independent read-only RPC proof; prints public JSON
 ```
 

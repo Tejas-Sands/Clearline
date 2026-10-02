@@ -1,5 +1,6 @@
 import { ArrowUpRight, CheckCheck, ExternalLink, Shield } from 'lucide-react';
 import { Brand } from './ui.tsx';
+import { ThemeToggle } from './ThemeToggle.tsx';
 
 type TxProof = {
   step: string;
@@ -102,6 +103,7 @@ export function ProofPage({ onBack }: { onBack: () => void }) {
       <header className="landing-nav">
         <Brand />
         <nav className="landing-nav-links">
+          <ThemeToggle />
           <button className="landing-link" onClick={onBack}>← Back</button>
           <button className="button primary" onClick={onBack}>Try the demo</button>
         </nav>

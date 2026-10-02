@@ -18,6 +18,10 @@ The repo now includes Vercel `api/` handlers, Turso persistence in `server/db.mj
 
 ## Where we are
 
+**Dark mode (2026-10-02):** a sun/moon control appears on Home, proof and workspace headers. The initial HTML selects `clearline.theme.v1` before rendering, with the device preference as the default. `ThemeToggle.tsx` persists explicit choices without touching payment records; `theme.css` supplies a forest/sage palette for all pages, forms, dialogs, statuses, receipts and hover states. The 76 unit tests, frontend build, homepage, synthetic UI and simulator checks passed. `scripts/theme-browser-smoke.mjs` additionally verifies preference persistence/defaults, dark walkthrough stages, desktop/mobile layouts, payment drawer/forms, proof, synthetic testnet quotes/receipt links/nonselected-row hover, loading/reduced motion and automated WCAG A/AA audits. Checks used isolated browsers and synthetic funds/responses; no chain action was approved.
+
+**Homepage learning guide (2026-10-01):** an editorial home page replaces the technical feature grid with a plain-language introduction, an invoice/currency/payment illustration, and an embedded interactive walkthrough. `PaymentWalkthrough.tsx` teaches invoice creation → demo funding → approved conversion → recipient payment → matching. Three source presets use `bigint` and the existing money formatter, a fixed illustrative 0.915 rate, and an additional 0.25-USDC fee; a money tracker shows wallet/recipient balances and a receipt shows the matched invoice. Local component state supports back/reset and resets on leaving Home. It makes no API calls and does not change simulation or testnet records. Its recipient-send stage is a conceptual preview, not new external payout functionality in the simulation workspace. FAQs explain terms and the current variable-output limitation. Home still links to simulation, testnet and dated proof. The dedicated browser smoke verifies the full journey for all amounts, exact output, matching without balance changes, workspace/API isolation, keyboard use, responsive layouts and automated WCAG A/AA audits. The 76 unit tests, frontend build, existing synthetic UI checks and simulator browser checks also passed; no new chain transactions were approved.
+
 | Area | Implemented | Evidence / remaining boundary |
 | --- | --- | --- |
 | Simulation | Dashboard, obligation/CSV intake, quote/approval, exceptions, ledger, reconciliation/export, local persistence | 23 simulator/IO tests pass; earlier browser checks recorded in `BUILD_LOG.md` |
@@ -85,8 +89,11 @@ The diagram depicts the local execution path, which uses disk persistence; hoste
 | `src/components/ui.tsx` | Shared dialogs and display helpers |
 | `src/components/TestnetPayments.tsx` | Polls API every 2.5 seconds; testnet actions/export |
 | `src/testnet-api.ts` | Shared JSON response parsing and safe, actionable route/slippage failure guidance |
-| `src/components/Landing.tsx`, `src/components/ProofPage.tsx` | Simulation/testnet entry choices and dated public transaction evidence |
+| `src/components/Landing.tsx`, `src/components/landing.css` | Plain-language homepage, illustrated payment path, FAQs and workspace entry choices |
+| `src/components/PaymentWalkthrough.tsx` | Isolated five-stage interactive homepage tutorial with synthetic balances; no API or persistence |
+| `src/components/ProofPage.tsx` | Dated public transaction evidence |
 | `src/styles.css` | Responsive styling for both workspaces |
+| `src/theme.css`, `src/components/ThemeToggle.tsx`, `index.html` | Shared dark palette, persistent theme control and device/saved preference before first render |
 | `server/index.mjs` | Loopback HTTP API, process lock, async action dispatch, balance cache |
 | `server/security.mjs` | Allowed hosts/origins and JSON mutation token checks |
 | `server/model.mjs` | Payment validation, action guards, token-log parsing, exact payout proof, public serialization |
@@ -100,6 +107,8 @@ The diagram depicts the local execution path, which uses disk persistence; hoste
 | `scripts/browser-smoke.mjs` | Existing simulator browser workflow checks; not testnet proof |
 | `scripts/testnet-browser-smoke.mjs` | Completed testnet record checks: rejected duplicate payout, token protection, CSV, reload, desktop/mobile |
 | `scripts/ui-refresh-smoke.mjs` | Synthetic API browser checks for quote errors/expiry, form creation, guidance, responsiveness and accessibility |
+| `scripts/landing-browser-smoke.mjs` | Embedded homepage journey, all amount presets, balance/matching behavior, reset/back, keyboard, isolation and accessibility |
+| `scripts/theme-browser-smoke.mjs` | Theme defaults/persistence, dark homepage/workspaces/dialogs/proof, synthetic testnet hover/receipts/loading, responsiveness and accessibility |
 | `scripts/verify-testnet.mjs` | Read-only independent receipt verification; public proof JSON output, no signer access |
 | `tests/domain.test.ts`, `tests/io.test.ts` | 23 simulator/money/import/export/storage tests |
 | `tests/testnet-*.test.ts` (excluding API tests) | 45 adapter, quote HTTP recovery, swap-minimum wire units, receipt/recovery, hosted persistence/handler, model, security, service and journal tests |

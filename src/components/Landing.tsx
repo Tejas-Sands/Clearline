@@ -1,264 +1,47 @@
-import { ArrowRight, ArrowUpRight, CheckCheck, Clock, Globe, RefreshCw, Shield, Zap } from 'lucide-react';
+import { useRef } from 'react';
+import { ArrowDown, ArrowRight, ArrowUpRight, Check, FileText, MoveRight, Wallet } from 'lucide-react';
 import { Brand } from './ui.tsx';
-
-const steps = [
-  {
-    number: '01',
-    label: 'Invoice arrives',
-    description: 'A supplier invoice is entered or imported. The obligation is recorded immediately.',
-    token: 'INV',
-    color: 'step-blue',
-  },
-  {
-    number: '02',
-    label: 'Fund in USDC',
-    description: 'Pay from existing Arc USDC, or bridge from Base Sepolia via CCTP in one click.',
-    token: 'USDC',
-    color: 'step-teal',
-  },
-  {
-    number: '03',
-    label: 'Approve conversion',
-    description: 'Get a live on-chain quote. Approve the minimum output you will accept. Quote is valid for 60 seconds.',
-    token: 'USDC → EURC',
-    color: 'step-green',
-  },
-  {
-    number: '04',
-    label: 'Pay the recipient',
-    description: 'The exact converted EURC amount is transferred directly to the recipient wallet on Arc Testnet.',
-    token: 'EURC',
-    color: 'step-amber',
-  },
-  {
-    number: '05',
-    label: 'Reconcile',
-    description: 'Each transaction hash is independently verifiable. Match the payment to its invoice and export.',
-    token: 'Matched',
-    color: 'step-settled',
-  },
-];
-
-const proofs = [
-  {
-    ref: 'ARC-PROOF-001',
-    route: 'Direct Arc',
-    input: '1 USDC',
-    output: '0.822060 EURC',
-    txCount: 4,
-    highlight: 'Swap + recipient payout in a single workflow',
-  },
-  {
-    ref: 'CCTP-PROOF-001',
-    route: 'Base → CCTP → Arc',
-    input: '1 USDC',
-    output: '0.822252 EURC',
-    txCount: 6,
-    highlight: 'Cross-chain bridge, swap, and payout — all verified',
-  },
-];
+import { PaymentWalkthrough } from './PaymentWalkthrough.tsx';
+import { ThemeToggle } from './ThemeToggle.tsx';
+import './landing.css';
 
 export function Landing({ onDemo, onProof, onTestnet }: { onDemo: () => void; onProof: () => void; onTestnet: () => void }) {
-  return (
-    <div className="landing">
-      {/* Nav */}
-      <header className="landing-nav">
-        <Brand />
-        <nav className="landing-nav-links">
-          <button className="landing-link" onClick={onProof}>Verified transactions</button>
-          <button className="button primary" onClick={onDemo}>Try the demo</button>
-        </nav>
-      </header>
+  const playgroundTitle = useRef<HTMLHeadingElement>(null);
+  function tryPayment() {
+    playgroundTitle.current?.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth', block: 'start' });
+    playgroundTitle.current?.focus({ preventScroll: true });
+  }
 
-      {/* Hero */}
-      <section className="landing-hero">
-        <div className="landing-hero-inner">
-          <div className="landing-badge">
-            <span className="landing-badge-dot" />
-            Arc Testnet · two reconciled payments verified onchain
-          </div>
-          <h1 className="landing-h1">
-            Your payments.<br />
-            A little <em>more clarity</em>.
-          </h1>
-          <p className="landing-subtitle">
-            Send USDC, convert to EURC, and pay your recipient. Clearline guides you from the first invoice to the final matched record, one clear step at a time.
-          </p>
-          <div className="landing-hero-actions">
-            <button className="button primary landing-cta" onClick={onTestnet}>
-              Make a testnet payment <ArrowRight size={18} aria-hidden="true" />
-            </button>
-            <button className="button secondary landing-cta" id="try-demo-btn" onClick={onDemo}>
-              Explore the simulation <ArrowUpRight size={16} aria-hidden="true" />
-            </button>
-          </div>
-          <p className="landing-start-hint">New here? The simulation works instantly. Testnet payments use free test tokens.</p>
-          <div className="landing-stats">
-            <div className="landing-stat">
-              <strong>2</strong>
-              <span>Reconciled testnet payments</span>
-            </div>
-            <div className="landing-stat-divider" />
-            <div className="landing-stat">
-              <strong>10</strong>
-              <span>Independently verified receipts</span>
-            </div>
-            <div className="landing-stat-divider" />
-            <div className="landing-stat">
-              <strong>USDC → EURC</strong>
-              <span>Arc Testnet · Circle Swap Kit</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Hero visual — payment card preview */}
-        <div className="landing-hero-card" aria-hidden="true">
-          <div className="hero-card-inner">
-            <div className="hero-card-header">
-              <span className="hero-eyebrow">PAYMENT JOURNEY</span>
-              <span className="hero-status settled">Reconciled</span>
-            </div>
-            <div className="hero-card-ref">ARC-PROOF-001</div>
-            <div className="hero-flow">
-              <div className="hero-flow-step">
-                <span className="hero-flow-token usdc">USDC</span>
-                <span className="hero-flow-amount">1.00</span>
-                <span className="hero-flow-label">Source</span>
-              </div>
-              <div className="hero-flow-arrow"><ArrowRight size={16} /></div>
-              <div className="hero-flow-step">
-                <span className="hero-flow-token swap">↔</span>
-                <span className="hero-flow-amount">Swap</span>
-                <span className="hero-flow-label">Arc Testnet</span>
-              </div>
-              <div className="hero-flow-arrow"><ArrowRight size={16} /></div>
-              <div className="hero-flow-step">
-                <span className="hero-flow-token eurc">EURC</span>
-                <span className="hero-flow-amount">0.8221</span>
-                <span className="hero-flow-label">Recipient paid</span>
-              </div>
-            </div>
-            <div className="hero-card-txs">
-              <div className="hero-tx"><CheckCheck size={13} /><span>swap · Arc</span></div>
-              <div className="hero-tx"><CheckCheck size={13} /><span>pay · Arc</span></div>
-              <div className="hero-tx verified"><Shield size={13} /><span>reconciled</span></div>
-            </div>
-          </div>
+  return <div className="landing home-guide">
+    <a className="skip-link" href="#home-content">Skip to content</a>
+    <header className="home-nav"><Brand /><nav aria-label="Home navigation"><button className="home-text-button home-proof-nav" onClick={onProof}>Verified transactions <ArrowUpRight size={14} aria-hidden="true" /></button><ThemeToggle /><button className="button secondary" onClick={onDemo}>Open workspace <ArrowUpRight size={15} aria-hidden="true" /></button></nav></header>
+    <main id="home-content" className="home-content" tabIndex={-1}>
+      <section className="home-hero" aria-labelledby="home-title">
+        <div className="home-hero-copy"><span className="home-kicker"><span /> A LITTLE LESS MYSTERY. A LOT MORE CLARITY.</span><h1 id="home-title">A clear path<br />from <em>“to pay”</em><br />to <em>“all paid.”</em></h1><p>Pay a supplier. Change dollars to euros. Keep the paperwork together. Clearline helps you follow every step.</p><button className="button primary home-main-cta" onClick={tryPayment}>Try a payment, step by step <ArrowDown size={18} aria-hidden="true" /></button><span className="home-small-note">A hands-on example. No wallet. No real money.</span></div>
+        <div className="home-illustration" role="img" aria-label="An invoice follows a clear path from your digital dollars to a supplier’s digital euros and a matched payment record.">
+          <span className="home-illustration-caption">EVERY PAYMENT HAS A STORY</span>
+          <div className="home-paper"><FileText size={24} aria-hidden="true" /><span>FROM YOUR TO-DO LIST</span><strong>Pay Studio North</strong><div className="home-paper-line" /><div className="home-paper-line short" /><span className="home-paper-total">$50.00 <small>sample invoice</small></span></div>
+          <svg className="home-path" viewBox="0 0 480 380" fill="none" aria-hidden="true"><path d="M130 130 C65 145 55 230 135 241 L338 241 C435 241 441 332 354 338 L226 338" stroke="currentColor" strokeWidth="2" strokeDasharray="5 7" /><path d="m239 330-13 8 13 8" stroke="currentColor" strokeWidth="2" /></svg>
+          <div className="home-currency home-dollar"><span>$</span><div><strong>Your dollars</strong><small>USDC</small></div></div><span className="home-change"><MoveRight size={20} aria-hidden="true" /> change currency</span><div className="home-currency home-euro"><span>€</span><div><strong>Their euros</strong><small>EURC</small></div></div><div className="home-paid-stamp"><Check size={20} aria-hidden="true" /> Paid. Matched. Clear.</div><span className="home-margin-note">You’re in control<br />at every turn.</span>
         </div>
       </section>
-
-      {/* Payment journey steps */}
-      <section className="landing-journey">
-        <div className="landing-section-label">THE COMPLETE JOURNEY</div>
-        <h2 className="landing-h2">From invoice to recipient — nothing skipped.</h2>
-        <p className="landing-section-sub">Each stage produces an onchain receipt. The guided demo walks you through all five.</p>
-        <div className="journey-steps">
-          {steps.map(step => (
-            <div key={step.number} className={`journey-step ${step.color}`}>
-              <div className="journey-step-number">{step.number}</div>
-              <div className="journey-step-token">{step.token}</div>
-              <h3 className="journey-step-label">{step.label}</h3>
-              <p className="journey-step-desc">{step.description}</p>
-            </div>
-          ))}
+      <section className="home-capabilities" aria-label="What you can do with Clearline"><span>ONE DESK. THE WHOLE JOURNEY.</span><p><FileText size={18} aria-hidden="true" /> Record an invoice</p><ArrowRight size={16} aria-hidden="true" /><p><Wallet size={18} aria-hidden="true" /> Convert & pay</p><ArrowRight size={16} aria-hidden="true" /><p><Check size={18} aria-hidden="true" /> Match & export</p></section>
+      <PaymentWalkthrough titleRef={playgroundTitle} />
+      <section className="home-explainer" aria-labelledby="home-explainer-title">
+        <div><span className="home-kicker">THE WORDS, WITHOUT THE HEADACHE</span><h2 id="home-explainer-title">New to this?<br /><em>You’re in the right place.</em></h2><p>You don’t need to know the technology to try the example. Here’s a little context when you want it.</p></div>
+        <div className="home-faq">
+          <details><summary>What are USDC and EURC?</summary><p>They’re digital tokens called stablecoins, designed to track the US dollar and euro. USDC is the dollar side; EURC is the euro side. They move between digital wallets rather than bank accounts.</p></details>
+          <details><summary>What is a wallet?</summary><p>A wallet is a way to hold and send digital tokens. Think of its address as the delivery address for a payment. This walkthrough uses pretend balances, so you don’t need a wallet.</p></details>
+          <details><summary>What does “matching” a payment mean?</summary><p>It means linking a completed payment to the invoice it belongs to. Accountants call this reconciliation. It organizes your records and doesn’t send any more money.</p></details>
+          <details><summary>Is this sending real money?</summary><p>This page is a practice example only. The simulation workspace also uses pretend funds. The separate testnet workspace uses test tokens on experimental networks; it isn’t a service for paying real invoices.</p></details>
+          <details><summary>Can I pay an exact euro invoice?</summary><p>Today, you choose the dollar-token amount to convert, and the euro-token output depends on the quote. Clearline doesn’t yet guarantee settlement of an exact euro invoice. This example uses a fixed practice rate; testnet quotes vary.</p></details>
         </div>
       </section>
-
-      {/* Proof highlights */}
-      <section className="landing-proof-section">
-        <div className="landing-section-label">VERIFIED ONCHAIN</div>
-        <h2 className="landing-h2">Two complete payments. Every transaction confirmed.</h2>
-        <p className="landing-section-sub">Independent RPC verification — not simulated. These are real testnet transactions.</p>
-        <div className="proof-cards">
-          {proofs.map(p => (
-            <div key={p.ref} className="proof-highlight-card">
-              <div className="proof-highlight-top">
-                <span className="proof-highlight-ref">{p.ref}</span>
-                <span className="proof-highlight-route">{p.route}</span>
-              </div>
-              <div className="proof-highlight-amounts">
-                <div>
-                  <span>Input</span>
-                  <strong>{p.input}</strong>
-                </div>
-                <ArrowRight size={16} className="proof-arrow" />
-                <div>
-                  <span>Recipient received</span>
-                  <strong>{p.output}</strong>
-                </div>
-              </div>
-              <div className="proof-highlight-note">
-                <CheckCheck size={14} />
-                <span>{p.highlight} · {p.txCount} receipts</span>
-              </div>
-            </div>
-          ))}
-        </div>
-        <button className="button secondary landing-view-proof" onClick={onProof}>
-          Inspect all transactions <ArrowUpRight size={15} />
-        </button>
+      <section className="home-next" aria-labelledby="home-next-title">
+        <div><span className="home-kicker">YOUR NEXT STEP</span><h2 id="home-next-title">A little practice.<br />A lot more confidence.</h2><p>Explore sample invoices, try different scenarios, and export your records in the full simulation workspace.</p><button id="try-demo-btn" className="button primary" onClick={onDemo}>Explore the simulation <ArrowRight size={17} aria-hidden="true" /></button></div>
+        <div className="home-next-links"><article><span className="home-option-label">FOR THE CURIOUS</span><h3>See a payment on a test network</h3><p>Use free test tokens and approve each step in the separate testnet workspace.</p><button className="home-text-button" onClick={onTestnet}>Make a testnet payment <ArrowUpRight size={16} aria-hidden="true" /></button></article><article><span className="home-option-label">THE EVIDENCE</span><h3>Two journeys, recorded onchain</h3><p>Inspect the 10 transaction receipts from our two completed test payments, recorded September 27, 2026.</p><button className="home-text-button" onClick={onProof}>View verified transactions <ArrowUpRight size={16} aria-hidden="true" /></button></article></div>
       </section>
-
-      {/* Why Clearline */}
-      <section className="landing-why">
-        <div className="landing-section-label">WHY CLEARLINE</div>
-        <h2 className="landing-h2">Beyond a bridge or swap UI.</h2>
-        <div className="why-grid">
-          <div className="why-card">
-            <span className="why-icon"><Shield size={22} /></span>
-            <h3>Receipt-first architecture</h3>
-            <p>Transactions are signed and journaled before broadcast. Each stage verifies its own receipt before advancing.</p>
-          </div>
-          <div className="why-card">
-            <span className="why-icon"><Globe size={22} /></span>
-            <h3>Cross-chain by default</h3>
-            <p>Bridge USDC from Base Sepolia via CCTP or fund directly on Arc. The payment engine handles both paths.</p>
-          </div>
-          <div className="why-card">
-            <span className="why-icon"><Zap size={22} /></span>
-            <h3>Recipient payment included</h3>
-            <p>Conversion to EURC and delivery to the supplier's wallet are separate, verified steps — not a treasury balance update.</p>
-          </div>
-          <div className="why-card">
-            <span className="why-icon"><RefreshCw size={22} /></span>
-            <h3>Crash-safe recovery</h3>
-            <p>Server restarts replay the same signed bytes. No duplicate transactions. Reverted bridge stages can be retried safely.</p>
-          </div>
-          <div className="why-card">
-            <span className="why-icon"><Clock size={22} /></span>
-            <h3>Approval-controlled workflow</h3>
-            <p>Every conversion requires an explicit quote approval with a 60-second expiry. Invoices and reconciliation stay in sync.</p>
-          </div>
-          <div className="why-card">
-            <span className="why-icon"><CheckCheck size={22} /></span>
-            <h3>Auditable reconciliation</h3>
-            <p>Every payment links its invoice reference to onchain receipts. Export a CSV with explorer links for full audit trail.</p>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="landing-cta-section">
-        <div className="landing-cta-inner">
-          <h2>Ready to explore the flow?</h2>
-          <p>The interactive demo runs entirely in your browser — no wallet required. The verified transactions page shows real onchain proof.</p>
-          <div className="landing-hero-actions">
-            <button className="button primary landing-cta" onClick={onDemo}>
-              Start guided demo <ArrowRight size={17} />
-            </button>
-            <button className="landing-proof-link light" onClick={onProof}>
-              View verified transactions <ArrowUpRight size={15} />
-            </button>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="landing-footer">
-        <Brand compact />
-        <span>Clearline · stablecoin payment operations desk</span>
-        <span>Arc Testnet · Base Sepolia · USDC → EURC</span>
-      </footer>
-    </div>
-  );
+    </main>
+    <footer className="home-footer"><Brand compact /><span>Every payment, a little clearer.</span><span>Practice first. Understand every step.</span></footer>
+  </div>;
 }
