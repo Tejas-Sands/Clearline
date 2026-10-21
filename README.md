@@ -4,7 +4,9 @@
 
 Turn a payment obligation into an approved conversion, a tracked payment, and a reconciled ledger entry. Originally selected from [the six-use-case shortlist](ARC_TOP_6_USE_CASES.md), the current MVP direction uses CCTP funding and Circle Swap Kit rather than requiring StableFX.
 
-**Current status (2026-09-27):** the simulator works, and both testnet routes are proven. Direct Arc funding: 1 USDC → 0.822060 EURC paid and reconciled. Crosschain: 1 Base Sepolia USDC → CCTP mint of 1 Arc USDC → 0.822252 EURC paid and reconciled. Fresh checks passed 54 tests, the frontend build, and both simulator/testnet browser checks. See [public receipt evidence](docs/TESTNET_PROOF.json), [AGENTS.md](AGENTS.md), and [the project map](docs/PROJECT_MAP.md).
+**Current implementation (2026-10-21):** testnet payments support an exact EURC invoice target. Select the USDC conversion input separately; quotes must cover the target, and the recipient receives exactly that target after conversion is verified. Excess EURC stays in the source wallet. The full chosen input is converted; network/provider fees are separate. Historical records without a target retain full-output payout behavior. The UI and CSV separate invoice target, conversion output, recipient amount and surplus. **89 tests**, the production frontend build and synthetic render/event-handler checks pass. Browser validation and live exact-target settlement remain unverified; this update has not been deployed.
+
+**Historical chain proof (2026-09-27):** direct Arc funding: 1 USDC → 0.822060 EURC paid and reconciled. Crosschain: 1 Base Sepolia USDC → CCTP mint of 1 Arc USDC → 0.822252 EURC paid and reconciled. These prove the earlier full-output policy. See [public receipt evidence](docs/TESTNET_PROOF.json), [AGENTS.md](AGENTS.md), and [the project map](docs/PROJECT_MAP.md).
 
 `npm run dev` now starts both the UI and the test-only signing API. The server keeps sensitive wallet/journal data in the ignored `.clearline-testnet/` directory. No API key is configured; real testnet operations need network access and faucet-funded test assets. The simulator works without funding. The walkthrough, financial model, and StableFX pilot notes below describe the **original simulation**, not completion of the testnet integration.
 
@@ -23,7 +25,10 @@ Open **http://127.0.0.1:5173**. No API key, wallet, database, or environment fil
 npm test          # exact money, transitions, import/export, persistence validation
 npm run build    # strict TypeScript check + production assets in dist/
 npm run preview  # serve the production build locally
+node scripts/invoice-browser-smoke.mjs --render-only # synthetic form/guard/CSV checks; no browser or signer
 ```
+
+In an isolated checkout that shares read-only dependencies, use `npm run build -- --configLoader native` to avoid Vite writing its bundled-config cache into those dependencies.
 
 With the API running and a reconciled testnet payment present, `node scripts/verify-testnet.mjs` independently checks public RPC receipts and prints a proof report. `node scripts/testnet-browser-smoke.mjs` checks existing testnet records, CSV export, restart persistence, mobile layout and rejection of duplicate payouts. Neither script approves a new transfer.
 

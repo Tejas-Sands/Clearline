@@ -2,7 +2,7 @@ import { createPublicClient, createWalletClient, defineChain, http, erc20Abi, en
 import { createViemAdapterFromPrivateKey } from '@circle-fin/adapter-viem-v2';
 import { SwapKit, getErrorCode } from '@circle-fin/swap-kit';
 import { sendJournaled } from './journal.mjs';
-import { receivedAmount, verifyPaymentReceipt, bridgeSteps, currentBridgeTransaction } from './model.mjs';
+import { receivedAmount, verifyPaymentReceipt, assertInvoiceQuote, recipientAmount, bridgeSteps, currentBridgeTransaction } from './model.mjs';
 
 export const USDC = '0x3600000000000000000000000000000000000000';
 export const EURC = '0x89B50855Aa3bE2F677cD6303Cec089B5F319D72a';
@@ -35,7 +35,7 @@ function matchesCctpBurn(original, attested, eventNonce) {
     && uint(attested, 312, 344) < uint(original, 216, 248);
 }
 export const networks = {
-  arc: defineChain({ id: 5042002, name: 'Arc Testnet', nativeCurrency: { name: 'USDC', symbol: 'USDC', decimals: 18 }, rpcUrls: { default: { http: ['https://rpc.testnet.arc.network'] } }, testnet: true }),
+  arc: defineChain({ id: 5042002, name: 'Arc Testnet', nativeCurrency: { name: 'USDC', symbol: 'USDC', decimals: 18 }, rpcUrls: { default: { http: ['https://rpc.testnet.arc.io'] } }, testnet: true }),
   base: defineChain({ id: 84532, name: 'Base Sepolia', nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 }, rpcUrls: { default: { http: ['https://sepolia.base.org'] } }, testnet: true }),
 };
 
@@ -122,6 +122,7 @@ export function makeChain(store) {
     const amount = receivedAmount(r.logs, EURC, store.account.address);
     if (amount <= 0n || amount < BigInt(p.quote.minimum)) throw new Error('Swap receipt does not prove the approved minimum EURC output.');
     p.outputAmount = amount.toString();
+    recipientAmount(p);
     return amount;
   }
   async function finishPay(p) {
@@ -217,6 +218,7 @@ export function makeChain(store) {
       return { expected: expected.toString(), minimum: minimum.toString(), expiresAt: Date.now() + 60000, fees: result.fees ?? [] };
     },
     async swap(p) {
+      assertInvoiceQuote(p, p.quote);
       await checkNetwork('arc');
       const options = params(p, true);
       // The public Swap Kit API expects human-readable EURC; its resolver
@@ -229,7 +231,7 @@ export function makeChain(store) {
     recoverSwap: finishSwap,
     async pay(p) {
       if (!await finishSwap(p)) throw new Error('A verified swap is required before recipient payment.');
-      await send(p, `pay:${p.payAttempt ?? 1}`, 'arc', { to: EURC, data: encodeFunctionData({ abi: erc20Abi, functionName: 'transfer', args: [p.recipient, BigInt(p.outputAmount)] }) });
+      await send(p, `pay:${p.payAttempt ?? 1}`, 'arc', { to: EURC, data: encodeFunctionData({ abi: erc20Abi, functionName: 'transfer', args: [p.recipient, recipientAmount(p)] }) });
       return finishPay(p);
     },
     recoverPay: finishPay, bridge, recoverBridge, retryBridge,

@@ -82,7 +82,12 @@ test('hosted checkpoint failures are surfaced and a recovery checkpoint can pers
   assert.equal(durable.transactions[0].raw, '0x12');
 });
 
-test('hosted conversion recovery checkpoints the original bytes and returns only verified public output', async t => {
+for (const { target, expectedStatus, paidAmount, surplus } of [
+  { target: undefined, expectedStatus: 'converted', paidAmount: '900000', surplus: '0' },
+  { target: '800000', expectedStatus: 'converted', paidAmount: '800000', surplus: '100000' },
+  { target: '950000', expectedStatus: 'swapping', paidAmount: '950000', surplus: undefined },
+]) {
+test(`hosted conversion recovery checkpoints original bytes with invoice target ${target ?? 'legacy'}`, async t => {
   const { payment, store, db } = fixture();
   const previousKey = process.env.WALLET_PRIVATE_KEY;
   const previousToken = process.env.API_SESSION_TOKEN;
@@ -97,7 +102,7 @@ test('hosted conversion recovery checkpoints the original bytes and returns only
   const hash = keccak256('0x12');
   const router = '0x2222222222222222222222222222222222222222';
   Object.assign(payment, { id: 'abc-123', sender: store.account.address, attempt: 1,
-    quote: { minimum: '890000' }, events: [],
+    quote: { minimum: '890000' }, targetAmount: target, events: [],
     transactions: [{ step: 'swap:1', chain: 'arc', raw: '0x12', hash, status: 'signed' }],
   });
   let durable = structuredClone(payment);
@@ -111,7 +116,7 @@ test('hosted conversion recovery checkpoints the original bytes and returns only
   });
   let broadcasts = 0;
   t.mock.method(globalThis, 'fetch', async (url, options) => {
-    assert.equal(new URL(String(url)).hostname, 'rpc.testnet.arc.network');
+    assert.equal(new URL(String(url)).hostname, 'rpc.testnet.arc.io');
     const req = JSON.parse(options.body);
     let result;
     if (req.method === 'eth_chainId') result = '0x4cef52';
@@ -141,11 +146,58 @@ test('hosted conversion recovery checkpoints the original bytes and returns only
     host: 'localhost', 'content-type': 'application/json', 'x-clearline-token': 'test-session-token', 'x-session-id': 'test-session-123',
   } }, res);
   assert.equal(status, 202);
-  assert.equal(response.status, 'converted', response.error);
+  assert.equal(response.status, expectedStatus, response.error);
   assert.equal(response.outputAmount, '900000');
-  assert.equal(durable.status, 'converted');
+  assert.equal(response.paymentAmount, paidAmount);
+  assert.equal(response.surplusAmount, surplus);
+  if (expectedStatus === 'swapping') assert.match(response.error, /invoice target/i);
+  assert.equal(durable.status, expectedStatus);
   assert.equal(durable.transactions[0].status, 'success');
   assert.equal(durable.transactions[0].raw, '0x12');
   assert.equal(response.transactions[0].raw, undefined);
   assert.equal(broadcasts, 1);
+});
+}
+
+test('hosted invoice quote rejects insufficient EURC and clears any previous approval', async t => {
+  const { payment, store, db } = fixture();
+  const previousKey = process.env.WALLET_PRIVATE_KEY;
+  const previousToken = process.env.API_SESSION_TOKEN;
+  process.env.WALLET_PRIVATE_KEY = store.privateKey;
+  process.env.API_SESSION_TOKEN = 'invoice-session-token';
+  t.after(() => {
+    if (previousKey === undefined) delete process.env.WALLET_PRIVATE_KEY; else process.env.WALLET_PRIVATE_KEY = previousKey;
+    if (previousToken === undefined) delete process.env.API_SESSION_TOKEN; else process.env.API_SESSION_TOKEN = previousToken;
+  });
+  Object.assign(payment, { id: 'abc-456', sender: store.account.address, recipient: '0x2222222222222222222222222222222222222222',
+    amount: '1000000', source: 'arc', targetAmount: '950000', status: 'quoted', events: [],
+    quote: { expected: '980000', minimum: '960000', expiresAt: Date.now() + 60000 },
+  });
+  let durable = structuredClone(payment);
+  t.mock.method(db, 'batch', async () => []);
+  t.mock.method(db, 'execute', async statement => {
+    if (statement.sql.startsWith('SELECT')) return { rows: [{ data: JSON.stringify(durable) }] };
+    durable = JSON.parse(statement.args[5]); return { rows: [] };
+  });
+  t.mock.method(globalThis, 'fetch', async (url, options) => {
+    const body = JSON.parse(options.body);
+    if (!String(url).includes('/stablecoinKits/swap')) {
+      assert.equal(body.method, 'eth_chainId', 'Quote must not broadcast');
+      return Response.json({ jsonrpc: '2.0', id: body.id, result: '0x4cef52' });
+    }
+    return Response.json({ tokenInAddress: body.tokenInAddress, tokenOutAddress: body.tokenOutAddress,
+      tokenInChain: body.tokenInChain, tokenOutChain: body.tokenOutChain, fromAddress: body.fromAddress, toAddress: body.toAddress,
+      amount: body.amount, estimatedAmount: '900000', stopLimit: '890000', fees: {},
+      transaction: { signature: '0x00', executionParams: { execId: 'invoice-fixture', deadline: '2000000000', metadata: '0x00', tokens: [], instructions: [] } },
+    });
+  });
+  let response;
+  const res = { setHeader() {}, status() { return this; }, json(body) { response = body; } };
+  await handler({ method: 'POST', url: '/api/testnet/payments/abc-456/quote', headers: {
+    host: 'localhost', 'content-type': 'application/json', 'x-clearline-token': 'invoice-session-token', 'x-session-id': 'invoice-session-123',
+  } }, res);
+  assert.equal(response.status, 'funded');
+  assert.match(response.error, /invoice target/i);
+  assert.equal(durable.quote, undefined);
+  assert.equal(durable.targetAmount, '950000');
 });

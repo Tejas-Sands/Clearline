@@ -3,7 +3,7 @@
 import assert from 'node:assert/strict';
 import { createPublicClient, erc20Abi, http, formatUnits } from 'viem';
 import { networks, EURC, USDC, BASE_USDC } from '../server/chain.mjs';
-import { receivedAmount, verifyPaymentReceipt } from '../server/model.mjs';
+import { receivedAmount, verifyPaymentReceipt, recipientAmount } from '../server/model.mjs';
 
 const response = await fetch('http://127.0.0.1:8787/api/testnet');
 assert.equal(response.ok, true, 'Start the local API with npm run dev first.');
@@ -37,7 +37,8 @@ for (const p of snapshot.payments.filter(p => ['paid', 'reconciled'].includes(p.
     assert.equal(receivedAmount(receipts.get(mintSteps[0].step).logs, USDC, p.sender), BigInt(p.fundedAmount));
     assert.equal(receivedAmount(receipts.get(burns[0].step).logs, BASE_USDC, p.sender), -BigInt(p.amount));
   }
-  payments.push({ reference: p.reference, status: p.status, source: p.source, sender: p.sender, recipient: p.recipient, sourceUSDC: formatUnits(BigInt(p.amount), 6), fundedUSDC: p.fundedAmount ? formatUnits(BigInt(p.fundedAmount), 6) : undefined, minimumEURC: formatUnits(BigInt(p.quote.minimum), 6), paidEURC: formatUnits(BigInt(p.outputAmount), 6), transactions });
+  const paid = recipientAmount(p);
+  payments.push({ reference: p.reference, status: p.status, source: p.source, sender: p.sender, recipient: p.recipient, sourceUSDC: formatUnits(BigInt(p.amount), 6), fundedUSDC: p.fundedAmount ? formatUnits(BigInt(p.fundedAmount), 6) : undefined, minimumEURC: formatUnits(BigInt(p.quote.minimum), 6), targetEURC: p.targetAmount === undefined ? undefined : formatUnits(BigInt(p.targetAmount), 6), outputEURC: formatUnits(BigInt(p.outputAmount), 6), paidEURC: formatUnits(paid, 6), surplusEURC: formatUnits(BigInt(p.outputAmount) - paid, 6), transactions });
 }
 assert.ok(payments.length, 'No completed payments to verify.');
 const balances = {

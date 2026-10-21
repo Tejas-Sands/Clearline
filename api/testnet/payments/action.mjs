@@ -6,7 +6,7 @@
 // CCTP 24-min wait: each poll calls this with action=recover, which checks
 // Circle's attestation API and advances when ready — no function timeout issue.
 import { ensureSchema, loadPayment } from '../../../server/db.mjs';
-import { assertAction, publicPayment } from '../../../server/model.mjs';
+import { assertAction, assertInvoiceQuote, recipientAmount, publicPayment } from '../../../server/model.mjs';
 import { authorizeVercelRequest, getSessionId } from '../../_auth.mjs';
 import { makeDbStore, cleanError } from './_shared.mjs';
 
@@ -61,12 +61,16 @@ export default async function handler(req, res) {
         || BigInt(output) <= 0n || BigInt(payment.outputAmount) !== BigInt(output)
         || BigInt(output) < BigInt(payment.quote.minimum))
         throw new Error('No verified swap with the approved EURC output. Recover the original transaction.');
+      recipientAmount(payment);
     }
 
     payment.error = undefined;
     try {
       if (action === 'quote') {
-        payment.quote = await chain.quote(payment);
+        payment.status = 'funded'; delete payment.quote;
+        const quote = await chain.quote(payment);
+        assertInvoiceQuote(payment, quote);
+        payment.quote = quote;
         payment.status = 'quoted';
         event('Live testnet estimate received. Approval expires in 60 seconds.');
 

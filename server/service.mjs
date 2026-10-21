@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto';
-import { normalizePayment, assertAction, publicPayment } from './model.mjs';
+import { normalizePayment, assertAction, assertInvoiceQuote, recipientAmount, publicPayment } from './model.mjs';
 
 export const cleanError = error => (error?.shortMessage ?? error?.message ?? 'Operation failed.').replace(/0x[0-9a-f]{128,}/gi, '[transaction data]').slice(0, 500);
 export function makeService(store, chain) {
@@ -10,6 +10,7 @@ export function makeService(store, chain) {
     if (!output || !p.outputAmount || tx?.chain !== 'arc' || tx.status !== 'success'
       || BigInt(output) <= 0n || BigInt(p.outputAmount) !== BigInt(output)
       || BigInt(output) < BigInt(p.quote.minimum)) throw new Error('No verified swap with the approved EURC output. Recover the original transaction.');
+    recipientAmount(p);
   }
   const service = {
     get busy() { return busy; },
@@ -33,7 +34,10 @@ export function makeService(store, chain) {
       busy = { id, action }; p.error = undefined;
       try {
         if (action === 'quote') {
-          p.quote = await chain.quote(p); p.status = 'quoted'; event(p, 'Live testnet estimate received. Approval expires in 60 seconds.');
+          p.status = 'funded'; delete p.quote;
+          const quote = await chain.quote(p);
+          assertInvoiceQuote(p, quote);
+          p.quote = quote; p.status = 'quoted'; event(p, 'Live testnet estimate received. Approval expires in 60 seconds.');
         } else if (action === 'bridge') {
           p.status = 'bridging'; event(p, 'CCTP funding started.');
           if (await chain.bridge(p)) { p.status = 'funded'; event(p, 'USDC mint on Arc verified.'); }

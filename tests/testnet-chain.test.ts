@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { generatePrivateKey, privateKeyToAccount } from 'viem/accounts';
-import { encodeEventTopics, encodeAbiParameters, erc20Abi } from 'viem';
+import { encodeEventTopics, encodeAbiParameters, encodeFunctionData, erc20Abi, keccak256 } from 'viem';
 import { SwapKit } from '@circle-fin/swap-kit';
 import { makeChain } from '../server/chain.mjs';
 import * as chainModule from '../server/chain.mjs';
@@ -207,6 +207,51 @@ test('payout requires a verified conversion, not just a stored output amount', a
   await assert.rejects(chain.pay(payment), /verified swap/i);
   assert.equal(payment.transactions.length, 0);
 });
+
+for (const { target, payout } of [{ target: '800000', payout: 800000n }, { target: undefined, payout: 900000n }]) {
+test(`${target ? 'Invoice-target' : 'Historical full-output'} payout preserves the original signed payout through recovery`, async t => {
+  const { chain, payment } = fixture(t);
+  const swapHash = keccak256('0x12'), payHash = keccak256('0x34');
+  const router = '0x3333333333333333333333333333333333333333';
+  const data = encodeFunctionData({ abi: erc20Abi, functionName: 'transfer', args: [payment.recipient, payout] });
+  Object.assign(payment, { attempt: 1, targetAmount: target, quote: { minimum: '890000' },
+    transactions: [
+      { step: 'swap:1', chain: 'arc', hash: swapHash, status: 'success' },
+      { step: 'pay:1', chain: 'arc', hash: payHash, raw: '0x34', intent: `${chainModule.EURC.toLowerCase()}:${data}:0`, status: 'signed' },
+    ],
+  });
+  let broadcasts = 0;
+  t.mock.method(globalThis, 'fetch', async (url, options) => {
+    const req = JSON.parse(options.body);
+    assert.equal(new URL(String(url)).hostname, 'rpc.testnet.arc.io');
+    let result;
+    if (req.method === 'eth_chainId') result = '0x4cef52';
+    else if (req.method === 'eth_sendRawTransaction') {
+      assert.equal(req.params[0], '0x34'); broadcasts++; result = payHash;
+    } else if (req.method === 'eth_getTransactionByHash') {
+      result = { hash: swapHash, to: router, from: payment.sender, input: '0x12345678', value: '0x0', blockNumber: '0x1', blockHash: swapHash, transactionIndex: '0x0', nonce: '0x0', gas: '0xffff', gasPrice: '0x1', type: '0x0', v: '0x1b', r: swapHash, s: swapHash };
+    } else if (req.method === 'eth_getTransactionReceipt') {
+      const isSwap = req.params[0] === swapHash;
+      const txHash = req.params[0];
+      result = { transactionHash: txHash, status: '0x1', blockNumber: '0x1', blockHash: swapHash, transactionIndex: '0x0', gasUsed: '0x1', cumulativeGasUsed: '0x1', effectiveGasPrice: '0x1', logs: [{
+        address: chainModule.EURC,
+        topics: encodeEventTopics({ abi: erc20Abi, eventName: 'Transfer', args: { from: isSwap ? router : payment.sender, to: isSwap ? payment.sender : payment.recipient } }),
+        data: encodeAbiParameters([{ type: 'uint256' }], [isSwap ? 900000n : payout]),
+        blockHash: swapHash, blockNumber: '0x1', transactionHash: txHash, transactionIndex: '0x0', logIndex: '0x0', removed: false,
+      }] };
+    } else throw new Error(`Unexpected RPC ${req.method}`);
+    return Response.json({ jsonrpc: '2.0', id: req.id, result });
+  });
+  await chain.pay(payment);
+  await chain.recoverPay(payment);
+  assert.equal(payment.outputAmount, '900000');
+  assert.equal(payment.transactions[1].hash, payHash);
+  assert.equal(payment.transactions[1].status, 'success');
+  // The same signed bytes may be rebroadcast while awaiting their receipt.
+  assert.ok(broadcasts >= 1);
+  assert.equal(payment.transactions.filter(tx => tx.step === 'pay:1').length, 1);
+});
+}
 
 test('retrying a reverted CCTP mint preserves the source burn and verifies reversion again', async t => {
   const { chain, payment } = fixture(t);
